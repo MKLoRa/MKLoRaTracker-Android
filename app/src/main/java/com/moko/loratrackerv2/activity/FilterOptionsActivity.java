@@ -32,17 +32,17 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FilterOptionsActivity extends BaseActivity {
 
-    @Bind(R.id.tv_condition_a)
+    @BindView(R.id.tv_condition_a)
     TextView tvConditionA;
-    @Bind(R.id.tv_condition_b)
+    @BindView(R.id.tv_condition_b)
     TextView tvConditionB;
-    @Bind(R.id.tv_relation)
+    @BindView(R.id.tv_relation)
     TextView tvRelation;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;

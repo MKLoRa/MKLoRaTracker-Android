@@ -9,14 +9,14 @@ import com.moko.loratrackerv2.view.WheelView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class BottomDialog extends MokoBaseDialog {
 
 
-    @Bind(R.id.wv_bottom)
+    @BindView(R.id.wv_bottom)
     WheelView wvBottom;
     private ArrayList<String> mDatas;
     private int mIndex;
@@ -37,12 +37,6 @@ public class BottomDialog extends MokoBaseDialog {
     @Override
     public float getDimAmount() {
         return 0.7f;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.tv_cancel, R.id.tv_confirm})

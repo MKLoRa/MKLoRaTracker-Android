@@ -1,6 +1,6 @@
 package com.moko.support.task;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 import android.text.TextUtils;
 
 import com.moko.support.entity.ConfigKeyEnum;

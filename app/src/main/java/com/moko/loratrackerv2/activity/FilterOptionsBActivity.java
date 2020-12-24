@@ -45,74 +45,74 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @Bind(R.id.sb_rssi_filter)
+    @BindView(R.id.sb_rssi_filter)
     SeekBar sbRssiFilter;
-    @Bind(R.id.tv_rssi_filter_value)
+    @BindView(R.id.tv_rssi_filter_value)
     TextView tvRssiFilterValue;
-    @Bind(R.id.tv_rssi_filter_tips)
+    @BindView(R.id.tv_rssi_filter_tips)
     TextView tvRssiFilterTips;
-    @Bind(R.id.iv_mac_address)
+    @BindView(R.id.iv_mac_address)
     ImageView ivMacAddress;
-    @Bind(R.id.et_mac_address)
+    @BindView(R.id.et_mac_address)
     EditText etMacAddress;
-    @Bind(R.id.iv_adv_name)
+    @BindView(R.id.iv_adv_name)
     ImageView ivAdvName;
-    @Bind(R.id.et_adv_name)
+    @BindView(R.id.et_adv_name)
     EditText etAdvName;
-    @Bind(R.id.iv_ibeacon_major)
+    @BindView(R.id.iv_ibeacon_major)
     ImageView ivIbeaconMajor;
-    @Bind(R.id.iv_ibeacon_minor)
+    @BindView(R.id.iv_ibeacon_minor)
     ImageView ivIbeaconMinor;
-    @Bind(R.id.iv_raw_adv_data)
+    @BindView(R.id.iv_raw_adv_data)
     ImageView ivRawAdvData;
-    @Bind(R.id.et_ibeacon_major_min)
+    @BindView(R.id.et_ibeacon_major_min)
     EditText etIbeaconMajorMin;
-    @Bind(R.id.et_ibeacon_major_max)
+    @BindView(R.id.et_ibeacon_major_max)
     EditText etIbeaconMajorMax;
-    @Bind(R.id.ll_ibeacon_major)
+    @BindView(R.id.ll_ibeacon_major)
     LinearLayout llIbeaconMajor;
-    @Bind(R.id.et_ibeacon_minor_min)
+    @BindView(R.id.et_ibeacon_minor_min)
     EditText etIbeaconMinorMin;
-    @Bind(R.id.et_ibeacon_minor_max)
+    @BindView(R.id.et_ibeacon_minor_max)
     EditText etIbeaconMinorMax;
-    @Bind(R.id.ll_ibeacon_minor)
+    @BindView(R.id.ll_ibeacon_minor)
     LinearLayout llIbeaconMinor;
-    @Bind(R.id.iv_raw_data_del)
+    @BindView(R.id.iv_raw_data_del)
     ImageView ivRawDataDel;
-    @Bind(R.id.iv_raw_data_add)
+    @BindView(R.id.iv_raw_data_add)
     ImageView ivRawDataAdd;
-    @Bind(R.id.ll_raw_data_filter)
+    @BindView(R.id.ll_raw_data_filter)
     LinearLayout llRawDataFilter;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.cb_mac_address)
+    @BindView(R.id.cb_mac_address)
     CheckBox cbMacAddress;
-    @Bind(R.id.cb_adv_name)
+    @BindView(R.id.cb_adv_name)
     CheckBox cbAdvName;
-    @Bind(R.id.iv_ibeacon_uuid)
+    @BindView(R.id.iv_ibeacon_uuid)
     ImageView ivIbeaconUuid;
-    @Bind(R.id.cb_ibeacon_uuid)
+    @BindView(R.id.cb_ibeacon_uuid)
     CheckBox cbIbeaconUuid;
-    @Bind(R.id.et_ibeacon_uuid)
+    @BindView(R.id.et_ibeacon_uuid)
     EditText etIbeaconUuid;
-    @Bind(R.id.cb_ibeacon_major)
+    @BindView(R.id.cb_ibeacon_major)
     CheckBox cbIbeaconMajor;
-    @Bind(R.id.cb_ibeacon_minor)
+    @BindView(R.id.cb_ibeacon_minor)
     CheckBox cbIbeaconMinor;
-    @Bind(R.id.cb_raw_adv_data)
+    @BindView(R.id.cb_raw_adv_data)
     CheckBox cbRawAdvData;
-    @Bind(R.id.tv_condition)
+    @BindView(R.id.tv_condition)
     TextView tvCondition;
-    @Bind(R.id.iv_condition)
+    @BindView(R.id.iv_condition)
     ImageView ivCondition;
-    @Bind(R.id.tv_condition_tips)
+    @BindView(R.id.tv_condition_tips)
     TextView tvConditionTips;
     private boolean mReceiverTag = false;
     private Pattern pattern;
@@ -399,10 +399,10 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                                 byte[] rawDataBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 for (int i = 0, l = rawDataBytes.length; i < l; ) {
                                                     View v = LayoutInflater.from(FilterOptionsBActivity.this).inflate(R.layout.item_raw_data_filter, llRawDataFilter, false);
-                                                    EditText etDataType = ButterKnife.findById(v, R.id.et_data_type);
-                                                    EditText etMin = ButterKnife.findById(v, R.id.et_min);
-                                                    EditText etMax = ButterKnife.findById(v, R.id.et_max);
-                                                    EditText etRawData = ButterKnife.findById(v, R.id.et_raw_data);
+                                                    EditText etDataType =v.findViewById(R.id.et_data_type);
+                                                    EditText etMin =v.findViewById(R.id.et_min);
+                                                    EditText etMax =v.findViewById(R.id.et_max);
+                                                    EditText etRawData =v.findViewById(R.id.et_raw_data);
                                                     int filterLength = rawDataBytes[i] & 0xFF;
                                                     i++;
                                                     String type = MokoUtils.byte2HexString(rawDataBytes[i]);
@@ -661,10 +661,10 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
 
             for (int i = 0; i < count; i++) {
                 View v = llRawDataFilter.getChildAt(i);
-                EditText etDataType = ButterKnife.findById(v, R.id.et_data_type);
-                EditText etMin = ButterKnife.findById(v, R.id.et_min);
-                EditText etMax = ButterKnife.findById(v, R.id.et_max);
-                EditText etRawData = ButterKnife.findById(v, R.id.et_raw_data);
+                EditText etDataType =v.findViewById(R.id.et_data_type);
+                EditText etMin =v.findViewById(R.id.et_min);
+                EditText etMax =v.findViewById(R.id.et_max);
+                EditText etRawData =v.findViewById(R.id.et_raw_data);
                 final String dataTypeStr = etDataType.getText().toString();
                 final String minStr = etMin.getText().toString();
                 final String maxStr = etMax.getText().toString();

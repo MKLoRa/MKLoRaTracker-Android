@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.moko.support.callback.MokoResponseCallback;
 import com.moko.support.log.LogModule;
@@ -19,7 +19,7 @@ import no.nordicsemi.android.ble.BleManagerCallbacks;
 import no.nordicsemi.android.ble.callback.DataReceivedCallback;
 import no.nordicsemi.android.ble.data.Data;
 
-public class MokoBleManager extends BleManager<BleManagerCallbacks> {
+public class MokoBleManager extends BleManager {
 
     private MokoResponseCallback mMokoResponseCallback;
     private static MokoBleManager managerInstance = null;

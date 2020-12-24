@@ -25,30 +25,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final String TAG = AdvFragment.class.getSimpleName();
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @Bind(R.id.et_adv_name)
+    @BindView(R.id.et_adv_name)
     EditText etAdvName;
-    @Bind(R.id.et_uuid)
+    @BindView(R.id.et_uuid)
     EditText etUuid;
-    @Bind(R.id.et_major)
+    @BindView(R.id.et_major)
     EditText etMajor;
-    @Bind(R.id.et_minor)
+    @BindView(R.id.et_minor)
     EditText etMinor;
-    @Bind(R.id.et_adv_interval)
+    @BindView(R.id.et_adv_interval)
     EditText etAdvInterval;
-    @Bind(R.id.sb_rssi_1m)
+    @BindView(R.id.sb_rssi_1m)
     SeekBar sbRssi1m;
-    @Bind(R.id.tv_rssi_1m_value)
+    @BindView(R.id.tv_rssi_1m_value)
     TextView tvRssi1mValue;
-    @Bind(R.id.sb_tx_power)
+    @BindView(R.id.sb_tx_power)
     SeekBar sbTxPower;
-    @Bind(R.id.tv_tx_power_value)
+    @BindView(R.id.tv_tx_power_value)
     TextView tvTxPowerValue;
 
 
@@ -172,13 +172,6 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onPause() {
         Log.i(TAG, "onPause: ");
         super.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.i(TAG, "onDestroyView: ");
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

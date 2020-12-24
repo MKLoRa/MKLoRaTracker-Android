@@ -24,38 +24,38 @@ import com.moko.support.task.OrderTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class ScannerFragment extends Fragment {
     private static final String TAG = ScannerFragment.class.getSimpleName();
-    @Bind(R.id.sb_scan_interval)
+    @BindView(R.id.sb_scan_interval)
     SeekBar sbScanInterval;
-    @Bind(R.id.tv_scan_interval_value)
+    @BindView(R.id.tv_scan_interval_value)
     TextView tvScanIntervalValue;
-    @Bind(R.id.tv_scan_interval_tips)
+    @BindView(R.id.tv_scan_interval_tips)
     TextView tvScanIntervalTips;
-    @Bind(R.id.npv_alarm_notify)
+    @BindView(R.id.npv_alarm_notify)
     NumberPickerView npvAlarmNotify;
-    @Bind(R.id.sb_alarm_trigger_rssi)
+    @BindView(R.id.sb_alarm_trigger_rssi)
     SeekBar sbAlarmTriggerRssi;
-    @Bind(R.id.tv_alarm_trigger_rssi_value)
+    @BindView(R.id.tv_alarm_trigger_rssi_value)
     TextView tvAlarmTriggerRssiValue;
-    @Bind(R.id.tv_alarm_trigger_rssi_tips)
+    @BindView(R.id.tv_alarm_trigger_rssi_tips)
     TextView tvAlarmTriggerRssiTips;
-    @Bind(R.id.et_vibration_cycle)
+    @BindView(R.id.et_vibration_cycle)
     EditText etVibrationCycle;
-    @Bind(R.id.et_vibration_duration)
+    @BindView(R.id.et_vibration_duration)
     EditText etVibrationDuration;
-    @Bind(R.id.npv_vibration_intensity)
+    @BindView(R.id.npv_vibration_intensity)
     NumberPickerView npvVibrationIntensity;
-    @Bind(R.id.tv_warning_range)
+    @BindView(R.id.tv_warning_range)
     TextView tvWarningRange;
-    @Bind(R.id.tv_warning_value)
+    @BindView(R.id.tv_warning_value)
     TextView tvWarningValue;
-    @Bind(R.id.tv_warning_tips)
+    @BindView(R.id.tv_warning_tips)
     TextView tvWarningTips;
 
     private DeviceInfoActivity activity;
@@ -141,13 +141,6 @@ public class ScannerFragment extends Fragment {
     public void onPause() {
         Log.i(TAG, "onPause: ");
         super.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.i(TAG, "onDestroyView: ");
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

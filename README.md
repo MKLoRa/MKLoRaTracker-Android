@@ -1,4 +1,4 @@
-# LoRaTracker_V2 Android SDK Instruction DOC（English）
+# LoRaTrackerV2 Android SDK Instruction DOC（English）
 
 ----
 
@@ -261,7 +261,7 @@ Get `OrderTaskResponse` from the `OrderTaskResponseEvent`, and the corresponding
 ## 3. Special instructions
 
 > 1. AndroidManifest.xml of SDK has declared to access SD card and get Bluetooth permissions.
-> 2. The SDK comes with logging, and if you want to view the log in the SD card, please to use "LogModule". The log path is : root directory of SD card/LoRaTracker_V2/LoRaTracker_V2.txt. It only records the log of the day and the day before.
+> 2. The SDK comes with logging, and if you want to view the log in the SD card, please to use "LogModule". The log path is : root directory of SD card/LoRaTrackerV2/LoRaTrackerV2.txt. It only records the log of the day and the day before.
 
 
 

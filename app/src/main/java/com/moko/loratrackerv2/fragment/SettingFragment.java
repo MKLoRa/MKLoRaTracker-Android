@@ -23,33 +23,33 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
-    @Bind(R.id.tv_change_password)
+    @BindView(R.id.tv_change_password)
     TextView tvChangePassword;
-    @Bind(R.id.tv_factory_reset)
+    @BindView(R.id.tv_factory_reset)
     TextView tvFactoryReset;
-    @Bind(R.id.tv_update_firmware)
+    @BindView(R.id.tv_update_firmware)
     TextView tvUpdateFirmware;
-    @Bind(R.id.tv_lora_setting)
+    @BindView(R.id.tv_lora_setting)
     TextView tvLoraSetting;
-    @Bind(R.id.tv_scan_window)
+    @BindView(R.id.tv_scan_window)
     TextView tvScanWindow;
-    @Bind(R.id.iv_connectable)
+    @BindView(R.id.iv_connectable)
     ImageView ivConnectable;
-    @Bind(R.id.iv_power_off)
+    @BindView(R.id.iv_power_off)
     ImageView ivPowerOff;
-    @Bind(R.id.tv_lora_connectable)
+    @BindView(R.id.tv_lora_connectable)
     TextView tvLoRaConnectable;
-    @Bind(R.id.tv_low_battery_value)
+    @BindView(R.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
-    @Bind(R.id.tv_low_battery_tips)
+    @BindView(R.id.tv_low_battery_tips)
     TextView tvLowBatteryTips;
-    @Bind(R.id.tv_device_info_interval_value)
+    @BindView(R.id.tv_device_info_interval_value)
     TextView tvDeviceInfoIntervalValue;
     private String[] loraConnectable;
     private DeviceInfoActivity activity;
@@ -86,13 +86,6 @@ public class SettingFragment extends Fragment {
     public void onPause() {
         Log.i(TAG, "onPause: ");
         super.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.i(TAG, "onDestroyView: ");
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

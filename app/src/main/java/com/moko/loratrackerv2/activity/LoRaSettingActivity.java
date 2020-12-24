@@ -39,49 +39,49 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoRaSettingActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
 
-    @Bind(R.id.et_dev_eui)
+    @BindView(R.id.et_dev_eui)
     EditText etDevEui;
-    @Bind(R.id.et_app_eui)
+    @BindView(R.id.et_app_eui)
     EditText etAppEui;
-    @Bind(R.id.et_app_key)
+    @BindView(R.id.et_app_key)
     EditText etAppKey;
-    @Bind(R.id.ll_modem_otaa)
+    @BindView(R.id.ll_modem_otaa)
     LinearLayout llModemOtaa;
-    @Bind(R.id.et_dev_addr)
+    @BindView(R.id.et_dev_addr)
     EditText etDevAddr;
-    @Bind(R.id.et_nwk_skey)
+    @BindView(R.id.et_nwk_skey)
     EditText etNwkSkey;
-    @Bind(R.id.et_app_skey)
+    @BindView(R.id.et_app_skey)
     EditText etAppSkey;
-    @Bind(R.id.ll_modem_abp)
+    @BindView(R.id.ll_modem_abp)
     LinearLayout llModemAbp;
-    @Bind(R.id.et_report_interval)
+    @BindView(R.id.et_report_interval)
     EditText etReportInterval;
-    @Bind(R.id.tv_ch_1)
+    @BindView(R.id.tv_ch_1)
     TextView tvCh1;
-    @Bind(R.id.tv_ch_2)
+    @BindView(R.id.tv_ch_2)
     TextView tvCh2;
-    @Bind(R.id.tv_dr_1)
+    @BindView(R.id.tv_dr_1)
     TextView tvDr1;
-    @Bind(R.id.tv_connect)
+    @BindView(R.id.tv_connect)
     TextView tvConnect;
-    @Bind(R.id.cb_adr)
+    @BindView(R.id.cb_adr)
     CheckBox cbAdr;
-    @Bind(R.id.tv_upload_mode)
+    @BindView(R.id.tv_upload_mode)
     TextView tvUploadMode;
-    @Bind(R.id.tv_region)
+    @BindView(R.id.tv_region)
     TextView tvRegion;
-    @Bind(R.id.tv_message_type)
+    @BindView(R.id.tv_message_type)
     TextView tvMessageType;
-    @Bind(R.id.ll_advanced_setting)
+    @BindView(R.id.ll_advanced_setting)
     LinearLayout llAdvancedSetting;
-    @Bind(R.id.cb_advance_setting)
+    @BindView(R.id.cb_advance_setting)
     CheckBox cbAdvanceSetting;
 
     private boolean mReceiverTag = false;
