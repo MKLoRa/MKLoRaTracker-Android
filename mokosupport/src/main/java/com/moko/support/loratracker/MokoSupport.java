@@ -1,4 +1,4 @@
-package com.moko.support;
+package com.moko.support.loratracker;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -13,20 +13,14 @@ import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
-import com.moko.support.entity.OrderCHAR;
-import com.moko.support.handler.MokoCharacteristicHandler;
+import com.moko.support.loratracker.entity.OrderCHAR;
+import com.moko.support.loratracker.handler.MokoCharacteristicHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-/**
- * @Date 2020/4/20
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.support.support.MokoSupport
- */
 public class MokoSupport extends MokoBleLib {
     private HashMap<OrderCHAR, BluetoothGattCharacteristic> mCharacteristicMap;
 

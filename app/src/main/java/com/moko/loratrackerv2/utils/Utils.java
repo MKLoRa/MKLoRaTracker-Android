@@ -20,12 +20,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import androidx.core.content.FileProvider;
 
-/**
- * @Date 2017/12/7 0007
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.beacon.utils.MokoUtils
- */
 public class Utils {
     
     public static void sendEmail(Context context, String address, String body, String subject, String tips, File... files) {

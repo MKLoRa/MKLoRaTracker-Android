@@ -18,8 +18,8 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.entity.TxPowerEnum;
-import com.moko.support.MokoSupport;
-import com.moko.support.OrderTaskAssembler;
+import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.OrderTaskAssembler;
 
 import java.util.ArrayList;
 import java.util.List;

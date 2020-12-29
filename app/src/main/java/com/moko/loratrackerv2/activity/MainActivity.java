@@ -35,12 +35,12 @@ import com.moko.loratrackerv2.utils.BaseMessageHandler;
 import com.moko.loratrackerv2.utils.BeaconInfoParseableImpl;
 import com.moko.loratrackerv2.utils.SPUtiles;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.MokoBleScanner;
-import com.moko.support.MokoSupport;
-import com.moko.support.OrderTaskAssembler;
-import com.moko.support.callback.MokoScanDeviceCallback;
-import com.moko.support.entity.DeviceInfo;
-import com.moko.support.entity.OrderCHAR;
+import com.moko.support.loratracker.MokoBleScanner;
+import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.OrderTaskAssembler;
+import com.moko.support.loratracker.callback.MokoScanDeviceCallback;
+import com.moko.support.loratracker.entity.DeviceInfo;
+import com.moko.support.loratracker.entity.OrderCHAR;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,12 +63,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * @Date 2020/4/18
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.loratrackerv2.activity.MainActivity
- */
 public class MainActivity extends BaseActivity implements MokoScanDeviceCallback, BaseQuickAdapter.OnItemChildClickListener {
     @BindView(R.id.iv_refresh)
     ImageView ivRefresh;

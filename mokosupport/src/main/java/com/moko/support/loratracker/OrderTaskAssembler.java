@@ -1,14 +1,14 @@
-package com.moko.support;
+package com.moko.support.loratracker;
 
 import com.moko.ble.lib.task.OrderTask;
-import com.moko.support.entity.ParamsKeyEnum;
-import com.moko.support.task.GetFirmwareRevisionTask;
-import com.moko.support.task.GetHardwareRevisionTask;
-import com.moko.support.task.GetManufacturerNameTask;
-import com.moko.support.task.GetModelNumberTask;
-import com.moko.support.task.GetSoftwareRevisionTask;
-import com.moko.support.task.ParamsTask;
-import com.moko.support.task.SetPasswordTask;
+import com.moko.support.loratracker.entity.ParamsKeyEnum;
+import com.moko.support.loratracker.task.GetFirmwareRevisionTask;
+import com.moko.support.loratracker.task.GetHardwareRevisionTask;
+import com.moko.support.loratracker.task.GetManufacturerNameTask;
+import com.moko.support.loratracker.task.GetModelNumberTask;
+import com.moko.support.loratracker.task.GetSoftwareRevisionTask;
+import com.moko.support.loratracker.task.ParamsTask;
+import com.moko.support.loratracker.task.SetPasswordTask;
 
 import java.util.ArrayList;
 

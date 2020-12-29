@@ -1,4 +1,4 @@
-package com.moko.support;
+package com.moko.support.loratracker;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -10,8 +10,8 @@ import com.elvishew.xlog.XLog;
 import com.moko.ble.lib.MokoBleManager;
 import com.moko.ble.lib.callback.MokoResponseCallback;
 import com.moko.ble.lib.utils.MokoUtils;
-import com.moko.support.entity.OrderCHAR;
-import com.moko.support.entity.OrderServices;
+import com.moko.support.loratracker.entity.OrderCHAR;
+import com.moko.support.loratracker.entity.OrderServices;
 
 import java.util.UUID;
 

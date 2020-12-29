@@ -1,20 +1,14 @@
-package com.moko.support.handler;
+package com.moko.support.loratracker.handler;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 
-import com.moko.support.entity.OrderCHAR;
-import com.moko.support.entity.OrderServices;
+import com.moko.support.loratracker.entity.OrderCHAR;
+import com.moko.support.loratracker.entity.OrderServices;
 
 import java.util.HashMap;
 
-/**
- * @Date 2020/4/20
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.support.support.handler.MokoCharacteristicHandler
- */
 public class MokoCharacteristicHandler {
     private HashMap<OrderCHAR, BluetoothGattCharacteristic> mCharacteristicMap;
 

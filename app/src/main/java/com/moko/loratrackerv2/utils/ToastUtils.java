@@ -6,12 +6,6 @@ import android.widget.Toast;
 
 import es.dmoral.toasty.Toasty;
 
-/**
- * @Date 2020/4/18
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.loratrackerv2.utils.ToastUtils
- */
 final public class ToastUtils {
 
     public static void showToast(Context context, int tipID) {

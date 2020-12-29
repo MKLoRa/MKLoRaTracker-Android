@@ -19,12 +19,6 @@ import com.moko.loratrackerv2.utils.Utils;
 
 import androidx.core.app.ActivityCompat;
 
-/**
- * @Date 2020/4/18
- * @Author wenzheng.liu
- * @Description 
- * @ClassPath com.moko.loratrackerv2.activity.GuideActivity
- */
 public class GuideActivity extends BaseActivity {
 
     @Override

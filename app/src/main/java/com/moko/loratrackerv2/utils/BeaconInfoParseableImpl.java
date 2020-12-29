@@ -6,8 +6,8 @@ import android.util.SparseArray;
 
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.entity.BeaconInfo;
-import com.moko.support.entity.DeviceInfo;
-import com.moko.support.service.DeviceInfoParseable;
+import com.moko.support.loratracker.entity.DeviceInfo;
+import com.moko.support.loratracker.service.DeviceInfoParseable;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,12 +17,6 @@ import java.util.Map;
 import no.nordicsemi.android.support.v18.scanner.ScanRecord;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
 
-/**
- * @Date 2020/5/1
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.loratrackerv2.utils.BeaconInfoParseableImpl
- */
 public class BeaconInfoParseableImpl implements DeviceInfoParseable<BeaconInfo> {
     private HashMap<String, BeaconInfo> beaconInfoHashMap;
 
