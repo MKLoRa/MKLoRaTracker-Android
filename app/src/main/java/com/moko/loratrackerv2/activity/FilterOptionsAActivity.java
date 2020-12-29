@@ -20,21 +20,21 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.moko.ble.lib.MokoConstants;
+import com.moko.ble.lib.event.ConnectStatusEvent;
+import com.moko.ble.lib.event.OrderTaskResponseEvent;
+import com.moko.ble.lib.task.OrderTask;
+import com.moko.ble.lib.task.OrderTaskResponse;
+import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.MokoConstants;
 import com.moko.support.MokoSupport;
 import com.moko.support.OrderTaskAssembler;
-import com.moko.support.entity.ConfigKeyEnum;
 import com.moko.support.entity.DataTypeEnum;
-import com.moko.support.entity.OrderType;
-import com.moko.support.event.ConnectStatusEvent;
-import com.moko.support.event.OrderTaskResponseEvent;
-import com.moko.support.task.OrderTask;
-import com.moko.support.task.OrderTaskResponse;
-import com.moko.support.utils.MokoUtils;
+import com.moko.support.entity.OrderCHAR;
+import com.moko.support.entity.ParamsKeyEnum;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -214,7 +214,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
     public void onConnectStatusEvent(ConnectStatusEvent event) {
         final String action = event.getAction();
         runOnUiThread(() -> {
-            if (MokoConstants.ACTION_CONN_STATUS_DISCONNECTED.equals(action)) {
+            if (MokoConstants.ACTION_DISCONNECTED.equals(action)) {
                 setResult(RESULT_OK);
                 finish();
             }
@@ -233,18 +233,18 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
                 OrderTaskResponse response = event.getResponse();
-                OrderType orderType = response.orderType;
+                OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
                 byte[] value = response.responseValue;
-                switch (orderType) {
-                    case WRITE_CONFIG:
+                switch (orderCHAR) {
+                    case CHAR_PARAMS:
                         if (value.length >= 4) {
                             int header = value[0] & 0xFF;// 0xED
                             int flag = value[1] & 0xFF;// read or write
                             int cmd = value[2] & 0xFF;
                             if (header != 0xED)
                                 return;
-                            ConfigKeyEnum configKeyEnum = ConfigKeyEnum.fromConfigKey(cmd);
+                            ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
                             if (configKeyEnum == null) {
                                 return;
                             }
@@ -253,18 +253,18 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
-                                    case KEY_FILTER_SWITCH_A:
-                                    case KEY_FILTER_RSSI_A:
-                                    case KEY_FILTER_MAC_A:
-                                    case KEY_FILTER_ADV_NAME_A:
-                                    case KEY_FILTER_UUID_A:
-                                    case KEY_FILTER_MAJOR_RANGE_A:
-                                    case KEY_FILTER_MINOR_RANGE_A:
+                                    case KEY_TRACKING_FILTER_SWITCH_A:
+                                    case KEY_TRACKING_FILTER_RSSI_A:
+                                    case KEY_TRACKING_FILTER_MAC_A:
+                                    case KEY_TRACKING_FILTER_ADV_NAME_A:
+                                    case KEY_TRACKING_FILTER_UUID_A:
+                                    case KEY_TRACKING_FILTER_MAJOR_RANGE_A:
+                                    case KEY_TRACKING_FILTER_MINOR_RANGE_A:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
                                         break;
-                                    case KEY_FILTER_ADV_RAW_DATA_A:
+                                    case KEY_TRACKING_FILTER_ADV_RAW_DATA_A:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
@@ -283,14 +283,14 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
-                                    case KEY_FILTER_SWITCH_A:
+                                    case KEY_TRACKING_FILTER_SWITCH_A:
                                         if (length == 1) {
                                             final int enable = value[4] & 0xFF;
                                             filterSwitchEnable = enable == 1;
                                             ivCondition.setImageResource(filterSwitchEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
                                         }
                                         break;
-                                    case KEY_FILTER_RSSI_A:
+                                    case KEY_TRACKING_FILTER_RSSI_A:
                                         if (length == 1) {
                                             final int rssi = value[4];
                                             int progress = rssi + 127;
@@ -299,7 +299,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             tvRssiFilterTips.setText(getString(R.string.rssi_filter, rssi));
                                         }
                                         break;
-                                    case KEY_FILTER_MAC_A:
+                                    case KEY_TRACKING_FILTER_MAC_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMacEnable = enable > 0;
@@ -314,7 +314,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_FILTER_ADV_NAME_A:
+                                    case KEY_TRACKING_FILTER_ADV_NAME_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterNameEnable = enable > 0;
@@ -329,7 +329,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_FILTER_UUID_A:
+                                    case KEY_TRACKING_FILTER_UUID_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterUUIDEnable = enable > 0;
@@ -349,7 +349,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_FILTER_MAJOR_RANGE_A:
+                                    case KEY_TRACKING_FILTER_MAJOR_RANGE_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMajorEnable = enable > 0;
@@ -367,7 +367,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_FILTER_MINOR_RANGE_A:
+                                    case KEY_TRACKING_FILTER_MINOR_RANGE_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMinorEnable = enable > 0;
@@ -385,7 +385,7 @@ public class FilterOptionsAActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_FILTER_ADV_RAW_DATA_A:
+                                    case KEY_TRACKING_FILTER_ADV_RAW_DATA_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterRawAdvDataEnable = enable > 5;

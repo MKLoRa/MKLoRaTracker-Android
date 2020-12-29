@@ -17,7 +17,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 import com.moko.loratrackerv2.R;
 
 import java.util.ArrayList;

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.activity.FilterOptionsAActivity;
@@ -19,7 +20,6 @@ import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.support.MokoSupport;
 import com.moko.support.OrderTaskAssembler;
-import com.moko.support.task.OrderTask;
 
 import java.util.ArrayList;
 import java.util.List;

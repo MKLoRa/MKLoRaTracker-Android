@@ -1,8 +1,6 @@
 package com.moko.loratrackerv2.dialog;
 
 import android.content.DialogInterface;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.view.ProgressDrawable;
 
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

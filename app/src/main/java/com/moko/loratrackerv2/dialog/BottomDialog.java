@@ -3,7 +3,6 @@ package com.moko.loratrackerv2.dialog;
 import android.text.TextUtils;
 import android.view.View;
 
-
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.view.WheelView;
 

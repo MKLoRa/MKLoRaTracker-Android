@@ -12,11 +12,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.Settings;
-import androidx.core.app.ActivityCompat;
 
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.utils.Utils;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * @Date 2020/4/18

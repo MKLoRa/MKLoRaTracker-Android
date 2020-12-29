@@ -4,10 +4,10 @@ import android.os.ParcelUuid;
 import android.os.SystemClock;
 import android.util.SparseArray;
 
+import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.entity.BeaconInfo;
 import com.moko.support.entity.DeviceInfo;
 import com.moko.support.service.DeviceInfoParseable;
-import com.moko.support.utils.MokoUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;

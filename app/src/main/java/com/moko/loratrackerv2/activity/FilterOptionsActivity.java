@@ -10,20 +10,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.moko.ble.lib.MokoConstants;
+import com.moko.ble.lib.event.ConnectStatusEvent;
+import com.moko.ble.lib.event.OrderTaskResponseEvent;
+import com.moko.ble.lib.task.OrderTask;
+import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.MokoConstants;
 import com.moko.support.MokoSupport;
 import com.moko.support.OrderTaskAssembler;
-import com.moko.support.entity.ConfigKeyEnum;
-import com.moko.support.entity.OrderType;
-import com.moko.support.event.ConnectStatusEvent;
-import com.moko.support.event.OrderTaskResponseEvent;
-import com.moko.support.task.OrderTask;
-import com.moko.support.task.OrderTaskResponse;
+import com.moko.support.entity.OrderCHAR;
+import com.moko.support.entity.ParamsKeyEnum;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,7 +79,7 @@ public class FilterOptionsActivity extends BaseActivity {
     public void onConnectStatusEvent(ConnectStatusEvent event) {
         final String action = event.getAction();
         runOnUiThread(() -> {
-            if (MokoConstants.ACTION_CONN_STATUS_DISCONNECTED.equals(action)) {
+            if (MokoConstants.ACTION_DISCONNECTED.equals(action)) {
                 setResult(RESULT_OK);
                 finish();
             }
@@ -98,18 +98,18 @@ public class FilterOptionsActivity extends BaseActivity {
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
                 OrderTaskResponse response = event.getResponse();
-                OrderType orderType = response.orderType;
+                OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
                 byte[] value = response.responseValue;
-                switch (orderType) {
-                    case WRITE_CONFIG:
+                switch (orderCHAR) {
+                    case CHAR_PARAMS:
                         if (value.length >= 4) {
                             int header = value[0] & 0xFF;// 0xED
                             int flag = value[1] & 0xFF;// read or write
                             int cmd = value[2] & 0xFF;
                             if (header != 0xED)
                                 return;
-                            ConfigKeyEnum configKeyEnum = ConfigKeyEnum.fromConfigKey(cmd);
+                            ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
                             if (configKeyEnum == null) {
                                 return;
                             }
@@ -118,7 +118,7 @@ public class FilterOptionsActivity extends BaseActivity {
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
-                                    case KEY_FILTER_A_B_RELATION:
+                                    case KEY_TRACKING_FILTER_A_B_RELATION:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
@@ -137,20 +137,20 @@ public class FilterOptionsActivity extends BaseActivity {
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
-                                    case KEY_FILTER_A_B_RELATION:
+                                    case KEY_TRACKING_FILTER_A_B_RELATION:
                                         if (length == 1) {
                                             final int relation = value[4] & 0xFF;
                                             tvRelation.setText(relation == 0 ? "And" : "Or");
                                             mSelected = relation;
                                         }
                                         break;
-                                    case KEY_FILTER_SWITCH_A:
+                                    case KEY_TRACKING_FILTER_SWITCH_A:
                                         if (length == 1) {
                                             final int enable = value[4] & 0xFF;
                                             tvConditionA.setText(enable == 0 ? "OFF" : "ON");
                                         }
                                         break;
-                                    case KEY_FILTER_SWITCH_B:
+                                    case KEY_TRACKING_FILTER_SWITCH_B:
                                         if (length == 1) {
                                             final int enable = value[4] & 0xFF;
                                             tvConditionB.setText(enable == 0 ? "OFF" : "ON");

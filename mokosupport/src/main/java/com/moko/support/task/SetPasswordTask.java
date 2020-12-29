@@ -1,12 +1,13 @@
 package com.moko.support.task;
 
-import com.moko.support.entity.OrderType;
+import com.moko.ble.lib.task.OrderTask;
+import com.moko.support.entity.OrderCHAR;
 
 public class SetPasswordTask extends OrderTask {
     public byte[] data;
 
     public SetPasswordTask() {
-        super(OrderType.PASSWORD, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
+        super(OrderCHAR.CHAR_PASSWORD, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
     }
 
     public void setData(String password) {

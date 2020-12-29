@@ -1,26 +1,22 @@
 package com.moko.support.task;
 
-import androidx.annotation.IntRange;
 import android.text.TextUtils;
 
-import com.moko.support.entity.ConfigKeyEnum;
-import com.moko.support.entity.OrderType;
-import com.moko.support.utils.MokoUtils;
+import com.moko.ble.lib.task.OrderTask;
+import com.moko.ble.lib.utils.MokoUtils;
+import com.moko.support.entity.OrderCHAR;
+import com.moko.support.entity.ParamsKeyEnum;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * @Date 2018/1/20
- * @Author wenzheng.liu
- * @Description
- * @ClassPath com.moko.support.task.WriteConfigTask
- */
-public class WriteConfigTask extends OrderTask {
+import androidx.annotation.IntRange;
+
+public class ParamsTask extends OrderTask {
     public byte[] data;
 
-    public WriteConfigTask() {
-        super(OrderType.WRITE_CONFIG, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
+    public ParamsTask() {
+        super(OrderCHAR.CHAR_PARAMS, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
     }
 
     @Override
@@ -28,62 +24,119 @@ public class WriteConfigTask extends OrderTask {
         return data;
     }
 
-    public void setData(ConfigKeyEnum key) {
+    public void setData(ParamsKeyEnum key) {
         switch (key) {
-            case KEY_ADV_NAME:
+            case KEY_TIME_SYNC_INTERVAL:
+            case KEY_CURRENT_TIME:
+
             case KEY_IBEACON_UUID:
             case KEY_IBEACON_MAJOR:
             case KEY_IBEACON_MINOR:
-            case KEY_ADV_INTERVAL:
             case KEY_MEASURE_POWER:
+            case KEY_ADV_INTERVAL:
             case KEY_TRANSMISSION:
-            case KEY_SCAN_INTERVAL:
-            case KEY_ALARM_NOTIFY:
-            case KEY_ALARM_RSSI:
-            case KEY_LORA_CONNECTABLE:
+            case KEY_ADV_NAME:
+
+            case KEY_TIME:
+
             case KEY_SCAN_WINDOW:
             case KEY_CONNECTABLE:
-            case KEY_BATTERY:
-            case KEY_DEVICE_MAC:
-
-            case KEY_FILTER_RSSI_A:
-            case KEY_FILTER_MAC_A:
-            case KEY_FILTER_ADV_NAME_A:
-            case KEY_FILTER_UUID_A:
-            case KEY_FILTER_MAJOR_RANGE_A:
-            case KEY_FILTER_MINOR_RANGE_A:
-
-            case KEY_FILTER_RSSI_B:
-            case KEY_FILTER_MAC_B:
-            case KEY_FILTER_ADV_NAME_B:
-            case KEY_FILTER_UUID_B:
-            case KEY_FILTER_MAJOR_RANGE_B:
-            case KEY_FILTER_MINOR_RANGE_B:
-
-            case KEY_FILTER_SWITCH_A:
-            case KEY_FILTER_SWITCH_B:
-            case KEY_FILTER_A_B_RELATION:
 
             case KEY_LORA_MODE:
+            case KEY_LORA_REGION:
             case KEY_LORA_DEV_EUI:
             case KEY_LORA_APP_EUI:
             case KEY_LORA_APP_KEY:
             case KEY_LORA_DEV_ADDR:
             case KEY_LORA_APP_SKEY:
             case KEY_LORA_NWK_SKEY:
-            case KEY_LORA_REGION:
-            case KEY_LORA_REPORT_INTERVAL:
-            case KEY_LORA_MESSAGE_TYPE:
             case KEY_LORA_CH:
             case KEY_LORA_DR:
             case KEY_LORA_ADR:
+            case KEY_LORA_MESSAGE_TYPE:
+            case KEY_NETWORK_STATUS:
+            case KEY_NETWORK_CHECK_INTERVAL:
+            case KEY_ALARM_RSSI:
+            case KEY_ALARM_NOTIFY:
+
             case KEY_VIBRATION_INTENSITY:
             case KEY_VIBRATION_CYCLE:
             case KEY_VIBRATION_DURATION:
-            case KEY_WARNING_RSSI:
+
+            case KEY_DEVICE_MAC:
+            case KEY_BATTERY:
             case KEY_LOW_POWER_PERCENT:
+            case KEY_LORA_REPORT_INTERVAL:
+
+            case KEY_TRACKING_FILTER_RSSI_A:
+            case KEY_TRACKING_FILTER_MAC_A:
+            case KEY_TRACKING_FILTER_ADV_NAME_A:
+            case KEY_TRACKING_FILTER_UUID_A:
+            case KEY_TRACKING_FILTER_MAJOR_RANGE_A:
+            case KEY_TRACKING_FILTER_MINOR_RANGE_A:
+
+            case KEY_TRACKING_FILTER_RSSI_B:
+            case KEY_TRACKING_FILTER_MAC_B:
+            case KEY_TRACKING_FILTER_ADV_NAME_B:
+            case KEY_TRACKING_FILTER_UUID_B:
+            case KEY_TRACKING_FILTER_MAJOR_RANGE_B:
+            case KEY_TRACKING_FILTER_MINOR_RANGE_B:
+
+            case KEY_TRACKING_FILTER_SWITCH_A:
+            case KEY_TRACKING_FILTER_SWITCH_B:
+            case KEY_TRACKING_FILTER_A_B_RELATION:
+            case KEY_TRACKING_FILTER_REPEAT:
+
+            case KEY_FILTER_VALID_INTERVAL:
             case KEY_DEVICE_INFO_INTERVAL:
-                createGetConfigData(key.getConfigKey());
+            case KEY_DEVICE_INFO:
+            case KEY_WARNING_RSSI:
+
+            case KEY_LOCATION_FILTER_RSSI_A:
+            case KEY_LOCATION_FILTER_MAC_A:
+            case KEY_LOCATION_FILTER_ADV_NAME_A:
+            case KEY_LOCATION_FILTER_UUID_A:
+            case KEY_LOCATION_FILTER_MAJOR_RANGE_A:
+            case KEY_LOCATION_FILTER_MINOR_RANGE_A:
+
+            case KEY_LOCATION_FILTER_RSSI_B:
+            case KEY_LOCATION_FILTER_MAC_B:
+            case KEY_LOCATION_FILTER_ADV_NAME_B:
+            case KEY_LOCATION_FILTER_UUID_B:
+            case KEY_LOCATION_FILTER_MAJOR_RANGE_B:
+            case KEY_LOCATION_FILTER_MINOR_RANGE_B:
+
+            case KEY_LOCATION_FILTER_SWITCH_A:
+            case KEY_LOCATION_FILTER_SWITCH_B:
+            case KEY_LOCATION_FILTER_A_B_RELATION:
+            case KEY_LOCATION_FILTER_REPEAT:
+
+            case KEY_OPTIONAL_PAYLOAD_TRACKING:
+            case KEY_REPORT_BEACONS:
+
+            case KEY_THREE_AXIS_SAMPLE_RATE:
+            case KEY_THREE_AXIS_G:
+            case KEY_THREE_AXIS_TRIGGER_SENSITIVITY:
+            case KEY_THREE_AXIS_ENABLE:
+            case KEY_THREE_AXIS_REPORT_INTERVAL:
+            case KEY_THREE_AXIS_DATA_ENABLE:
+            case KEY_OPTIONAL_PAYLOAD_THREE_AXIS:
+
+            case KEY_SOS_ENABLE:
+            case KEY_SOS_REPORT_INTERVAL:
+            case KEY_OPTIONAL_PAYLOAD_SOS:
+
+            case KEY_GPS_FUNCTION_STATUS:
+            case KEY_GPS_FUNCTION_SWITCH:
+            case KEY_GPS_SATELLITE_SEARCH_TIME:
+            case KEY_GPS_REPORT_INTERVAL:
+            case KEY_OPTIONAL_PAYLOAD_GPS:
+
+            case KEY_LORA_UPLINK_DELL_TIME:
+            case KEY_LORA_DUTY_CYCLE_ENABLE:
+
+
+                createGetConfigData(key.getParamsKey());
                 break;
         }
     }
@@ -102,7 +155,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_SCAN_INTERVAL.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_FILTER_VALID_INTERVAL.getParamsKey(),
                 (byte) 0x02,
                 intervalBytes[0],
                 intervalBytes[1]
@@ -113,7 +166,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_ALARM_NOTIFY.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_ALARM_NOTIFY.getParamsKey(),
                 (byte) 0x01,
                 (byte) notify
         };
@@ -123,7 +176,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_ALARM_RSSI.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_ALARM_RSSI.getParamsKey(),
                 (byte) 0x01,
                 (byte) rssi,
         };
@@ -142,7 +195,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_TIME.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_TIME.getParamsKey(),
                 (byte) 0x07,
                 yearBytes[0],
                 yearBytes[1],
@@ -158,7 +211,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_FILTER_RSSI_A.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_RSSI_A.getParamsKey(),
                 (byte) 0x01,
                 (byte) rssi
         };
@@ -169,7 +222,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAC_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -180,7 +233,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_MAC_A.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_A.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < macBytes.length; i++) {
@@ -194,7 +247,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_ADV_NAME_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -204,7 +257,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_ADV_NAME_A.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_A.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < nameBytes.length; i++) {
@@ -218,7 +271,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_UUID_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -228,7 +281,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_UUID_A.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_A.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < uuidBytes.length; i++) {
@@ -245,7 +298,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAJOR_RANGE_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -255,7 +308,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAJOR_RANGE_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_A.getParamsKey(),
                     (byte) 0x05,
                     (byte) (isReverse ? 0x02 : 0x01),
                     majorMinBytes[0],
@@ -274,7 +327,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MINOR_RANGE_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -284,7 +337,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MINOR_RANGE_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_A.getParamsKey(),
                     (byte) 0x05,
                     (byte) (isReverse ? 0x02 : 0x01),
                     minorMinBytes[0],
@@ -300,7 +353,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_ADV_RAW_DATA_A.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_A.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -314,7 +367,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[length + 4];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_ADV_RAW_DATA_A.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_A.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < mRawDatas.length; i++) {
@@ -327,7 +380,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_FILTER_SWITCH_A.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_SWITCH_A.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable,
         };
@@ -337,7 +390,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_FILTER_RSSI_B.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_RSSI_B.getParamsKey(),
                 (byte) 0x01,
                 (byte) rssi
         };
@@ -348,7 +401,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAC_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -359,7 +412,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_MAC_B.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_B.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < macBytes.length; i++) {
@@ -373,7 +426,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_ADV_NAME_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -383,7 +436,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_ADV_NAME_B.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_B.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < nameBytes.length; i++) {
@@ -397,7 +450,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_UUID_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -407,7 +460,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[4 + length];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_UUID_B.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_B.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < uuidBytes.length; i++) {
@@ -424,7 +477,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAJOR_RANGE_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -434,7 +487,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MAJOR_RANGE_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_B.getParamsKey(),
                     (byte) 0x05,
                     (byte) (isReverse ? 0x02 : 0x01),
                     majorMinBytes[0],
@@ -453,7 +506,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MINOR_RANGE_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -463,7 +516,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_MINOR_RANGE_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_B.getParamsKey(),
                     (byte) 0x05,
                     (byte) (isReverse ? 0x02 : 0x01),
                     minorMinBytes[0],
@@ -479,7 +532,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[]{
                     (byte) 0xED,
                     (byte) 0x01,
-                    (byte) ConfigKeyEnum.KEY_FILTER_ADV_RAW_DATA_B.getConfigKey(),
+                    (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_B.getParamsKey(),
                     (byte) 0x01,
                     (byte) 0x00,
             };
@@ -493,7 +546,7 @@ public class WriteConfigTask extends OrderTask {
             data = new byte[length + 4];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
-            data[2] = (byte) ConfigKeyEnum.KEY_FILTER_ADV_RAW_DATA_B.getConfigKey();
+            data[2] = (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_B.getParamsKey();
             data[3] = (byte) length;
             data[4] = (byte) (isReverse ? 0x02 : 0x01);
             for (int i = 0; i < mRawDatas.length; i++) {
@@ -506,7 +559,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_FILTER_SWITCH_B.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_SWITCH_B.getParamsKey(),
                 (byte) 0x01,
                 (byte) enable,
         };
@@ -516,7 +569,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_FILTER_A_B_RELATION.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_A_B_RELATION.getParamsKey(),
                 (byte) 0x01,
                 (byte) relation,
         };
@@ -528,7 +581,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[length + 4];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_ADV_NAME.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_ADV_NAME.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < advNameBytes.length; i++) {
             data[i + 4] = advNameBytes[i];
@@ -540,7 +593,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[20];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_IBEACON_UUID.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_IBEACON_UUID.getParamsKey();
         data[3] = (byte) 0x10;
         for (int i = 0; i < uuidBytes.length; i++) {
             data[i + 4] = uuidBytes[i];
@@ -552,7 +605,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_IBEACON_MAJOR.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_IBEACON_MAJOR.getParamsKey(),
                 (byte) 0x02,
                 majorBytes[0],
                 majorBytes[1]
@@ -564,7 +617,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_IBEACON_MINOR.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_IBEACON_MINOR.getParamsKey(),
                 (byte) 0x02,
                 minorBytes[0],
                 minorBytes[1]
@@ -575,7 +628,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_ADV_INTERVAL.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_ADV_INTERVAL.getParamsKey(),
                 (byte) 0x01,
                 (byte) advInterval
         };
@@ -585,7 +638,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_TRANSMISSION.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_TRANSMISSION.getParamsKey(),
                 (byte) 0x01,
                 (byte) transmission
         };
@@ -595,7 +648,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_MEASURE_POWER.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_MEASURE_POWER.getParamsKey(),
                 (byte) 0x01,
                 (byte) measurePower
         };
@@ -605,7 +658,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_CONNECTABLE.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_CONNECTABLE.getParamsKey(),
                 (byte) 0x01,
                 (byte) connectionMode
         };
@@ -615,7 +668,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LOW_POWER_PERCENT.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LOW_POWER_PERCENT.getParamsKey(),
                 (byte) 0x01,
                 (byte) lowBattery
         };
@@ -625,7 +678,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_DEVICE_INFO_INTERVAL.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_DEVICE_INFO_INTERVAL.getParamsKey(),
                 (byte) 0x01,
                 (byte) interval
         };
@@ -635,7 +688,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_CLOSE.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_CLOSE.getParamsKey(),
                 (byte) 0x01,
                 (byte) 0x01
         };
@@ -647,7 +700,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[length + 4];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_PASSWORD.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_PASSWORD.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < passwordBytes.length; i++) {
             data[i + 4] = passwordBytes[i];
@@ -658,7 +711,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_RESET.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_RESET.getParamsKey(),
                 (byte) 0x01,
                 (byte) 0x01
         };
@@ -669,7 +722,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_SCAN_WINDOW.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_SCAN_WINDOW.getParamsKey(),
                 (byte) 0x02,
                 (byte) scannerState,
                 (byte) startTime
@@ -682,7 +735,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_DEV_ADDR.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_DEV_ADDR.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -695,7 +748,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_APP_SKEY.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_APP_SKEY.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -708,7 +761,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_NWK_SKEY.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_NWK_SKEY.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -721,7 +774,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_DEV_EUI.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_DEV_EUI.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -734,7 +787,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_APP_EUI.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_APP_EUI.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -747,7 +800,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[4 + length];
         data[0] = (byte) 0xED;
         data[1] = (byte) 0x01;
-        data[2] = (byte) ConfigKeyEnum.KEY_LORA_APP_KEY.getConfigKey();
+        data[2] = (byte) ParamsKeyEnum.KEY_LORA_APP_KEY.getParamsKey();
         data[3] = (byte) length;
         for (int i = 0; i < length; i++) {
             data[i + 4] = rawDataBytes[i];
@@ -758,7 +811,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_MODE.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_MODE.getParamsKey(),
                 (byte) 0x01,
                 (byte) mode
         };
@@ -768,7 +821,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_REPORT_INTERVAL.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_REPORT_INTERVAL.getParamsKey(),
                 (byte) 0x01,
                 (byte) interval
         };
@@ -778,7 +831,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_MESSAGE_TYPE.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_MESSAGE_TYPE.getParamsKey(),
                 (byte) 0x01,
                 (byte) type
         };
@@ -788,7 +841,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_REGION.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_REGION.getParamsKey(),
                 (byte) 0x01,
                 (byte) region
         };
@@ -798,7 +851,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_CH.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_CH.getParamsKey(),
                 (byte) 0x02,
                 (byte) ch1,
                 (byte) ch2
@@ -809,7 +862,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_DR.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_DR.getParamsKey(),
                 (byte) 0x01,
                 (byte) dr1
         };
@@ -819,7 +872,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_ADR.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_ADR.getParamsKey(),
                 (byte) 0x01,
                 (byte) adr
         };
@@ -829,7 +882,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_LORA_CONNECT.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_LORA_CONNECT.getParamsKey(),
                 (byte) 0x01,
                 (byte) 0x01
         };
@@ -839,7 +892,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_VIBRATION_INTENSITY.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_VIBRATION_INTENSITY.getParamsKey(),
                 (byte) 0x01,
                 (byte) intensity
         };
@@ -849,7 +902,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_VIBRATION_DURATION.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_VIBRATION_DURATION.getParamsKey(),
                 (byte) 0x01,
                 (byte) duration
         };
@@ -860,7 +913,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_VIBRATION_CYCLE.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_VIBRATION_CYCLE.getParamsKey(),
                 (byte) 0x02,
                 cycleBytes[0],
                 cycleBytes[1]
@@ -871,7 +924,7 @@ public class WriteConfigTask extends OrderTask {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
-                (byte) ConfigKeyEnum.KEY_WARNING_RSSI.getConfigKey(),
+                (byte) ParamsKeyEnum.KEY_WARNING_RSSI.getParamsKey(),
                 (byte) 0x01,
                 (byte) rssi
         };

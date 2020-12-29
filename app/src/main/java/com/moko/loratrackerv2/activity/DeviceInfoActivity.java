@@ -13,8 +13,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,6 +24,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elvishew.xlog.XLog;
+import com.moko.ble.lib.MokoConstants;
+import com.moko.ble.lib.event.ConnectStatusEvent;
+import com.moko.ble.lib.event.OrderTaskResponseEvent;
+import com.moko.ble.lib.task.OrderTask;
+import com.moko.ble.lib.task.OrderTaskResponse;
+import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
@@ -37,17 +42,10 @@ import com.moko.loratrackerv2.fragment.SettingFragment;
 import com.moko.loratrackerv2.service.DfuService;
 import com.moko.loratrackerv2.utils.FileUtils;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.MokoConstants;
 import com.moko.support.MokoSupport;
 import com.moko.support.OrderTaskAssembler;
-import com.moko.support.entity.ConfigKeyEnum;
-import com.moko.support.entity.OrderType;
-import com.moko.support.event.ConnectStatusEvent;
-import com.moko.support.event.OrderTaskResponseEvent;
-import com.moko.support.log.LogModule;
-import com.moko.support.task.OrderTask;
-import com.moko.support.task.OrderTaskResponse;
-import com.moko.support.utils.MokoUtils;
+import com.moko.support.entity.OrderCHAR;
+import com.moko.support.entity.ParamsKeyEnum;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.IdRes;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -152,7 +152,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
-            if (MokoConstants.ACTION_CONN_STATUS_DISCONNECTED.equals(action)) {
+            if (MokoConstants.ACTION_DISCONNECTED.equals(action)) {
                 showDisconnectDialog();
             }
             if (MokoConstants.ACTION_DISCOVER_SUCCESS.equals(action)) {
@@ -168,11 +168,11 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_CURRENT_DATA.equals(action)) {
                 OrderTaskResponse response = event.getResponse();
-                OrderType orderType = response.orderType;
+                OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
                 byte[] value = response.responseValue;
-                switch (orderType) {
-                    case DISCONNECTED_NOTIFY:
+                switch (orderCHAR) {
+                    case CHAR_DISCONNECTED_NOTIFY:
                         final int length = value.length;
                         if (length != 5)
                             return;
@@ -205,38 +205,38 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
                 OrderTaskResponse response = event.getResponse();
-                OrderType orderType = response.orderType;
+                OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
                 byte[] value = response.responseValue;
-                switch (orderType) {
-                    case DEVICE_MODEL:
+                switch (orderCHAR) {
+                    case CHAR_MODEL_NUMBER:
                         String productModel = new String(value);
                         deviceFragment.setProductModel(productModel);
                         break;
-                    case SOFTWARE_VERSION:
+                    case CHAR_SOFTWARE_REVISION:
                         String softwareVersion = new String(value);
                         deviceFragment.setSoftwareVersion(softwareVersion);
                         break;
-                    case FIRMWARE_VERSION:
+                    case CHAR_FIRMWARE_REVISION:
                         String firmwareVersion = new String(value);
                         deviceFragment.setFirmwareVersion(firmwareVersion);
                         break;
-                    case HARDWARE_VERSION:
+                    case CHAR_HARDWARE_REVISION:
                         String hardwareVersion = new String(value);
                         deviceFragment.setHardwareVersion(hardwareVersion);
                         break;
-                    case MANUFACTURER:
+                    case CHAR_MANUFACTURER_NAME:
                         String manufacture = new String(value);
                         deviceFragment.setManufacture(manufacture);
                         break;
-                    case WRITE_CONFIG:
+                    case CHAR_PARAMS:
                         if (value.length >= 4) {
                             int header = value[0] & 0xFF;// 0xED
                             int flag = value[1] & 0xFF;// read or write
                             int cmd = value[2] & 0xFF;
                             if (header != 0xED)
                                 return;
-                            ConfigKeyEnum configKeyEnum = ConfigKeyEnum.fromConfigKey(cmd);
+                            ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
                             if (configKeyEnum == null) {
                                 return;
                             }
@@ -303,7 +303,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         break;
                                     case KEY_ADV_INTERVAL:
                                         if (length > 0) {
-                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4+ length);
+                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
                                             final int advInterval = MokoUtils.toInt(rawDataBytes);
                                             advFragment.setAdvInterval(advInterval);
                                         }
@@ -320,7 +320,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             advFragment.setTransmission(txPower);
                                         }
                                         break;
-                                    case KEY_SCAN_INTERVAL:
+                                    case KEY_FILTER_VALID_INTERVAL:
                                         if (length > 0) {
                                             byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
                                             final int scannInterval = MokoUtils.toInt(rawDataBytes);
@@ -345,7 +345,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             scannerFragment.setWarningRssi(rssi);
                                         }
                                         break;
-                                    case KEY_LORA_CONNECTABLE:
+                                    case KEY_NETWORK_STATUS:
                                         if (length > 0) {
                                             int connectable = value[4];
                                             settingFragment.setLoRaConnectable(connectable);
@@ -823,7 +823,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     private final DfuProgressListener mDfuProgressListener = new DfuProgressListenerAdapter() {
         @Override
         public void onDeviceConnecting(String deviceAddress) {
-            LogModule.w("onDeviceConnecting...");
+            XLog.w("onDeviceConnecting...");
             mDeviceConnectCount++;
             if (mDeviceConnectCount > 3) {
                 Toast.makeText(DeviceInfoActivity.this, "Error:DFU Failed", Toast.LENGTH_SHORT).show();
@@ -838,7 +838,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
         @Override
         public void onDeviceDisconnecting(String deviceAddress) {
-            LogModule.w("onDeviceDisconnecting...");
+            XLog.w("onDeviceDisconnecting...");
         }
 
         @Override
@@ -877,7 +877,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         @Override
         public void onError(String deviceAddress, int error, int errorType, String message) {
             ToastUtils.showToast(DeviceInfoActivity.this, "Opps!DFU Failed. Please try again!");
-            LogModule.i("Error:" + message);
+            XLog.i("Error:" + message);
             dismissDFUProgressDialog();
         }
     };

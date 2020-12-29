@@ -110,7 +110,7 @@ When connecting to the device, context, MAC address and callback by EventBus.
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onConnectStatusEvent(ConnectStatusEvent event) {
         String action = event.getAction();
-        if (MokoConstants.ACTION_CONN_STATUS_DISCONNECTED.equals(action)) {
+        if (MokoConstants.ACTION_DISCONNECTED.equals(action)) {
             ...
         }
         if (MokoConstants.ACTION_DISCOVER_SUCCESS.equals(action)) {

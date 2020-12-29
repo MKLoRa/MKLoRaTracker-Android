@@ -1,4 +1,4 @@
-package com.moko.support.handler;
+package com.moko.loratrackerv2.utils;
 
 import android.os.Handler;
 import android.os.Looper;
