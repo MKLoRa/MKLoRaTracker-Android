@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.view.ProgressDrawable;
 
 import androidx.annotation.StringRes;
@@ -18,9 +19,9 @@ import butterknife.ButterKnife;
 public class LoadingMessageDialog extends MokoBaseDialog {
     private static final int DIALOG_DISMISS_DELAY_TIME = 5000;
     public static final String TAG = LoadingMessageDialog.class.getSimpleName();
-    @BindView(R.id.iv_loading)
+    @BindView(R2.id.iv_loading)
     ImageView ivLoading;
-    @BindView(R.id.tv_loading_message)
+    @BindView(R2.id.tv_loading_message)
     TextView tvLoadingMessage;
 
     private String message;
@@ -29,14 +30,14 @@ public class LoadingMessageDialog extends MokoBaseDialog {
 
     @Override
     public int getLayoutRes() {
-        return R.layout.dialog_loading_message;
+        return R.layout.loratracker_dialog_loading_message;
     }
 
     @Override
     public void bindView(View v) {
         ButterKnife.bind(this, v);
         ProgressDrawable progressDrawable = new ProgressDrawable();
-        progressDrawable.setColor(ContextCompat.getColor(getContext(), R.color.text_black_4d4d4d));
+        progressDrawable.setColor(ContextCompat.getColor(getContext(), R.color.loratracker_text_black_4d4d4d));
         ivLoading.setImageDrawable(progressDrawable);
         progressDrawable.start();
         if (messageId > 0) {
@@ -69,7 +70,7 @@ public class LoadingMessageDialog extends MokoBaseDialog {
 
     @Override
     public int getDialogStyle() {
-        return R.style.CenterDialog;
+        return R.style.LoraTrackerCenterDialog;
     }
 
     @Override

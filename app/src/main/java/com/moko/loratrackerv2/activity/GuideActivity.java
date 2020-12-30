@@ -24,7 +24,7 @@ public class GuideActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
+        setContentView(R.layout.loratracker_activity_guide);
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
@@ -122,7 +122,7 @@ public class GuideActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                        startActivity(new Intent(GuideActivity.this, LoRaTrackerMainActivity.class));
                         GuideActivity.this.finish();
                     }
                 });

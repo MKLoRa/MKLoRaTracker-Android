@@ -9,7 +9,7 @@ import com.moko.loratrackerv2.entity.BeaconInfo;
 
 public class BeaconListAdapter extends BaseQuickAdapter<BeaconInfo, BaseViewHolder> {
     public BeaconListAdapter() {
-        super(R.layout.list_item_device);
+        super(R.layout.loratracker_list_item_device);
     }
 
     @Override

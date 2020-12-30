@@ -11,18 +11,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ChangePasswordDialog extends BaseDialog<Object> {
-    @BindView(R.id.et_password)
+    @BindView(R2.id.et_password)
     EditText etPassword;
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R.id.et_password_confirm)
+    @BindView(R2.id.et_password_confirm)
     EditText etPasswordConfirm;
-    @BindView(R.id.tv_password_ensure)
+    @BindView(R2.id.tv_password_ensure)
     TextView tvPasswordEnsure;
     private boolean passwordEnable;
     private boolean confirmPasswordEnable;
@@ -33,7 +34,7 @@ public class ChangePasswordDialog extends BaseDialog<Object> {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.dialog_change_password;
+        return R.layout.loratracker_dialog_change_password;
     }
 
     @Override
@@ -87,32 +88,30 @@ public class ChangePasswordDialog extends BaseDialog<Object> {
         });
     }
 
-    @OnClick({R.id.tv_password_cancel, R.id.tv_password_ensure})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_password_cancel:
-                dismiss();
-                break;
-            case R.id.tv_password_ensure:
-                String password = etPassword.getText().toString();
-                String passwordConfirm = etPasswordConfirm.getText().toString();
-                if (password.length() != 8) {
-                    ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_length));
-                    return;
-                }
-                if (passwordConfirm.length() != 8) {
-                    ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_length));
-                    return;
-                }
-                if (!password.equals(passwordConfirm)){
-                    ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_match));
-                    return;
-                }
-                dismiss();
-                if (passwordClickListener != null)
-                    passwordClickListener.onEnsureClicked(password);
-                break;
+    @OnClick(R2.id.tv_password_cancel)
+    public void onCancel(View view) {
+        dismiss();
+    }
+
+    @OnClick(R2.id.tv_password_ensure)
+    public void onEnsure(View view) {
+        String password = etPassword.getText().toString();
+        String passwordConfirm = etPasswordConfirm.getText().toString();
+        if (password.length() != 8) {
+            ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_length));
+            return;
         }
+        if (passwordConfirm.length() != 8) {
+            ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_length));
+            return;
+        }
+        if (!password.equals(passwordConfirm)) {
+            ToastUtils.showToast(getContext(), getContext().getString(R.string.change_password_match));
+            return;
+        }
+        dismiss();
+        if (passwordClickListener != null)
+            passwordClickListener.onEnsureClicked(password);
     }
 
     private PasswordClickListener passwordClickListener;

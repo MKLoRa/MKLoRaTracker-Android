@@ -16,9 +16,10 @@ import android.widget.TextView;
 
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.entity.TxPowerEnum;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 
 import java.util.ArrayList;
@@ -32,23 +33,23 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
     private static final String TAG = AdvFragment.class.getSimpleName();
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R.id.et_adv_name)
+    @BindView(R2.id.et_adv_name)
     EditText etAdvName;
-    @BindView(R.id.et_uuid)
+    @BindView(R2.id.et_uuid)
     EditText etUuid;
-    @BindView(R.id.et_major)
+    @BindView(R2.id.et_major)
     EditText etMajor;
-    @BindView(R.id.et_minor)
+    @BindView(R2.id.et_minor)
     EditText etMinor;
-    @BindView(R.id.et_adv_interval)
+    @BindView(R2.id.et_adv_interval)
     EditText etAdvInterval;
-    @BindView(R.id.sb_rssi_1m)
+    @BindView(R2.id.sb_rssi_1m)
     SeekBar sbRssi1m;
-    @BindView(R.id.tv_rssi_1m_value)
+    @BindView(R2.id.tv_rssi_1m_value)
     TextView tvRssi1mValue;
-    @BindView(R.id.sb_tx_power)
+    @BindView(R2.id.sb_tx_power)
     SeekBar sbTxPower;
-    @BindView(R.id.tv_tx_power_value)
+    @BindView(R2.id.tv_tx_power_value)
     TextView tvTxPowerValue;
 
 
@@ -75,7 +76,7 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_adv, container, false);
+        View view = inflater.inflate(R.layout.loratracker_fragment_adv, container, false);
         ButterKnife.bind(this, view);
         activity = (DeviceInfoActivity) getActivity();
         sbRssi1m.setOnSeekBarChangeListener(this);
@@ -143,18 +144,16 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        switch (seekBar.getId()) {
-            case R.id.sb_rssi_1m:
-                int rssi_1m = progress - 127;
-                tvRssi1mValue.setText(String.format("%ddBm", rssi_1m));
-                break;
-            case R.id.sb_tx_power:
-                TxPowerEnum txPowerEnum = TxPowerEnum.fromOrdinal(progress);
-                if (txPowerEnum == null)
-                    return;
-                int txPower = txPowerEnum.getTxPower();
-                tvTxPowerValue.setText(String.format("%ddBm", txPower));
-                break;
+        int id = seekBar.getId();
+        if (id == R.id.sb_rssi_1m) {
+            int rssi_1m = progress - 127;
+            tvRssi1mValue.setText(String.format("%ddBm", rssi_1m));
+        } else if (id == R.id.sb_tx_power) {
+            TxPowerEnum txPowerEnum = TxPowerEnum.fromOrdinal(progress);
+            if (txPowerEnum == null)
+                return;
+            int txPower = txPowerEnum.getTxPower();
+            tvTxPowerValue.setText(String.format("%ddBm", txPower));
         }
     }
 
@@ -281,6 +280,6 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
         int txPowerProgress = sbTxPower.getProgress();
         int txPower = TxPowerEnum.fromOrdinal(txPowerProgress).getTxPower();
         orderTasks.add(OrderTaskAssembler.setTransmission(txPower));
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 }

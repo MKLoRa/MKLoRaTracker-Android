@@ -21,12 +21,13 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.dialog.RegionBottomDialog;
 import com.moko.loratrackerv2.entity.Region;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 import com.moko.support.loratracker.entity.OrderCHAR;
 import com.moko.support.loratracker.entity.ParamsKeyEnum;
@@ -45,43 +46,43 @@ import butterknife.ButterKnife;
 public class LoRaSettingActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
 
-    @BindView(R.id.et_dev_eui)
+    @BindView(R2.id.et_dev_eui)
     EditText etDevEui;
-    @BindView(R.id.et_app_eui)
+    @BindView(R2.id.et_app_eui)
     EditText etAppEui;
-    @BindView(R.id.et_app_key)
+    @BindView(R2.id.et_app_key)
     EditText etAppKey;
-    @BindView(R.id.ll_modem_otaa)
+    @BindView(R2.id.ll_modem_otaa)
     LinearLayout llModemOtaa;
-    @BindView(R.id.et_dev_addr)
+    @BindView(R2.id.et_dev_addr)
     EditText etDevAddr;
-    @BindView(R.id.et_nwk_skey)
+    @BindView(R2.id.et_nwk_skey)
     EditText etNwkSkey;
-    @BindView(R.id.et_app_skey)
+    @BindView(R2.id.et_app_skey)
     EditText etAppSkey;
-    @BindView(R.id.ll_modem_abp)
+    @BindView(R2.id.ll_modem_abp)
     LinearLayout llModemAbp;
-    @BindView(R.id.et_report_interval)
+    @BindView(R2.id.et_report_interval)
     EditText etReportInterval;
-    @BindView(R.id.tv_ch_1)
+    @BindView(R2.id.tv_ch_1)
     TextView tvCh1;
-    @BindView(R.id.tv_ch_2)
+    @BindView(R2.id.tv_ch_2)
     TextView tvCh2;
-    @BindView(R.id.tv_dr_1)
+    @BindView(R2.id.tv_dr_1)
     TextView tvDr1;
-    @BindView(R.id.tv_connect)
+    @BindView(R2.id.tv_connect)
     TextView tvConnect;
-    @BindView(R.id.cb_adr)
+    @BindView(R2.id.cb_adr)
     CheckBox cbAdr;
-    @BindView(R.id.tv_upload_mode)
+    @BindView(R2.id.tv_upload_mode)
     TextView tvUploadMode;
-    @BindView(R.id.tv_region)
+    @BindView(R2.id.tv_region)
     TextView tvRegion;
-    @BindView(R.id.tv_message_type)
+    @BindView(R2.id.tv_message_type)
     TextView tvMessageType;
-    @BindView(R.id.ll_advanced_setting)
+    @BindView(R2.id.ll_advanced_setting)
     LinearLayout llAdvancedSetting;
-    @BindView(R.id.cb_advance_setting)
+    @BindView(R2.id.cb_advance_setting)
     CheckBox cbAdvanceSetting;
 
     private boolean mReceiverTag = false;
@@ -104,7 +105,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lora_setting);
+        setContentView(R.layout.loratracker_activity_lora_setting);
         ButterKnife.bind(this);
         mUploadMode = getResources().getStringArray(R.array.upload_mode);
         mRegions = getResources().getStringArray(R.array.region);
@@ -136,8 +137,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
         mReceiverTag = true;
-        if (!MokoSupport.getInstance().isBluetoothOpen()) {
-            MokoSupport.getInstance().enableBluetooth();
+        if (!LoRaTrackerMokoSupport.getInstance().isBluetoothOpen()) {
+            LoRaTrackerMokoSupport.getInstance().enableBluetooth();
         } else {
             showSyncingProgressDialog();
             List<OrderTask> orderTasks = new ArrayList<>();
@@ -154,7 +155,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
             orderTasks.add(OrderTaskAssembler.getLoraCH());
             orderTasks.add(OrderTaskAssembler.getLoraDR());
             orderTasks.add(OrderTaskAssembler.getLoraADR());
-            MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
     }
 
@@ -634,7 +635,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         orderTasks.add(OrderTaskAssembler.setLoraDR(mSelectedDr1));
         orderTasks.add(OrderTaskAssembler.setLoraADR(cbAdr.isChecked() ? 1 : 0));
         orderTasks.add(OrderTaskAssembler.setLoraConnect());
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         showSyncingProgressDialog();
     }
 

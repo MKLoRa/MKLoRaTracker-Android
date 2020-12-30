@@ -16,11 +16,12 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 import com.moko.support.loratracker.entity.OrderCHAR;
 import com.moko.support.loratracker.entity.ParamsKeyEnum;
@@ -38,11 +39,11 @@ import butterknife.OnClick;
 
 public class FilterOptionsActivity extends BaseActivity {
 
-    @BindView(R.id.tv_condition_a)
+    @BindView(R2.id.tv_condition_a)
     TextView tvConditionA;
-    @BindView(R.id.tv_condition_b)
+    @BindView(R2.id.tv_condition_b)
     TextView tvConditionB;
-    @BindView(R.id.tv_relation)
+    @BindView(R2.id.tv_relation)
     TextView tvRelation;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
@@ -52,7 +53,7 @@ public class FilterOptionsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filter_relation);
+        setContentView(R.layout.loratracker_activity_filter_relation);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         // 注册广播接收器
@@ -60,15 +61,15 @@ public class FilterOptionsActivity extends BaseActivity {
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
         mReceiverTag = true;
-        if (!MokoSupport.getInstance().isBluetoothOpen()) {
-            MokoSupport.getInstance().enableBluetooth();
+        if (!LoRaTrackerMokoSupport.getInstance().isBluetoothOpen()) {
+            LoRaTrackerMokoSupport.getInstance().enableBluetooth();
         } else {
             showSyncingProgressDialog();
             List<OrderTask> orderTasks = new ArrayList<>();
             orderTasks.add(OrderTaskAssembler.getFilterSwitchA());
             orderTasks.add(OrderTaskAssembler.getFilterSwitchB());
             orderTasks.add(OrderTaskAssembler.getFilterABRelation());
-            MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
         mValues = new ArrayList<>();
         mValues.add("And");
@@ -212,23 +213,21 @@ public class FilterOptionsActivity extends BaseActivity {
             mLoadingMessageDialog.dismissAllowingStateLoss();
     }
 
-    @OnClick({R.id.tv_back,R.id.tv_relation})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_back:
-                finish();
-                break;
-            case R.id.tv_relation:
-                BottomDialog dialog = new BottomDialog();
-                dialog.setDatas(mValues,mSelected);
-                dialog.setListener(value -> {
-                    tvRelation.setText(value == 0 ? "And" : "Or");
-                    mSelected = value;
-                    showSyncingProgressDialog();
-                    MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setFilterABRelation(value));
-                });
-                dialog.show(getSupportFragmentManager());
-                break;
-        }
+    @OnClick(R2.id.tv_back)
+    public void onBack(View view) {
+        finish();
+    }
+
+    @OnClick(R2.id.tv_relation)
+    public void onRelation(View view) {
+        BottomDialog dialog = new BottomDialog();
+        dialog.setDatas(mValues, mSelected);
+        dialog.setListener(value -> {
+            tvRelation.setText(value == 0 ? "And" : "Or");
+            mSelected = value;
+            showSyncingProgressDialog();
+            LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setFilterABRelation(value));
+        });
+        dialog.show(getSupportFragmentManager());
     }
 }

@@ -30,9 +30,13 @@ public final class MokoBleScanner {
 
     private Context mContext;
 
-    public void startScanDevice(Context context) {
+    public MokoBleScanner(Context context) {
         mContext = context;
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+    }
+
+    public void startScanDevice(MokoScanDeviceCallback callback) {
+        mMokoScanDeviceCallback = callback;
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             XLog.i("Start scan");
         }
         final BluetoothLeScannerCompat scanner = BluetoothLeScannerCompat.getScanner();
@@ -44,9 +48,9 @@ public final class MokoBleScanner {
         builder.setServiceUuid(new ParcelUuid(OrderServices.SERVICE_ADV.getUuid()));
         scanFilterList.add(builder.build());
 //        List<ScanFilter> scanFilterList = Collections.singletonList(new ScanFilter.Builder().build());
-        mMokoLeScanHandler = new MokoLeScanHandler(mMokoScanDeviceCallback);
+        mMokoLeScanHandler = new MokoLeScanHandler(callback);
         scanner.startScan(scanFilterList, settings, mMokoLeScanHandler);
-        mMokoScanDeviceCallback.onStartScan();
+        callback.onStartScan();
     }
 
     public void stopScanDevice() {
@@ -90,10 +94,5 @@ public final class MokoBleScanner {
                 callback.onScanDevice(deviceInfo);
             }
         }
-    }
-
-
-    public void setMokoScanDeviceCallback(MokoScanDeviceCallback mokoScanDeviceCallback) {
-        this.mMokoScanDeviceCallback = mokoScanDeviceCallback;
     }
 }

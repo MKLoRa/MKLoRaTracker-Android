@@ -26,7 +26,7 @@ public abstract class MokoBaseDialog extends DialogFragment {
 
     private static final float DEFAULT_DIM = 0.2f;
     private static final int DEFAULT_GRAVITY = Gravity.BOTTOM;
-    private static final int DEFAULT_STYLE = R.style.BottomDialog;
+    private static final int DEFAULT_STYLE = R.style.LoraTrackerBottomDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.view.WheelView;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import butterknife.OnClick;
 public class BottomDialog extends MokoBaseDialog {
 
 
-    @BindView(R.id.wv_bottom)
+    @BindView(R2.id.wv_bottom)
     WheelView wvBottom;
     private ArrayList<String> mDatas;
     private int mIndex;
@@ -23,7 +24,7 @@ public class BottomDialog extends MokoBaseDialog {
 
     @Override
     public int getLayoutRes() {
-        return R.layout.dialog_bottom;
+        return R.layout.loratracker_dialog_bottom;
     }
 
     @Override
@@ -38,22 +39,20 @@ public class BottomDialog extends MokoBaseDialog {
         return 0.7f;
     }
 
-    @OnClick({R.id.tv_cancel, R.id.tv_confirm})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_cancel:
-                dismiss();
-                break;
-            case R.id.tv_confirm:
-                if (TextUtils.isEmpty(wvBottom.getSelectedText())) {
-                    return;
-                }
-                dismiss();
-                final int selected = wvBottom.getSelected();
-                if (listener != null) {
-                    listener.onValueSelected(selected);
-                }
-                break;
+    @OnClick(R2.id.tv_cancel)
+    public void onCancel(View view) {
+        dismiss();
+    }
+
+    @OnClick(R2.id.tv_confirm)
+    public void onConfirm(View view) {
+        if (TextUtils.isEmpty(wvBottom.getSelectedText())) {
+            return;
+        }
+        dismiss();
+        final int selected = wvBottom.getSelected();
+        if (listener != null) {
+            listener.onValueSelected(selected);
         }
     }
 

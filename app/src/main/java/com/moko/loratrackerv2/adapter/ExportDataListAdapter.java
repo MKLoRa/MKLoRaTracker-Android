@@ -7,7 +7,7 @@ import com.moko.loratrackerv2.entity.ExportData;
 
 public class ExportDataListAdapter extends BaseQuickAdapter<ExportData, BaseViewHolder> {
     public ExportDataListAdapter() {
-        super(R.layout.item_export_data);
+        super(R.layout.loratracker_item_export_data);
     }
 
     @Override

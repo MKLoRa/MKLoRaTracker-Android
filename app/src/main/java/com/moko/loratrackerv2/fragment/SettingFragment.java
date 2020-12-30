@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.activity.LoRaSettingActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
@@ -29,27 +30,27 @@ import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
-    @BindView(R.id.tv_change_password)
+    @BindView(R2.id.tv_change_password)
     TextView tvChangePassword;
-    @BindView(R.id.tv_factory_reset)
+    @BindView(R2.id.tv_factory_reset)
     TextView tvFactoryReset;
-    @BindView(R.id.tv_update_firmware)
+    @BindView(R2.id.tv_update_firmware)
     TextView tvUpdateFirmware;
-    @BindView(R.id.tv_lora_setting)
+    @BindView(R2.id.tv_lora_setting)
     TextView tvLoraSetting;
-    @BindView(R.id.tv_scan_window)
+    @BindView(R2.id.tv_scan_window)
     TextView tvScanWindow;
-    @BindView(R.id.iv_connectable)
+    @BindView(R2.id.iv_connectable)
     ImageView ivConnectable;
-    @BindView(R.id.iv_power_off)
+    @BindView(R2.id.iv_power_off)
     ImageView ivPowerOff;
-    @BindView(R.id.tv_lora_connectable)
+    @BindView(R2.id.tv_lora_connectable)
     TextView tvLoRaConnectable;
-    @BindView(R.id.tv_low_battery_value)
+    @BindView(R2.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
-    @BindView(R.id.tv_low_battery_tips)
+    @BindView(R2.id.tv_low_battery_tips)
     TextView tvLowBatteryTips;
-    @BindView(R.id.tv_device_info_interval_value)
+    @BindView(R2.id.tv_device_info_interval_value)
     TextView tvDeviceInfoIntervalValue;
     private String[] loraConnectable;
     private DeviceInfoActivity activity;
@@ -73,7 +74,7 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.loratracker_fragment_setting, container, false);
         ButterKnife.bind(this, view);
         activity = (DeviceInfoActivity) getActivity();
         loraConnectable = getResources().getStringArray(R.array.lora_connectable);
@@ -94,43 +95,52 @@ public class SettingFragment extends Fragment {
         super.onDestroy();
     }
 
-    @OnClick({R.id.tv_change_password, R.id.tv_factory_reset, R.id.tv_update_firmware,
-            R.id.tv_lora_setting, R.id.tv_scan_window, R.id.iv_connectable,
-            R.id.iv_power_off, R.id.tv_low_battery_value, R.id.tv_device_info_interval_value})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_change_password:
-                showChangePasswordDialog();
-                break;
-            case R.id.tv_factory_reset:
-                showResetDialog();
-                break;
-            case R.id.tv_update_firmware:
-                activity.chooseFirmwareFile();
-                break;
-            case R.id.tv_lora_setting:
-                // LORA
-                Intent intent = new Intent(getActivity(), LoRaSettingActivity.class);
-                activity.startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
-                break;
-            case R.id.tv_scan_window:
-                showBeaconScannerDialog();
-                break;
-            case R.id.iv_connectable:
-                showConnectableDialog();
-                break;
-            case R.id.iv_power_off:
-                showPowerOffDialog();
-                break;
-            case R.id.tv_low_battery_value:
-                showLowBatteryDialog();
-                break;
-            case R.id.tv_device_info_interval_value:
-                showIntervalDialog();
-                break;
-        }
+    @OnClick(R2.id.tv_change_password)
+    public void onChangePassword(View view) {
+        showChangePasswordDialog();
     }
 
+    @OnClick(R2.id.tv_factory_reset)
+    public void onFactoryReset(View view) {
+        showResetDialog();
+    }
+
+    @OnClick(R2.id.tv_update_firmware)
+    public void onUpdateFirmware(View view) {
+        activity.chooseFirmwareFile();
+    }
+
+    @OnClick(R2.id.tv_lora_setting)
+    public void onLoraSetting(View view) {
+        // LORA
+        Intent intent = new Intent(getActivity(), LoRaSettingActivity.class);
+        activity.startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
+    }
+
+    @OnClick(R2.id.tv_scan_window)
+    public void onScanWindow(View view) {
+        showBeaconScannerDialog();
+    }
+
+    @OnClick(R2.id.iv_connectable)
+    public void onConnectable(View view) {
+        showConnectableDialog();
+    }
+
+    @OnClick(R2.id.iv_power_off)
+    public void onPowerOff(View view) {
+        showPowerOffDialog();
+    }
+
+    @OnClick(R2.id.tv_low_battery_value)
+    public void onLowBatteryValue(View view) {
+        showLowBatteryDialog();
+    }
+
+    @OnClick(R2.id.tv_device_info_interval_value)
+    public void onDeviceInfoIntervalValue(View view) {
+        showIntervalDialog();
+    }
 
     private void showResetDialog() {
         AlertMessageDialog dialog = new AlertMessageDialog();
@@ -265,7 +275,7 @@ public class SettingFragment extends Fragment {
 
     public void setConnectable(int connectable) {
         connectState = connectable == 1;
-        ivConnectable.setImageResource(connectable == 1 ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+        ivConnectable.setImageResource(connectable == 1 ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
     }
 
     public void setLoRaConnectable(int connectable) {

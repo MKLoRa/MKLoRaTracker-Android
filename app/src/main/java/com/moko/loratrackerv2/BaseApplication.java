@@ -15,7 +15,6 @@ import com.elvishew.xlog.printer.file.FilePrinter;
 import com.elvishew.xlog.printer.file.naming.ChangelessFileNameGenerator;
 import com.moko.ble.lib.log.ClearLogBackStrategy;
 import com.moko.loratrackerv2.utils.IOUtils;
-import com.moko.support.loratracker.MokoSupport;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -34,7 +33,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initXLog();
-        MokoSupport.getInstance().init(getApplicationContext());
         Thread.setDefaultUncaughtExceptionHandler(new BTUncaughtExceptionHandler());
     }
 

@@ -27,10 +27,11 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 import com.moko.support.loratracker.entity.DataTypeEnum;
 import com.moko.support.loratracker.entity.OrderCHAR;
@@ -52,67 +53,67 @@ import butterknife.OnClick;
 public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R.id.sb_rssi_filter)
+    @BindView(R2.id.sb_rssi_filter)
     SeekBar sbRssiFilter;
-    @BindView(R.id.tv_rssi_filter_value)
+    @BindView(R2.id.tv_rssi_filter_value)
     TextView tvRssiFilterValue;
-    @BindView(R.id.tv_rssi_filter_tips)
+    @BindView(R2.id.tv_rssi_filter_tips)
     TextView tvRssiFilterTips;
-    @BindView(R.id.iv_mac_address)
+    @BindView(R2.id.iv_mac_address)
     ImageView ivMacAddress;
-    @BindView(R.id.et_mac_address)
+    @BindView(R2.id.et_mac_address)
     EditText etMacAddress;
-    @BindView(R.id.iv_adv_name)
+    @BindView(R2.id.iv_adv_name)
     ImageView ivAdvName;
-    @BindView(R.id.et_adv_name)
+    @BindView(R2.id.et_adv_name)
     EditText etAdvName;
-    @BindView(R.id.iv_ibeacon_major)
+    @BindView(R2.id.iv_ibeacon_major)
     ImageView ivIbeaconMajor;
-    @BindView(R.id.iv_ibeacon_minor)
+    @BindView(R2.id.iv_ibeacon_minor)
     ImageView ivIbeaconMinor;
-    @BindView(R.id.iv_raw_adv_data)
+    @BindView(R2.id.iv_raw_adv_data)
     ImageView ivRawAdvData;
-    @BindView(R.id.et_ibeacon_major_min)
+    @BindView(R2.id.et_ibeacon_major_min)
     EditText etIbeaconMajorMin;
-    @BindView(R.id.et_ibeacon_major_max)
+    @BindView(R2.id.et_ibeacon_major_max)
     EditText etIbeaconMajorMax;
-    @BindView(R.id.ll_ibeacon_major)
+    @BindView(R2.id.ll_ibeacon_major)
     LinearLayout llIbeaconMajor;
-    @BindView(R.id.et_ibeacon_minor_min)
+    @BindView(R2.id.et_ibeacon_minor_min)
     EditText etIbeaconMinorMin;
-    @BindView(R.id.et_ibeacon_minor_max)
+    @BindView(R2.id.et_ibeacon_minor_max)
     EditText etIbeaconMinorMax;
-    @BindView(R.id.ll_ibeacon_minor)
+    @BindView(R2.id.ll_ibeacon_minor)
     LinearLayout llIbeaconMinor;
-    @BindView(R.id.iv_raw_data_del)
+    @BindView(R2.id.iv_raw_data_del)
     ImageView ivRawDataDel;
-    @BindView(R.id.iv_raw_data_add)
+    @BindView(R2.id.iv_raw_data_add)
     ImageView ivRawDataAdd;
-    @BindView(R.id.ll_raw_data_filter)
+    @BindView(R2.id.ll_raw_data_filter)
     LinearLayout llRawDataFilter;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.cb_mac_address)
+    @BindView(R2.id.cb_mac_address)
     CheckBox cbMacAddress;
-    @BindView(R.id.cb_adv_name)
+    @BindView(R2.id.cb_adv_name)
     CheckBox cbAdvName;
-    @BindView(R.id.iv_ibeacon_uuid)
+    @BindView(R2.id.iv_ibeacon_uuid)
     ImageView ivIbeaconUuid;
-    @BindView(R.id.cb_ibeacon_uuid)
+    @BindView(R2.id.cb_ibeacon_uuid)
     CheckBox cbIbeaconUuid;
-    @BindView(R.id.et_ibeacon_uuid)
+    @BindView(R2.id.et_ibeacon_uuid)
     EditText etIbeaconUuid;
-    @BindView(R.id.cb_ibeacon_major)
+    @BindView(R2.id.cb_ibeacon_major)
     CheckBox cbIbeaconMajor;
-    @BindView(R.id.cb_ibeacon_minor)
+    @BindView(R2.id.cb_ibeacon_minor)
     CheckBox cbIbeaconMinor;
-    @BindView(R.id.cb_raw_adv_data)
+    @BindView(R2.id.cb_raw_adv_data)
     CheckBox cbRawAdvData;
-    @BindView(R.id.tv_condition)
+    @BindView(R2.id.tv_condition)
     TextView tvCondition;
-    @BindView(R.id.iv_condition)
+    @BindView(R2.id.iv_condition)
     ImageView ivCondition;
-    @BindView(R.id.tv_condition_tips)
+    @BindView(R2.id.tv_condition_tips)
     TextView tvConditionTips;
     private boolean mReceiverTag = false;
     private Pattern pattern;
@@ -123,7 +124,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filter);
+        setContentView(R.layout.loratracker_activity_filter);
         ButterKnife.bind(this);
 
         tvTitle.setText("FILTER Condition B");
@@ -193,8 +194,8 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
         mReceiverTag = true;
-        if (!MokoSupport.getInstance().isBluetoothOpen()) {
-            MokoSupport.getInstance().enableBluetooth();
+        if (!LoRaTrackerMokoSupport.getInstance().isBluetoothOpen()) {
+            LoRaTrackerMokoSupport.getInstance().enableBluetooth();
         } else {
             showSyncingProgressDialog();
             List<OrderTask> orderTasks = new ArrayList<>();
@@ -206,7 +207,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
             orderTasks.add(OrderTaskAssembler.getFilterMajorRangeB());
             orderTasks.add(OrderTaskAssembler.getFilterMinorRangeB());
             orderTasks.add(OrderTaskAssembler.getFilterAdvRawDataB());
-            MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
     }
 
@@ -287,7 +288,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length == 1) {
                                             final int enable = value[4] & 0xFF;
                                             filterSwitchEnable = enable == 1;
-                                            ivCondition.setImageResource(filterSwitchEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivCondition.setImageResource(filterSwitchEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                         }
                                         break;
                                     case KEY_TRACKING_FILTER_RSSI_B:
@@ -303,7 +304,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMacEnable = enable > 0;
-                                            ivMacAddress.setImageResource(filterMacEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivMacAddress.setImageResource(filterMacEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             etMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
                                             cbMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
                                             cbMacAddress.setChecked(enable > 1);
@@ -318,7 +319,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterNameEnable = enable > 0;
-                                            ivAdvName.setImageResource(filterNameEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivAdvName.setImageResource(filterNameEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             etAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
                                             cbAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
                                             cbAdvName.setChecked(enable > 1);
@@ -333,7 +334,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterUUIDEnable = enable > 0;
-                                            ivIbeaconUuid.setImageResource(filterUUIDEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivIbeaconUuid.setImageResource(filterUUIDEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             etIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconUuid.setChecked(enable > 1);
@@ -353,7 +354,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMajorEnable = enable > 0;
-                                            ivIbeaconMajor.setImageResource(filterMajorEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivIbeaconMajor.setImageResource(filterMajorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             llIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMajor.setChecked(enable > 1);
@@ -371,7 +372,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMinorEnable = enable > 0;
-                                            ivIbeaconMinor.setImageResource(filterMinorEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivIbeaconMinor.setImageResource(filterMinorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             llIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMinor.setChecked(enable > 1);
@@ -389,7 +390,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterRawAdvDataEnable = enable > 5;
-                                            ivRawAdvData.setImageResource(filterRawAdvDataEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
+                                            ivRawAdvData.setImageResource(filterRawAdvDataEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                             llRawDataFilter.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
                                             ivRawDataAdd.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
                                             ivRawDataDel.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
@@ -398,7 +399,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             if (length > 1) {
                                                 byte[] rawDataBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 for (int i = 0, l = rawDataBytes.length; i < l; ) {
-                                                    View v = LayoutInflater.from(FilterOptionsBActivity.this).inflate(R.layout.item_raw_data_filter, llRawDataFilter, false);
+                                                    View v = LayoutInflater.from(FilterOptionsBActivity.this).inflate(R.layout.loratracker_item_raw_data_filter, llRawDataFilter, false);
                                                     EditText etDataType = v.findViewById(R.id.et_data_type);
                                                     EditText etMin = v.findViewById(R.id.et_min);
                                                     EditText etMax = v.findViewById(R.id.et_max);
@@ -486,85 +487,98 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
     private boolean filterMinorEnable;
     private boolean filterRawAdvDataEnable;
 
-    @OnClick({R.id.tv_back, R.id.iv_save, R.id.iv_mac_address, R.id.iv_adv_name,
-            R.id.iv_ibeacon_uuid, R.id.iv_condition,
-            R.id.iv_ibeacon_major, R.id.iv_ibeacon_minor, R.id.iv_raw_adv_data,
-            R.id.iv_raw_data_add, R.id.iv_raw_data_del})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_back:
-                finish();
-                break;
-            case R.id.iv_save:
-                if (isValid()) {
-                    showSyncingProgressDialog();
-                    saveParams();
-                } else {
-                    ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
-                }
-                break;
-            case R.id.iv_mac_address:
-                filterMacEnable = !filterMacEnable;
-                ivMacAddress.setImageResource(filterMacEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                etMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_adv_name:
-                filterNameEnable = !filterNameEnable;
-                ivAdvName.setImageResource(filterNameEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                etAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_ibeacon_uuid:
-                filterUUIDEnable = !filterUUIDEnable;
-                ivIbeaconUuid.setImageResource(filterUUIDEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                etIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_ibeacon_major:
-                filterMajorEnable = !filterMajorEnable;
-                ivIbeaconMajor.setImageResource(filterMajorEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                llIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_ibeacon_minor:
-                filterMinorEnable = !filterMinorEnable;
-                ivIbeaconMinor.setImageResource(filterMinorEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                llIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_raw_adv_data:
-                filterRawAdvDataEnable = !filterRawAdvDataEnable;
-                ivRawAdvData.setImageResource(filterRawAdvDataEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                llRawDataFilter.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
-                ivRawDataAdd.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
-                ivRawDataDel.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.iv_raw_data_add:
-                int count = llRawDataFilter.getChildCount();
-                if (count > 4) {
-                    ToastUtils.showToast(this, "You can set up to 5 filters!");
-                    return;
-                }
-                View v = LayoutInflater.from(this).inflate(R.layout.item_raw_data_filter, llRawDataFilter, false);
-                llRawDataFilter.addView(v);
-                break;
-            case R.id.iv_raw_data_del:
-                final int c = llRawDataFilter.getChildCount();
-                if (c == 0) {
-                    ToastUtils.showToast(this, "There are currently no filters to delete");
-                    return;
-                }
-                AlertMessageDialog dialog = new AlertMessageDialog();
-                dialog.setTitle("Warning");
-                dialog.setMessage("Please confirm whether to delete  a filter option，If yes，the last option will be deleted. ");
-                dialog.setOnAlertConfirmListener(() -> {
-                    if (c > 0) {
-                        llRawDataFilter.removeViewAt(c - 1);
-                    }
-                });
-                dialog.show(getSupportFragmentManager());
-                break;
-            case R.id.iv_condition:
-                filterSwitchEnable = !filterSwitchEnable;
-                ivCondition.setImageResource(filterSwitchEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
-                break;
+    @OnClick(R2.id.tv_back)
+    public void onBack(View view) {
+        finish();
+    }
+
+    @OnClick(R2.id.iv_save)
+    public void onSave(View view) {
+        if (isValid()) {
+            showSyncingProgressDialog();
+            saveParams();
+        } else {
+            ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
         }
+    }
+
+    @OnClick(R2.id.iv_mac_address)
+    public void onMacAddress(View view) {
+        filterMacEnable = !filterMacEnable;
+        ivMacAddress.setImageResource(filterMacEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        etMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_adv_name)
+    public void onAdvName(View view) {
+        filterNameEnable = !filterNameEnable;
+        ivAdvName.setImageResource(filterNameEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        etAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_ibeacon_uuid)
+    public void oniBeaconUUID(View view) {
+        filterUUIDEnable = !filterUUIDEnable;
+        ivIbeaconUuid.setImageResource(filterUUIDEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        etIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_ibeacon_major)
+    public void oniBeaconMajor(View view) {
+        filterMajorEnable = !filterMajorEnable;
+        ivIbeaconMajor.setImageResource(filterMajorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        llIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_ibeacon_minor)
+    public void oniBeaconMinor(View view) {
+        filterMinorEnable = !filterMinorEnable;
+        ivIbeaconMinor.setImageResource(filterMinorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        llIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_raw_adv_data)
+    public void onRawAdvData(View view) {
+        filterRawAdvDataEnable = !filterRawAdvDataEnable;
+        ivRawAdvData.setImageResource(filterRawAdvDataEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
+        llRawDataFilter.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
+        ivRawDataAdd.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
+        ivRawDataDel.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
+    }
+
+    @OnClick(R2.id.iv_raw_data_add)
+    public void onRawDataAdd(View view) {
+        int count = llRawDataFilter.getChildCount();
+        if (count > 4) {
+            ToastUtils.showToast(this, "You can set up to 5 filters!");
+            return;
+        }
+        View v = LayoutInflater.from(this).inflate(R.layout.loratracker_item_raw_data_filter, llRawDataFilter, false);
+        llRawDataFilter.addView(v);
+    }
+
+    @OnClick(R2.id.iv_raw_data_del)
+    public void onRawDataDel(View view) {
+        final int c = llRawDataFilter.getChildCount();
+        if (c == 0) {
+            ToastUtils.showToast(this, "There are currently no filters to delete");
+            return;
+        }
+        AlertMessageDialog dialog = new AlertMessageDialog();
+        dialog.setTitle("Warning");
+        dialog.setMessage("Please confirm whether to delete  a filter option，If yes，the last option will be deleted. ");
+        dialog.setOnAlertConfirmListener(() -> {
+            if (c > 0) {
+                llRawDataFilter.removeViewAt(c - 1);
+            }
+        });
+        dialog.show(getSupportFragmentManager());
+    }
+
+    @OnClick(R2.id.iv_condition)
+    public void onCondition(View view) {
+        filterSwitchEnable = !filterSwitchEnable;
+        ivCondition.setImageResource(filterSwitchEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
     }
 
     private void saveParams() {
@@ -598,7 +612,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                 , cbRawAdvData.isChecked()));
         orderTasks.add(OrderTaskAssembler.setFilterSwitchB(filterSwitchEnable ? 1 : 0));
 
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     private boolean isValid() {

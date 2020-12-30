@@ -14,11 +14,12 @@ import android.widget.TextView;
 
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.activity.FilterOptionsAActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 
 import java.util.ArrayList;
@@ -31,31 +32,31 @@ import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class ScannerFragment extends Fragment {
     private static final String TAG = ScannerFragment.class.getSimpleName();
-    @BindView(R.id.sb_scan_interval)
+    @BindView(R2.id.sb_scan_interval)
     SeekBar sbScanInterval;
-    @BindView(R.id.tv_scan_interval_value)
+    @BindView(R2.id.tv_scan_interval_value)
     TextView tvScanIntervalValue;
-    @BindView(R.id.tv_scan_interval_tips)
+    @BindView(R2.id.tv_scan_interval_tips)
     TextView tvScanIntervalTips;
-    @BindView(R.id.npv_alarm_notify)
+    @BindView(R2.id.npv_alarm_notify)
     NumberPickerView npvAlarmNotify;
-    @BindView(R.id.sb_alarm_trigger_rssi)
+    @BindView(R2.id.sb_alarm_trigger_rssi)
     SeekBar sbAlarmTriggerRssi;
-    @BindView(R.id.tv_alarm_trigger_rssi_value)
+    @BindView(R2.id.tv_alarm_trigger_rssi_value)
     TextView tvAlarmTriggerRssiValue;
-    @BindView(R.id.tv_alarm_trigger_rssi_tips)
+    @BindView(R2.id.tv_alarm_trigger_rssi_tips)
     TextView tvAlarmTriggerRssiTips;
-    @BindView(R.id.et_vibration_cycle)
+    @BindView(R2.id.et_vibration_cycle)
     EditText etVibrationCycle;
-    @BindView(R.id.et_vibration_duration)
+    @BindView(R2.id.et_vibration_duration)
     EditText etVibrationDuration;
-    @BindView(R.id.npv_vibration_intensity)
+    @BindView(R2.id.npv_vibration_intensity)
     NumberPickerView npvVibrationIntensity;
-    @BindView(R.id.tv_warning_range)
+    @BindView(R2.id.tv_warning_range)
     TextView tvWarningRange;
-    @BindView(R.id.tv_warning_value)
+    @BindView(R2.id.tv_warning_value)
     TextView tvWarningValue;
-    @BindView(R.id.tv_warning_tips)
+    @BindView(R2.id.tv_warning_tips)
     TextView tvWarningTips;
 
     private DeviceInfoActivity activity;
@@ -79,7 +80,7 @@ public class ScannerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.fragment_scanner, container, false);
+        View view = inflater.inflate(R.layout.loratracker_fragment_scanner, container, false);
         ButterKnife.bind(this, view);
         activity = (DeviceInfoActivity) getActivity();
         sbScanInterval.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -150,24 +151,22 @@ public class ScannerFragment extends Fragment {
     }
 
 
-    @OnClick({R.id.tv_filter_options, R.id.tv_warning_value})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_filter_options:
-                startActivity(new Intent(getActivity(), FilterOptionsAActivity.class));
-                break;
-            case R.id.tv_warning_value:
-                BottomDialog dialog = new BottomDialog();
-                dialog.setDatas(warningRssiList, warningRssiListIndex);
-                dialog.setListener(value -> {
-                    warningRssiListIndex = value;
-                    warningRssiValue = value - 127;
-                    tvWarningValue.setText(String.valueOf(warningRssiValue));
-                    tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
-                });
-                dialog.show(activity.getSupportFragmentManager());
-                break;
-        }
+    @OnClick(R2.id.tv_filter_options)
+    public void onFilterOptions(View view) {
+        startActivity(new Intent(getActivity(), FilterOptionsAActivity.class));
+    }
+
+    @OnClick(R2.id.tv_warning_value)
+    public void onWarningValue(View view) {
+        BottomDialog dialog = new BottomDialog();
+        dialog.setDatas(warningRssiList, warningRssiListIndex);
+        dialog.setListener(value -> {
+            warningRssiListIndex = value;
+            warningRssiValue = value - 127;
+            tvWarningValue.setText(String.valueOf(warningRssiValue));
+            tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
+        });
+        dialog.show(activity.getSupportFragmentManager());
     }
 
     public boolean isValid() {
@@ -236,7 +235,7 @@ public class ScannerFragment extends Fragment {
         orderTasks.add(OrderTaskAssembler.setWarningRssi(rssi));
         orderTasks.add(OrderTaskAssembler.setAlarmTriggerRssi(rssi));
 
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     public void setScanInterval(int time) {

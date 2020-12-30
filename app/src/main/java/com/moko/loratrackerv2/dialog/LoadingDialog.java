@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.view.ProgressDrawable;
 
 import androidx.core.content.ContextCompat;
@@ -14,19 +15,19 @@ import butterknife.ButterKnife;
 public class LoadingDialog extends MokoBaseDialog {
 
     public static final String TAG = LoadingDialog.class.getSimpleName();
-    @BindView(R.id.iv_loading)
+    @BindView(R2.id.iv_loading)
     ImageView ivLoading;
 
     @Override
     public int getLayoutRes() {
-        return R.layout.dialog_loading;
+        return R.layout.loratracker_dialog_loading;
     }
 
     @Override
     public void bindView(View v) {
         ButterKnife.bind(this, v);
         ProgressDrawable progressDrawable = new ProgressDrawable();
-        progressDrawable.setColor(ContextCompat.getColor(getContext(), R.color.text_black_4d4d4d));
+        progressDrawable.setColor(ContextCompat.getColor(getContext(), R.color.loratracker_text_black_4d4d4d));
         ivLoading.setImageDrawable(progressDrawable);
         progressDrawable.start();
     }
@@ -34,7 +35,7 @@ public class LoadingDialog extends MokoBaseDialog {
 
     @Override
     public int getDialogStyle() {
-        return R.style.CenterDialog;
+        return R.style.LoraTrackerCenterDialog;
     }
 
     @Override

@@ -21,7 +21,7 @@ public abstract class BaseDialog<T> extends Dialog {
     private Animation animation;
 
     public BaseDialog(Context context) {
-        super(context, R.style.BaseDialogTheme);
+        super(context, R.style.LoraTrackerBaseDialogTheme);
     }
 
     public BaseDialog(Context context, int themeResId) {

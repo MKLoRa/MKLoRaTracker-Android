@@ -33,6 +33,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.fragment.AdvFragment;
@@ -42,7 +43,7 @@ import com.moko.loratrackerv2.fragment.SettingFragment;
 import com.moko.loratrackerv2.service.DfuService;
 import com.moko.loratrackerv2.utils.FileUtils;
 import com.moko.loratrackerv2.utils.ToastUtils;
-import com.moko.support.loratracker.MokoSupport;
+import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 import com.moko.support.loratracker.entity.OrderCHAR;
 import com.moko.support.loratracker.entity.ParamsKeyEnum;
@@ -69,21 +70,21 @@ import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
 public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     public static final int REQUEST_CODE_SELECT_FIRMWARE = 0x10;
 
-    @BindView(R.id.frame_container)
+    @BindView(R2.id.frame_container)
     FrameLayout frameContainer;
-    @BindView(R.id.radioBtn_adv)
+    @BindView(R2.id.radioBtn_adv)
     RadioButton radioBtnAdv;
-    @BindView(R.id.radioBtn_scanner)
+    @BindView(R2.id.radioBtn_scanner)
     RadioButton radioBtnScanner;
-    @BindView(R.id.radioBtn_setting)
+    @BindView(R2.id.radioBtn_setting)
     RadioButton radioBtnSetting;
-    @BindView(R.id.radioBtn_device)
+    @BindView(R2.id.radioBtn_device)
     RadioButton radioBtnDevice;
-    @BindView(R.id.rg_options)
+    @BindView(R2.id.rg_options)
     RadioGroup rgOptions;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_save)
+    @BindView(R2.id.iv_save)
     ImageView ivSave;
     private FragmentManager fragmentManager;
     private AdvFragment advFragment;
@@ -98,7 +99,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_info);
+        setContentView(R.layout.loratracker_activity_device_info);
         ButterKnife.bind(this);
         fragmentManager = getFragmentManager();
         initFragment();
@@ -111,8 +112,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
         mReceiverTag = true;
-        if (!MokoSupport.getInstance().isBluetoothOpen()) {
-            MokoSupport.getInstance().enableBluetooth();
+        if (!LoRaTrackerMokoSupport.getInstance().isBluetoothOpen()) {
+            LoRaTrackerMokoSupport.getInstance().enableBluetooth();
         } else {
             showSyncingProgressDialog();
             List<OrderTask> orderTasks = new ArrayList<>();
@@ -126,7 +127,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             orderTasks.add(OrderTaskAssembler.getAdvInterval());
             orderTasks.add(OrderTaskAssembler.getTransmission());
             orderTasks.add(OrderTaskAssembler.getMeasurePower());
-            MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
     }
 
@@ -468,7 +469,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             });
             dialog.show(getSupportFragmentManager());
         } else {
-            if (MokoSupport.getInstance().isBluetoothOpen() && !isUpgrade) {
+            if (LoRaTrackerMokoSupport.getInstance().isBluetoothOpen() && !isUpgrade) {
                 AlertMessageDialog dialog = new AlertMessageDialog();
                 dialog.setTitle("Dismiss");
                 dialog.setMessage("The Beacon disconnected!");
@@ -545,7 +546,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                     List<OrderTask> orderTasks = new ArrayList<>();
                     // setting
                     orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
-                    MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+                    LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
                 }, 500);
             }
         }
@@ -576,37 +577,35 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             mLoadingMessageDialog.dismissAllowingStateLoss();
     }
 
-    @OnClick({R.id.tv_back, R.id.iv_save})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_back:
-                back();
-                break;
-            case R.id.iv_save:
-                if (radioBtnAdv.isChecked()) {
-                    if (advFragment.isValid()) {
-                        showSyncingProgressDialog();
-                        advFragment.saveParams();
-                    } else {
-                        ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
-                    }
+    @OnClick(R2.id.tv_back)
+    public void onBack(View view) {
+        back();
+    }
+
+    @OnClick(R2.id.iv_save)
+    public void onSave(View view) {
+        if (radioBtnAdv.isChecked()) {
+            if (advFragment.isValid()) {
+                showSyncingProgressDialog();
+                advFragment.saveParams();
+            } else {
+                ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
+            }
+        }
+        if (radioBtnScanner.isChecked()) {
+            if (scannerFragment.isValid()) {
+                if (scannerFragment.isDurationLessThanCycle()) {
+                    showSyncingProgressDialog();
+                    scannerFragment.saveParams();
                 }
-                if (radioBtnScanner.isChecked()) {
-                    if (scannerFragment.isValid()) {
-                        if (scannerFragment.isDurationLessThanCycle()) {
-                            showSyncingProgressDialog();
-                            scannerFragment.saveParams();
-                        }
-                    } else {
-                        ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
-                    }
-                }
-                break;
+            } else {
+                ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
+            }
         }
     }
 
     private void back() {
-        MokoSupport.getInstance().disConnectBle();
+        LoRaTrackerMokoSupport.getInstance().disConnectBle();
 //        mIsClose = false;
     }
 
@@ -621,19 +620,14 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        switch (checkedId) {
-            case R.id.radioBtn_adv:
-                showAdvAndGetData();
-                break;
-            case R.id.radioBtn_scanner:
-                showScannerAndGetData();
-                break;
-            case R.id.radioBtn_setting:
-                showSettingAndGetData();
-                break;
-            case R.id.radioBtn_device:
-                showDeviceAndGetData();
-                break;
+        if (checkedId == R.id.radioBtn_adv) {
+            showAdvAndGetData();
+        } else if (checkedId == R.id.radioBtn_scanner) {
+            showScannerAndGetData();
+        } else if (checkedId == R.id.radioBtn_setting) {
+            showSettingAndGetData();
+        } else if (checkedId == R.id.radioBtn_device) {
+            showDeviceAndGetData();
         }
     }
 
@@ -656,7 +650,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getFirmwareVersion());
         orderTasks.add(OrderTaskAssembler.getHardwareVersion());
         orderTasks.add(OrderTaskAssembler.getManufacturer());
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     private void showSettingAndGetData() {
@@ -677,7 +671,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getLowBattery());
         orderTasks.add(OrderTaskAssembler.getDeviceInfoInterval());
         orderTasks.add(OrderTaskAssembler.getMacAddress());
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     private void showScannerAndGetData() {
@@ -699,7 +693,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getVibrationCycle());
         orderTasks.add(OrderTaskAssembler.getVibrationDuration());
         orderTasks.add(OrderTaskAssembler.getWarningRssi());
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     private void showAdvAndGetData() {
@@ -721,43 +715,43 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getAdvInterval());
         orderTasks.add(OrderTaskAssembler.getTransmission());
         orderTasks.add(OrderTaskAssembler.getMeasurePower());
-        MokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
 
     public void changePassword(String password) {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.changePassword(password));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.changePassword(password));
     }
 
     public void reset() {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setReset());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setReset());
     }
 
     public void setScanWindow(int scannerState, int startTime) {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setScanWindow(scannerState, startTime), OrderTaskAssembler.getScanWindow());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setScanWindow(scannerState, startTime), OrderTaskAssembler.getScanWindow());
     }
 
     public void changeConnectState(int connectState) {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setConnectionMode(connectState), OrderTaskAssembler.getConnectable());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setConnectionMode(connectState), OrderTaskAssembler.getConnectable());
     }
 
     public void powerOff() {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.closePower());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.closePower());
     }
 
     public void setLowBattery(int lowBattery) {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setLowBattery(lowBattery));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setLowBattery(lowBattery));
     }
 
     public void setDeviceInfoInterval(int interval) {
         showSyncingProgressDialog();
-        MokoSupport.getInstance().sendOrder(OrderTaskAssembler.setDeviceInfoInterval(interval));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setDeviceInfoInterval(interval));
     }
 
     public void chooseFirmwareFile() {

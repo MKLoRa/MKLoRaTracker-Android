@@ -168,23 +168,23 @@ public class WheelView extends View {
      */
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray attribute = context.obtainStyledAttributes(attrs, R.styleable.WheelView);
-        unitHeight = (int) attribute.getDimension(R.styleable.WheelView_unitHeight, unitHeight);
-        itemNumber = attribute.getInt(R.styleable.WheelView_itemNumber, itemNumber);
+        TypedArray attribute = context.obtainStyledAttributes(attrs, R.styleable.LoRaTrackerWheelView);
+        unitHeight = (int) attribute.getDimension(R.styleable.LoRaTrackerWheelView_unitHeight, unitHeight);
+        itemNumber = attribute.getInt(R.styleable.LoRaTrackerWheelView_itemNumber, itemNumber);
 
-        normalFont = attribute.getDimension(R.styleable.WheelView_normalTextSize, normalFont);
-        selectedFont = attribute.getDimension(R.styleable.WheelView_selectedTextSize, selectedFont);
-        normalColor = attribute.getColor(R.styleable.WheelView_normalTextColor, normalColor);
-        selectedColor = attribute.getColor(R.styleable.WheelView_selectedTextColor, selectedColor);
+        normalFont = attribute.getDimension(R.styleable.LoRaTrackerWheelView_normalTextSize, normalFont);
+        selectedFont = attribute.getDimension(R.styleable.LoRaTrackerWheelView_selectedTextSize, selectedFont);
+        normalColor = attribute.getColor(R.styleable.LoRaTrackerWheelView_normalTextColor, normalColor);
+        selectedColor = attribute.getColor(R.styleable.LoRaTrackerWheelView_selectedTextColor, selectedColor);
 
-        lineColor = attribute.getColor(R.styleable.WheelView_lineColor, lineColor);
-        lineHeight = attribute.getDimension(R.styleable.WheelView_lineHeight, lineHeight);
+        lineColor = attribute.getColor(R.styleable.LoRaTrackerWheelView_lineColor, lineColor);
+        lineHeight = attribute.getDimension(R.styleable.LoRaTrackerWheelView_lineHeight, lineHeight);
 
-        selectedBgColor = attribute.getColor(R.styleable.WheelView_selectedBgColor, selectedBgColor);
+        selectedBgColor = attribute.getColor(R.styleable.LoRaTrackerWheelView_selectedBgColor, selectedBgColor);
 
-        maskHeight = attribute.getDimension(R.styleable.WheelView_maskHeight, maskHeight);
-        noEmpty = attribute.getBoolean(R.styleable.WheelView_noEmpty, true);
-        isEnable = attribute.getBoolean(R.styleable.WheelView_isEnable, true);
+        maskHeight = attribute.getDimension(R.styleable.LoRaTrackerWheelView_maskHeight, maskHeight);
+        noEmpty = attribute.getBoolean(R.styleable.LoRaTrackerWheelView_noEmpty, true);
+        isEnable = attribute.getBoolean(R.styleable.LoRaTrackerWheelView_isEnable, true);
 
         attribute.recycle();
 
