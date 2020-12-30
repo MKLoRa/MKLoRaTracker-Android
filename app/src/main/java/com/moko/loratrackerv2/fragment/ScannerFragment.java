@@ -1,7 +1,6 @@
 package com.moko.loratrackerv2.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,9 +13,7 @@ import android.widget.TextView;
 
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
-import com.moko.loratrackerv2.activity.FilterOptionsAActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.support.loratracker.LoRaTrackerMokoSupport;
@@ -27,36 +24,35 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class ScannerFragment extends Fragment {
     private static final String TAG = ScannerFragment.class.getSimpleName();
-    @BindView(R2.id.sb_scan_interval)
+    @BindView(R.id.sb_scan_interval)
     SeekBar sbScanInterval;
-    @BindView(R2.id.tv_scan_interval_value)
+    @BindView(R.id.tv_scan_interval_value)
     TextView tvScanIntervalValue;
-    @BindView(R2.id.tv_scan_interval_tips)
+    @BindView(R.id.tv_scan_interval_tips)
     TextView tvScanIntervalTips;
-    @BindView(R2.id.npv_alarm_notify)
+    @BindView(R.id.npv_alarm_notify)
     NumberPickerView npvAlarmNotify;
-    @BindView(R2.id.sb_alarm_trigger_rssi)
+    @BindView(R.id.sb_alarm_trigger_rssi)
     SeekBar sbAlarmTriggerRssi;
-    @BindView(R2.id.tv_alarm_trigger_rssi_value)
+    @BindView(R.id.tv_alarm_trigger_rssi_value)
     TextView tvAlarmTriggerRssiValue;
-    @BindView(R2.id.tv_alarm_trigger_rssi_tips)
+    @BindView(R.id.tv_alarm_trigger_rssi_tips)
     TextView tvAlarmTriggerRssiTips;
-    @BindView(R2.id.et_vibration_cycle)
+    @BindView(R.id.et_vibration_cycle)
     EditText etVibrationCycle;
-    @BindView(R2.id.et_vibration_duration)
+    @BindView(R.id.et_vibration_duration)
     EditText etVibrationDuration;
-    @BindView(R2.id.npv_vibration_intensity)
+    @BindView(R.id.npv_vibration_intensity)
     NumberPickerView npvVibrationIntensity;
-    @BindView(R2.id.tv_warning_range)
+    @BindView(R.id.tv_warning_range)
     TextView tvWarningRange;
-    @BindView(R2.id.tv_warning_value)
+    @BindView(R.id.tv_warning_value)
     TextView tvWarningValue;
-    @BindView(R2.id.tv_warning_tips)
+    @BindView(R.id.tv_warning_tips)
     TextView tvWarningTips;
 
     private DeviceInfoActivity activity;
@@ -150,14 +146,7 @@ public class ScannerFragment extends Fragment {
         super.onDestroy();
     }
 
-
-    @OnClick(R2.id.tv_filter_options)
-    public void onFilterOptions(View view) {
-        startActivity(new Intent(getActivity(), FilterOptionsAActivity.class));
-    }
-
-    @OnClick(R2.id.tv_warning_value)
-    public void onWarningValue(View view) {
+    public void showWarningRssiDialog() {
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(warningRssiList, warningRssiListIndex);
         dialog.setListener(value -> {

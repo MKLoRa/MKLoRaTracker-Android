@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.entity.Region;
 import com.moko.loratrackerv2.view.WheelView;
 
@@ -18,7 +17,7 @@ import butterknife.OnClick;
 public class RegionBottomDialog extends MokoBaseDialog {
 
 
-    @BindView(R2.id.wv_bottom)
+    @BindView(R.id.wv_bottom)
     WheelView wvBottom;
     private ArrayList<Region> mDatas;
     private HashMap<Integer, Region> regionHashMap;
@@ -53,12 +52,12 @@ public class RegionBottomDialog extends MokoBaseDialog {
         return 0.7f;
     }
 
-    @OnClick(R2.id.tv_cancel)
+    @OnClick(R.id.tv_cancel)
     public void onCancel(View view) {
         dismiss();
     }
 
-    @OnClick(R2.id.tv_confirm)
+    @OnClick(R.id.tv_confirm)
     public void onConfirm(View view) {
         if (TextUtils.isEmpty(wvBottom.getSelectedText())) {
             return;

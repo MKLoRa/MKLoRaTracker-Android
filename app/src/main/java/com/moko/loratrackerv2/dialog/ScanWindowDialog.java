@@ -6,16 +6,15 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ScanWindowDialog extends BaseDialog<Integer> implements SeekBar.OnSeekBarChangeListener {
 
-    @BindView(R2.id.sb_scan_window)
+    @BindView(R.id.sb_scan_window)
     SeekBar sbScanWindow;
-    @BindView(R2.id.tv_scan_window_value)
+    @BindView(R.id.tv_scan_window_value)
     TextView tvScanWindowValue;
 
     public ScanWindowDialog(Context context) {
@@ -52,12 +51,12 @@ public class ScanWindowDialog extends BaseDialog<Integer> implements SeekBar.OnS
         sbScanWindow.setOnSeekBarChangeListener(this);
     }
 
-    @OnClick(R2.id.tv_cancel)
+    @OnClick(R.id.tv_cancel)
     public void onCancel(View view) {
         dismiss();
     }
 
-    @OnClick(R2.id.tv_ensure)
+    @OnClick(R.id.tv_ensure)
     public void onEnsure(View view) {
         int progress = sbScanWindow.getProgress();
         dismiss();

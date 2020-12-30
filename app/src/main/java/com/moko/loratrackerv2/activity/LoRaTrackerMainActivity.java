@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Message;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,7 +25,6 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.adapter.BeaconListAdapter;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingDialog;
@@ -32,7 +32,6 @@ import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.dialog.PasswordDialog;
 import com.moko.loratrackerv2.dialog.ScanFilterDialog;
 import com.moko.loratrackerv2.entity.BeaconInfo;
-import com.moko.loratrackerv2.utils.BaseMessageHandler;
 import com.moko.loratrackerv2.utils.BeaconInfoParseableImpl;
 import com.moko.loratrackerv2.utils.SPUtiles;
 import com.moko.loratrackerv2.utils.ToastUtils;
@@ -62,20 +61,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDeviceCallback, BaseQuickAdapter.OnItemChildClickListener {
-    @BindView(R2.id.iv_refresh)
+    @BindView(R.id.iv_refresh)
     ImageView ivRefresh;
-    @BindView(R2.id.rv_devices)
+    @BindView(R.id.rv_devices)
     RecyclerView rvDevices;
-    @BindView(R2.id.tv_device_num)
+    @BindView(R.id.tv_device_num)
     TextView tvDeviceNum;
-    @BindView(R2.id.rl_edit_filter)
+    @BindView(R.id.rl_edit_filter)
     RelativeLayout rl_edit_filter;
-    @BindView(R2.id.rl_filter)
+    @BindView(R.id.rl_filter)
     RelativeLayout rl_filter;
-    @BindView(R2.id.tv_filter)
+    @BindView(R.id.tv_filter)
     TextView tv_filter;
     private boolean mReceiverTag = false;
     private HashMap<String, BeaconInfo> beaconInfoHashMap;
@@ -83,6 +81,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
     private BeaconListAdapter adapter;
     private Animation animation = null;
     private MokoBleScanner mokoBleScanner;
+    public Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.loratracker_shape_recycleview_divider));
         rvDevices.addItemDecoration(itemDecoration);
         rvDevices.setAdapter(adapter);
-        mHandler = new CunstomHandler(this);
+        mHandler = new Handler(Looper.getMainLooper());
         mokoBleScanner = new MokoBleScanner(this);
         EventBus.getDefault().register(this);
         IntentFilter filter = new IntentFilter();
@@ -214,7 +213,6 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         });
     }
 
-    @OnClick(R2.id.iv_refresh)
     public void onRefresh(View view) {
         if (isWindowLocked())
             return;
@@ -230,22 +228,12 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         }
     }
 
-    @OnClick(R2.id.iv_about)
     public void onAbout(View view) {
         startActivity(new Intent(this, AboutActivity.class));
     }
 
-    @OnClick(R2.id.rl_edit_filter)
-    public void onEditFilter(View view) {
-        onFilter();
-    }
 
-    @OnClick(R2.id.rl_filter)
     public void onFilter(View view) {
-        onFilter();
-    }
-
-    private void onFilter() {
         if (animation != null) {
             mHandler.removeMessages(0);
             mokoBleScanner.stopScanDevice();
@@ -292,7 +280,6 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         scanFilterDialog.show();
     }
 
-    @OnClick(R2.id.iv_filter_delete)
     public void onFilterDelete(View view) {
         if (animation != null) {
             mHandler.removeMessages(0);
@@ -509,18 +496,5 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
             unregisterReceiver(mReceiver);
         }
         EventBus.getDefault().unregister(this);
-    }
-
-    public CunstomHandler mHandler;
-
-    public class CunstomHandler extends BaseMessageHandler<LoRaTrackerMainActivity> {
-
-        public CunstomHandler(LoRaTrackerMainActivity activity) {
-            super(activity);
-        }
-
-        @Override
-        protected void handleMessage(LoRaTrackerMainActivity activity, Message msg) {
-        }
     }
 }

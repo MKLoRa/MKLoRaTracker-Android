@@ -33,7 +33,6 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.fragment.AdvFragment;
@@ -61,7 +60,6 @@ import androidx.annotation.IdRes;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import no.nordicsemi.android.dfu.DfuProgressListener;
 import no.nordicsemi.android.dfu.DfuProgressListenerAdapter;
 import no.nordicsemi.android.dfu.DfuServiceInitiator;
@@ -70,21 +68,21 @@ import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
 public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     public static final int REQUEST_CODE_SELECT_FIRMWARE = 0x10;
 
-    @BindView(R2.id.frame_container)
+    @BindView(R.id.frame_container)
     FrameLayout frameContainer;
-    @BindView(R2.id.radioBtn_adv)
+    @BindView(R.id.radioBtn_adv)
     RadioButton radioBtnAdv;
-    @BindView(R2.id.radioBtn_scanner)
+    @BindView(R.id.radioBtn_scanner)
     RadioButton radioBtnScanner;
-    @BindView(R2.id.radioBtn_setting)
+    @BindView(R.id.radioBtn_setting)
     RadioButton radioBtnSetting;
-    @BindView(R2.id.radioBtn_device)
+    @BindView(R.id.radioBtn_device)
     RadioButton radioBtnDevice;
-    @BindView(R2.id.rg_options)
+    @BindView(R.id.rg_options)
     RadioGroup rgOptions;
-    @BindView(R2.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.iv_save)
+    @BindView(R.id.iv_save)
     ImageView ivSave;
     private FragmentManager fragmentManager;
     private AdvFragment advFragment;
@@ -577,12 +575,10 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             mLoadingMessageDialog.dismissAllowingStateLoss();
     }
 
-    @OnClick(R2.id.tv_back)
     public void onBack(View view) {
         back();
     }
 
-    @OnClick(R2.id.iv_save)
     public void onSave(View view) {
         if (radioBtnAdv.isChecked()) {
             if (advFragment.isValid()) {
@@ -875,4 +871,50 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             dismissDFUProgressDialog();
         }
     };
+
+    public void onChangePassword(View view) {
+        settingFragment.showChangePasswordDialog();
+    }
+
+    public void onFactoryReset(View view) {
+        settingFragment.showResetDialog();
+    }
+
+    public void onUpdateFirmware(View view) {
+        chooseFirmwareFile();
+    }
+
+    public void onLoraSetting(View view) {
+        // LORA
+        Intent intent = new Intent(this, LoRaSettingActivity.class);
+        startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
+    }
+
+    public void onScanWindow(View view) {
+        settingFragment.showBeaconScannerDialog();
+    }
+
+    public void onConnectable(View view) {
+        settingFragment.showConnectableDialog();
+    }
+
+    public void onPowerOff(View view) {
+        settingFragment.showPowerOffDialog();
+    }
+
+    public void onLowBatteryValue(View view) {
+        settingFragment.showLowBatteryDialog();
+    }
+
+    public void onDeviceInfoIntervalValue(View view) {
+        settingFragment.showIntervalDialog();
+    }
+
+    public void onFilterOptions(View view) {
+        startActivity(new Intent(this, FilterOptionsActivity.class));
+    }
+
+    public void onWarningValue(View view) {
+        scannerFragment.showWarningRssiDialog();
+    }
 }

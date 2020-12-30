@@ -11,19 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ChangePasswordDialog extends BaseDialog<Object> {
-    @BindView(R2.id.et_password)
+    @BindView(R.id.et_password)
     EditText etPassword;
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R2.id.et_password_confirm)
+    @BindView(R.id.et_password_confirm)
     EditText etPasswordConfirm;
-    @BindView(R2.id.tv_password_ensure)
+    @BindView(R.id.tv_password_ensure)
     TextView tvPasswordEnsure;
     private boolean passwordEnable;
     private boolean confirmPasswordEnable;
@@ -88,12 +87,12 @@ public class ChangePasswordDialog extends BaseDialog<Object> {
         });
     }
 
-    @OnClick(R2.id.tv_password_cancel)
+    @OnClick(R.id.tv_password_cancel)
     public void onCancel(View view) {
         dismiss();
     }
 
-    @OnClick(R2.id.tv_password_ensure)
+    @OnClick(R.id.tv_password_ensure)
     public void onEnsure(View view) {
         String password = etPassword.getText().toString();
         String passwordConfirm = etPasswordConfirm.getText().toString();

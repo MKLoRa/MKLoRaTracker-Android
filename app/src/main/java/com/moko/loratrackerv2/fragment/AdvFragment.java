@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.entity.TxPowerEnum;
 import com.moko.support.loratracker.LoRaTrackerMokoSupport;
@@ -33,23 +32,23 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
     private static final String TAG = AdvFragment.class.getSimpleName();
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R2.id.et_adv_name)
+    @BindView(R.id.et_adv_name)
     EditText etAdvName;
-    @BindView(R2.id.et_uuid)
+    @BindView(R.id.et_uuid)
     EditText etUuid;
-    @BindView(R2.id.et_major)
+    @BindView(R.id.et_major)
     EditText etMajor;
-    @BindView(R2.id.et_minor)
+    @BindView(R.id.et_minor)
     EditText etMinor;
-    @BindView(R2.id.et_adv_interval)
+    @BindView(R.id.et_adv_interval)
     EditText etAdvInterval;
-    @BindView(R2.id.sb_rssi_1m)
+    @BindView(R.id.sb_rssi_1m)
     SeekBar sbRssi1m;
-    @BindView(R2.id.tv_rssi_1m_value)
+    @BindView(R.id.tv_rssi_1m_value)
     TextView tvRssi1mValue;
-    @BindView(R2.id.sb_tx_power)
+    @BindView(R.id.sb_tx_power)
     SeekBar sbTxPower;
-    @BindView(R2.id.tv_tx_power_value)
+    @BindView(R.id.tv_tx_power_value)
     TextView tvTxPowerValue;
 
 

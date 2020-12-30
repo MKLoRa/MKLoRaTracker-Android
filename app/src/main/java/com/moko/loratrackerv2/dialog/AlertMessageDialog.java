@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 
 import androidx.annotation.StringRes;
 import butterknife.BindView;
@@ -17,17 +16,17 @@ import butterknife.OnClick;
 
 public class AlertMessageDialog extends MokoBaseDialog {
     public static final String TAG = AlertMessageDialog.class.getSimpleName();
-    @BindView(R2.id.tv_alert_title)
+    @BindView(R.id.tv_alert_title)
     TextView tvAlertTitle;
-    @BindView(R2.id.ll_alert_title)
+    @BindView(R.id.ll_alert_title)
     LinearLayout llAlertTitle;
-    @BindView(R2.id.tv_alert_message)
+    @BindView(R.id.tv_alert_message)
     TextView tvAlertMessage;
-    @BindView(R2.id.tv_alert_cancel)
+    @BindView(R.id.tv_alert_cancel)
     TextView tvAlertCancel;
-    @BindView(R2.id.tv_alert_confirm)
+    @BindView(R.id.tv_alert_confirm)
     TextView tvAlertConfirm;
-    @BindView(R2.id.view_divider)
+    @BindView(R.id.view_divider)
     View viewDivider;
 
     private String cancel;
@@ -175,14 +174,14 @@ public class AlertMessageDialog extends MokoBaseDialog {
         cancelGone = true;
     }
 
-    @OnClick(R2.id.tv_alert_cancel)
+    @OnClick(R.id.tv_alert_cancel)
     public void onCancel(View view) {
         dismiss();
         if (onAlertCancelListener != null)
             onAlertCancelListener.onClick();
     }
 
-    @OnClick(R2.id.tv_alert_confirm)
+    @OnClick(R.id.tv_alert_confirm)
     public void onConfirm(View view) {
         dismiss();
         if (onAlertConfirmListener != null)

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 
 import butterknife.BindView;
@@ -17,19 +16,19 @@ import butterknife.ButterKnife;
 
 public class DeviceFragment extends Fragment {
     private static final String TAG = DeviceFragment.class.getSimpleName();
-    @BindView(R2.id.tv_battery_voltage)
+    @BindView(R.id.tv_battery_voltage)
     TextView tvBatteryVoltage;
-    @BindView(R2.id.tv_mac_address)
+    @BindView(R.id.tv_mac_address)
     TextView tvMacAddress;
-    @BindView(R2.id.tv_product_model)
+    @BindView(R.id.tv_product_model)
     TextView tvProductModel;
-    @BindView(R2.id.tv_software_version)
+    @BindView(R.id.tv_software_version)
     TextView tvSoftwareVersion;
-    @BindView(R2.id.tv_firmware_version)
+    @BindView(R.id.tv_firmware_version)
     TextView tvFirmwareVersion;
-    @BindView(R2.id.tv_hardware_version)
+    @BindView(R.id.tv_hardware_version)
     TextView tvHardwareVersion;
-    @BindView(R2.id.tv_manufacture)
+    @BindView(R.id.tv_manufacture)
     TextView tvManufacture;
 
 

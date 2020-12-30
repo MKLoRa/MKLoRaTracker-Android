@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.view.ProgressDrawable;
 
 import androidx.annotation.StringRes;
@@ -19,9 +18,9 @@ import butterknife.ButterKnife;
 public class LoadingMessageDialog extends MokoBaseDialog {
     private static final int DIALOG_DISMISS_DELAY_TIME = 5000;
     public static final String TAG = LoadingMessageDialog.class.getSimpleName();
-    @BindView(R2.id.iv_loading)
+    @BindView(R.id.iv_loading)
     ImageView ivLoading;
-    @BindView(R2.id.tv_loading_message)
+    @BindView(R.id.tv_loading_message)
     TextView tvLoadingMessage;
 
     private String message;

@@ -1,7 +1,6 @@
 package com.moko.loratrackerv2.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
-import com.moko.loratrackerv2.activity.LoRaSettingActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.ChangePasswordDialog;
@@ -26,31 +22,30 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
-    @BindView(R2.id.tv_change_password)
+    @BindView(R.id.tv_change_password)
     TextView tvChangePassword;
-    @BindView(R2.id.tv_factory_reset)
+    @BindView(R.id.tv_factory_reset)
     TextView tvFactoryReset;
-    @BindView(R2.id.tv_update_firmware)
+    @BindView(R.id.tv_update_firmware)
     TextView tvUpdateFirmware;
-    @BindView(R2.id.tv_lora_setting)
+    @BindView(R.id.tv_lora_setting)
     TextView tvLoraSetting;
-    @BindView(R2.id.tv_scan_window)
+    @BindView(R.id.tv_scan_window)
     TextView tvScanWindow;
-    @BindView(R2.id.iv_connectable)
+    @BindView(R.id.iv_connectable)
     ImageView ivConnectable;
-    @BindView(R2.id.iv_power_off)
+    @BindView(R.id.iv_power_off)
     ImageView ivPowerOff;
-    @BindView(R2.id.tv_lora_connectable)
+    @BindView(R.id.tv_lora_connectable)
     TextView tvLoRaConnectable;
-    @BindView(R2.id.tv_low_battery_value)
+    @BindView(R.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
-    @BindView(R2.id.tv_low_battery_tips)
+    @BindView(R.id.tv_low_battery_tips)
     TextView tvLowBatteryTips;
-    @BindView(R2.id.tv_device_info_interval_value)
+    @BindView(R.id.tv_device_info_interval_value)
     TextView tvDeviceInfoIntervalValue;
     private String[] loraConnectable;
     private DeviceInfoActivity activity;
@@ -95,54 +90,7 @@ public class SettingFragment extends Fragment {
         super.onDestroy();
     }
 
-    @OnClick(R2.id.tv_change_password)
-    public void onChangePassword(View view) {
-        showChangePasswordDialog();
-    }
-
-    @OnClick(R2.id.tv_factory_reset)
-    public void onFactoryReset(View view) {
-        showResetDialog();
-    }
-
-    @OnClick(R2.id.tv_update_firmware)
-    public void onUpdateFirmware(View view) {
-        activity.chooseFirmwareFile();
-    }
-
-    @OnClick(R2.id.tv_lora_setting)
-    public void onLoraSetting(View view) {
-        // LORA
-        Intent intent = new Intent(getActivity(), LoRaSettingActivity.class);
-        activity.startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
-    }
-
-    @OnClick(R2.id.tv_scan_window)
-    public void onScanWindow(View view) {
-        showBeaconScannerDialog();
-    }
-
-    @OnClick(R2.id.iv_connectable)
-    public void onConnectable(View view) {
-        showConnectableDialog();
-    }
-
-    @OnClick(R2.id.iv_power_off)
-    public void onPowerOff(View view) {
-        showPowerOffDialog();
-    }
-
-    @OnClick(R2.id.tv_low_battery_value)
-    public void onLowBatteryValue(View view) {
-        showLowBatteryDialog();
-    }
-
-    @OnClick(R2.id.tv_device_info_interval_value)
-    public void onDeviceInfoIntervalValue(View view) {
-        showIntervalDialog();
-    }
-
-    private void showResetDialog() {
+    public void showResetDialog() {
         AlertMessageDialog dialog = new AlertMessageDialog();
         dialog.setTitle("Factory Reset!");
         dialog.setMessage("After factory reset,all the data will be reseted to the factory values.");
@@ -153,7 +101,7 @@ public class SettingFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-    private void showChangePasswordDialog() {
+    public void showChangePasswordDialog() {
         final ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity());
         dialog.setOnPasswordClicked(password -> activity.changePassword(password));
         dialog.show();
@@ -167,7 +115,7 @@ public class SettingFragment extends Fragment {
         }, 200);
     }
 
-    private void showBeaconScannerDialog() {
+    public void showBeaconScannerDialog() {
         final ScanWindowDialog dialog = new ScanWindowDialog(getActivity());
         dialog.setData(scannerState ? startTime : 0);
         dialog.setOnScanWindowClicked(scanMode -> {
@@ -197,7 +145,7 @@ public class SettingFragment extends Fragment {
         dialog.show();
     }
 
-    private void showConnectableDialog() {
+    public void showConnectableDialog() {
         AlertMessageDialog dialog = new AlertMessageDialog();
         dialog.setTitle("Warning!");
         if (connectState) {
@@ -213,7 +161,7 @@ public class SettingFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-    private void showPowerOffDialog() {
+    public void showPowerOffDialog() {
         AlertMessageDialog dialog = new AlertMessageDialog();
         dialog.setTitle("Warning!");
         dialog.setMessage("Are you sure to turn off the device? Please make sure the device has a button to turn on!");
@@ -224,7 +172,7 @@ public class SettingFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-    private void showLowBatteryDialog() {
+    public void showLowBatteryDialog() {
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(lowBatteryList, lowBatteryListIndex);
         dialog.setListener(value -> {
@@ -237,7 +185,7 @@ public class SettingFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-    private void showIntervalDialog() {
+    public void showIntervalDialog() {
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(intervalList, intervalListIndex);
         dialog.setListener(value -> {

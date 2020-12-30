@@ -7,16 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class AboutActivity extends BaseActivity {
-    @BindView(R2.id.app_version)
+    @BindView(R.id.app_version)
     TextView appVersion;
 
     @Override
@@ -27,12 +25,10 @@ public class AboutActivity extends BaseActivity {
         appVersion.setText(String.format("Version:V%s", Utils.getVersionInfo(this)));
     }
 
-    @OnClick(R2.id.tv_back)
     public void onBack(View view) {
         finish();
     }
 
-    @OnClick(R2.id.tv_company_website)
     public void onCompanyWebsite(View view) {
         Uri uri = Uri.parse("https://" + getString(R.string.company_website));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);

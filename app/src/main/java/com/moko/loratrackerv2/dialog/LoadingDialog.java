@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.view.ProgressDrawable;
 
 import androidx.core.content.ContextCompat;
@@ -15,7 +14,7 @@ import butterknife.ButterKnife;
 public class LoadingDialog extends MokoBaseDialog {
 
     public static final String TAG = LoadingDialog.class.getSimpleName();
-    @BindView(R2.id.iv_loading)
+    @BindView(R.id.iv_loading)
     ImageView ivLoading;
 
     @Override

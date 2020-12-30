@@ -16,7 +16,6 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
@@ -35,15 +34,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class FilterOptionsActivity extends BaseActivity {
 
-    @BindView(R2.id.tv_condition_a)
+    @BindView(R.id.tv_condition_a)
     TextView tvConditionA;
-    @BindView(R2.id.tv_condition_b)
+    @BindView(R.id.tv_condition_b)
     TextView tvConditionB;
-    @BindView(R2.id.tv_relation)
+    @BindView(R.id.tv_relation)
     TextView tvRelation;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
@@ -213,12 +211,10 @@ public class FilterOptionsActivity extends BaseActivity {
             mLoadingMessageDialog.dismissAllowingStateLoss();
     }
 
-    @OnClick(R2.id.tv_back)
     public void onBack(View view) {
         finish();
     }
 
-    @OnClick(R2.id.tv_relation)
     public void onRelation(View view) {
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(mValues, mSelected);

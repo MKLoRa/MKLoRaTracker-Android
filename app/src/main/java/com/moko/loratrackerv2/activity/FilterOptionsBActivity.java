@@ -27,7 +27,6 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.utils.ToastUtils;
@@ -48,72 +47,71 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
-    @BindView(R2.id.sb_rssi_filter)
+    @BindView(R.id.sb_rssi_filter)
     SeekBar sbRssiFilter;
-    @BindView(R2.id.tv_rssi_filter_value)
+    @BindView(R.id.tv_rssi_filter_value)
     TextView tvRssiFilterValue;
-    @BindView(R2.id.tv_rssi_filter_tips)
+    @BindView(R.id.tv_rssi_filter_tips)
     TextView tvRssiFilterTips;
-    @BindView(R2.id.iv_mac_address)
+    @BindView(R.id.iv_mac_address)
     ImageView ivMacAddress;
-    @BindView(R2.id.et_mac_address)
+    @BindView(R.id.et_mac_address)
     EditText etMacAddress;
-    @BindView(R2.id.iv_adv_name)
+    @BindView(R.id.iv_adv_name)
     ImageView ivAdvName;
-    @BindView(R2.id.et_adv_name)
+    @BindView(R.id.et_adv_name)
     EditText etAdvName;
-    @BindView(R2.id.iv_ibeacon_major)
+    @BindView(R.id.iv_ibeacon_major)
     ImageView ivIbeaconMajor;
-    @BindView(R2.id.iv_ibeacon_minor)
+    @BindView(R.id.iv_ibeacon_minor)
     ImageView ivIbeaconMinor;
-    @BindView(R2.id.iv_raw_adv_data)
+    @BindView(R.id.iv_raw_adv_data)
     ImageView ivRawAdvData;
-    @BindView(R2.id.et_ibeacon_major_min)
+    @BindView(R.id.et_ibeacon_major_min)
     EditText etIbeaconMajorMin;
-    @BindView(R2.id.et_ibeacon_major_max)
+    @BindView(R.id.et_ibeacon_major_max)
     EditText etIbeaconMajorMax;
-    @BindView(R2.id.ll_ibeacon_major)
+    @BindView(R.id.ll_ibeacon_major)
     LinearLayout llIbeaconMajor;
-    @BindView(R2.id.et_ibeacon_minor_min)
+    @BindView(R.id.et_ibeacon_minor_min)
     EditText etIbeaconMinorMin;
-    @BindView(R2.id.et_ibeacon_minor_max)
+    @BindView(R.id.et_ibeacon_minor_max)
     EditText etIbeaconMinorMax;
-    @BindView(R2.id.ll_ibeacon_minor)
+    @BindView(R.id.ll_ibeacon_minor)
     LinearLayout llIbeaconMinor;
-    @BindView(R2.id.iv_raw_data_del)
+    @BindView(R.id.iv_raw_data_del)
     ImageView ivRawDataDel;
-    @BindView(R2.id.iv_raw_data_add)
+    @BindView(R.id.iv_raw_data_add)
     ImageView ivRawDataAdd;
-    @BindView(R2.id.ll_raw_data_filter)
+    @BindView(R.id.ll_raw_data_filter)
     LinearLayout llRawDataFilter;
-    @BindView(R2.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R2.id.cb_mac_address)
+    @BindView(R.id.cb_mac_address)
     CheckBox cbMacAddress;
-    @BindView(R2.id.cb_adv_name)
+    @BindView(R.id.cb_adv_name)
     CheckBox cbAdvName;
-    @BindView(R2.id.iv_ibeacon_uuid)
+    @BindView(R.id.iv_ibeacon_uuid)
     ImageView ivIbeaconUuid;
-    @BindView(R2.id.cb_ibeacon_uuid)
+    @BindView(R.id.cb_ibeacon_uuid)
     CheckBox cbIbeaconUuid;
-    @BindView(R2.id.et_ibeacon_uuid)
+    @BindView(R.id.et_ibeacon_uuid)
     EditText etIbeaconUuid;
-    @BindView(R2.id.cb_ibeacon_major)
+    @BindView(R.id.cb_ibeacon_major)
     CheckBox cbIbeaconMajor;
-    @BindView(R2.id.cb_ibeacon_minor)
+    @BindView(R.id.cb_ibeacon_minor)
     CheckBox cbIbeaconMinor;
-    @BindView(R2.id.cb_raw_adv_data)
+    @BindView(R.id.cb_raw_adv_data)
     CheckBox cbRawAdvData;
-    @BindView(R2.id.tv_condition)
+    @BindView(R.id.tv_condition)
     TextView tvCondition;
-    @BindView(R2.id.iv_condition)
+    @BindView(R.id.iv_condition)
     ImageView ivCondition;
-    @BindView(R2.id.tv_condition_tips)
+    @BindView(R.id.tv_condition_tips)
     TextView tvConditionTips;
     private boolean mReceiverTag = false;
     private Pattern pattern;
@@ -487,12 +485,10 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
     private boolean filterMinorEnable;
     private boolean filterRawAdvDataEnable;
 
-    @OnClick(R2.id.tv_back)
     public void onBack(View view) {
         finish();
     }
 
-    @OnClick(R2.id.iv_save)
     public void onSave(View view) {
         if (isValid()) {
             showSyncingProgressDialog();
@@ -502,42 +498,36 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         }
     }
 
-    @OnClick(R2.id.iv_mac_address)
     public void onMacAddress(View view) {
         filterMacEnable = !filterMacEnable;
         ivMacAddress.setImageResource(filterMacEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
         etMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_adv_name)
     public void onAdvName(View view) {
         filterNameEnable = !filterNameEnable;
         ivAdvName.setImageResource(filterNameEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
         etAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_ibeacon_uuid)
     public void oniBeaconUUID(View view) {
         filterUUIDEnable = !filterUUIDEnable;
         ivIbeaconUuid.setImageResource(filterUUIDEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
         etIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_ibeacon_major)
     public void oniBeaconMajor(View view) {
         filterMajorEnable = !filterMajorEnable;
         ivIbeaconMajor.setImageResource(filterMajorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
         llIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_ibeacon_minor)
     public void oniBeaconMinor(View view) {
         filterMinorEnable = !filterMinorEnable;
         ivIbeaconMinor.setImageResource(filterMinorEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
         llIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_raw_adv_data)
     public void onRawAdvData(View view) {
         filterRawAdvDataEnable = !filterRawAdvDataEnable;
         ivRawAdvData.setImageResource(filterRawAdvDataEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
@@ -546,7 +536,6 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         ivRawDataDel.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick(R2.id.iv_raw_data_add)
     public void onRawDataAdd(View view) {
         int count = llRawDataFilter.getChildCount();
         if (count > 4) {
@@ -557,7 +546,6 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         llRawDataFilter.addView(v);
     }
 
-    @OnClick(R2.id.iv_raw_data_del)
     public void onRawDataDel(View view) {
         final int c = llRawDataFilter.getChildCount();
         if (c == 0) {
@@ -575,7 +563,6 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         dialog.show(getSupportFragmentManager());
     }
 
-    @OnClick(R2.id.iv_condition)
     public void onCondition(View view) {
         filterSwitchEnable = !filterSwitchEnable;
         ivCondition.setImageResource(filterSwitchEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);

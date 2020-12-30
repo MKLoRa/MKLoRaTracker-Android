@@ -8,17 +8,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ScanFilterDialog extends BaseDialog {
-    @BindView(R2.id.et_filter_name)
+    @BindView(R.id.et_filter_name)
     EditText etFilterName;
-    @BindView(R2.id.tv_rssi)
+    @BindView(R.id.tv_rssi)
     TextView tvRssi;
-    @BindView(R2.id.sb_rssi)
+    @BindView(R.id.sb_rssi)
     SeekBar sbRssi;
 
     private int filterRssi;
@@ -62,12 +61,12 @@ public class ScanFilterDialog extends BaseDialog {
         setDismissEnable(true);
     }
 
-    @OnClick(R2.id.iv_filter_delete)
+    @OnClick(R.id.iv_filter_delete)
     public void onFilterDelete(View view) {
         etFilterName.setText("");
     }
 
-    @OnClick(R2.id.tv_done)
+    @OnClick(R.id.tv_done)
     public void onDone(View view) {
         listener.onDone(etFilterName.getText().toString(), filterRssi);
         dismiss();

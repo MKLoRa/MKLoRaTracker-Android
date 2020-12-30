@@ -21,7 +21,6 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.R;
-import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.dialog.RegionBottomDialog;
@@ -46,43 +45,43 @@ import butterknife.ButterKnife;
 public class LoRaSettingActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
 
-    @BindView(R2.id.et_dev_eui)
+    @BindView(R.id.et_dev_eui)
     EditText etDevEui;
-    @BindView(R2.id.et_app_eui)
+    @BindView(R.id.et_app_eui)
     EditText etAppEui;
-    @BindView(R2.id.et_app_key)
+    @BindView(R.id.et_app_key)
     EditText etAppKey;
-    @BindView(R2.id.ll_modem_otaa)
+    @BindView(R.id.ll_modem_otaa)
     LinearLayout llModemOtaa;
-    @BindView(R2.id.et_dev_addr)
+    @BindView(R.id.et_dev_addr)
     EditText etDevAddr;
-    @BindView(R2.id.et_nwk_skey)
+    @BindView(R.id.et_nwk_skey)
     EditText etNwkSkey;
-    @BindView(R2.id.et_app_skey)
+    @BindView(R.id.et_app_skey)
     EditText etAppSkey;
-    @BindView(R2.id.ll_modem_abp)
+    @BindView(R.id.ll_modem_abp)
     LinearLayout llModemAbp;
-    @BindView(R2.id.et_report_interval)
+    @BindView(R.id.et_report_interval)
     EditText etReportInterval;
-    @BindView(R2.id.tv_ch_1)
+    @BindView(R.id.tv_ch_1)
     TextView tvCh1;
-    @BindView(R2.id.tv_ch_2)
+    @BindView(R.id.tv_ch_2)
     TextView tvCh2;
-    @BindView(R2.id.tv_dr_1)
+    @BindView(R.id.tv_dr_1)
     TextView tvDr1;
-    @BindView(R2.id.tv_connect)
+    @BindView(R.id.tv_connect)
     TextView tvConnect;
-    @BindView(R2.id.cb_adr)
+    @BindView(R.id.cb_adr)
     CheckBox cbAdr;
-    @BindView(R2.id.tv_upload_mode)
+    @BindView(R.id.tv_upload_mode)
     TextView tvUploadMode;
-    @BindView(R2.id.tv_region)
+    @BindView(R.id.tv_region)
     TextView tvRegion;
-    @BindView(R2.id.tv_message_type)
+    @BindView(R.id.tv_message_type)
     TextView tvMessageType;
-    @BindView(R2.id.ll_advanced_setting)
+    @BindView(R.id.ll_advanced_setting)
     LinearLayout llAdvancedSetting;
-    @BindView(R2.id.cb_advance_setting)
+    @BindView(R.id.cb_advance_setting)
     CheckBox cbAdvanceSetting;
 
     private boolean mReceiverTag = false;
