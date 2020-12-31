@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.Utils;
 
 import butterknife.BindView;
@@ -14,7 +15,7 @@ import butterknife.ButterKnife;
 
 
 public class AboutActivity extends BaseActivity {
-    @BindView(R.id.app_version)
+    @BindView(R2.id.app_version)
     TextView appVersion;
 
     @Override

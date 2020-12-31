@@ -9,13 +9,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PasswordDialog extends BaseDialog<String> {
-    @BindView(R.id.et_password)
+    @BindView(R2.id.et_password)
     EditText etPassword;
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
 
@@ -47,7 +48,7 @@ public class PasswordDialog extends BaseDialog<String> {
         }
     }
 
-    @OnClick(R.id.tv_password_cancel)
+    @OnClick(R2.id.tv_password_cancel)
     public void onCancel(View view) {
         dismiss();
         if (passwordClickListener != null) {
@@ -55,7 +56,7 @@ public class PasswordDialog extends BaseDialog<String> {
         }
     }
 
-    @OnClick(R.id.tv_password_ensure)
+    @OnClick(R2.id.tv_password_ensure)
     public void onEnsure(View view) {
         if (TextUtils.isEmpty(etPassword.getText().toString())) {
             ToastUtils.showToast(getContext(), getContext().getString(R.string.password_null));

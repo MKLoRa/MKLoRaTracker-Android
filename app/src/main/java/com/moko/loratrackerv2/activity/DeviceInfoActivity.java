@@ -33,6 +33,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.loratrackerv2.AppConstants;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
 import com.moko.loratrackerv2.fragment.AdvFragment;
@@ -68,21 +69,21 @@ import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
 public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     public static final int REQUEST_CODE_SELECT_FIRMWARE = 0x10;
 
-    @BindView(R.id.frame_container)
+    @BindView(R2.id.frame_container)
     FrameLayout frameContainer;
-    @BindView(R.id.radioBtn_adv)
+    @BindView(R2.id.radioBtn_adv)
     RadioButton radioBtnAdv;
-    @BindView(R.id.radioBtn_scanner)
+    @BindView(R2.id.radioBtn_scanner)
     RadioButton radioBtnScanner;
-    @BindView(R.id.radioBtn_setting)
+    @BindView(R2.id.radioBtn_setting)
     RadioButton radioBtnSetting;
-    @BindView(R.id.radioBtn_device)
+    @BindView(R2.id.radioBtn_device)
     RadioButton radioBtnDevice;
-    @BindView(R.id.rg_options)
+    @BindView(R2.id.rg_options)
     RadioGroup rgOptions;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_save)
+    @BindView(R2.id.iv_save)
     ImageView ivSave;
     private FragmentManager fragmentManager;
     private AdvFragment advFragment;

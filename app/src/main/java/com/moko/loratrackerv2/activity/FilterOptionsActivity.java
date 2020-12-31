@@ -16,6 +16,7 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
@@ -37,11 +38,11 @@ import butterknife.ButterKnife;
 
 public class FilterOptionsActivity extends BaseActivity {
 
-    @BindView(R.id.tv_condition_a)
+    @BindView(R2.id.tv_condition_a)
     TextView tvConditionA;
-    @BindView(R.id.tv_condition_b)
+    @BindView(R2.id.tv_condition_b)
     TextView tvConditionB;
-    @BindView(R.id.tv_relation)
+    @BindView(R2.id.tv_relation)
     TextView tvRelation;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;

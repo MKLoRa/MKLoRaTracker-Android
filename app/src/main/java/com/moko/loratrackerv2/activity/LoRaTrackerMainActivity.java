@@ -24,7 +24,9 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.loratrackerv2.AppConstants;
+import com.moko.loratrackerv2.BuildConfig;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.adapter.BeaconListAdapter;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingDialog;
@@ -63,17 +65,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDeviceCallback, BaseQuickAdapter.OnItemChildClickListener {
-    @BindView(R.id.iv_refresh)
+    @BindView(R2.id.iv_refresh)
     ImageView ivRefresh;
-    @BindView(R.id.rv_devices)
+    @BindView(R2.id.rv_devices)
     RecyclerView rvDevices;
-    @BindView(R.id.tv_device_num)
+    @BindView(R2.id.tv_device_num)
     TextView tvDeviceNum;
-    @BindView(R.id.rl_edit_filter)
+    @BindView(R2.id.rl_edit_filter)
     RelativeLayout rl_edit_filter;
-    @BindView(R.id.rl_filter)
+    @BindView(R2.id.rl_filter)
     RelativeLayout rl_filter;
-    @BindView(R.id.tv_filter)
+    @BindView(R2.id.tv_filter)
     TextView tv_filter;
     private boolean mReceiverTag = false;
     private HashMap<String, BeaconInfo> beaconInfoHashMap;
@@ -482,10 +484,14 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
 
     @Override
     public void onBackPressed() {
-        AlertMessageDialog dialog = new AlertMessageDialog();
-        dialog.setMessage(R.string.main_exit_tips);
-        dialog.setOnAlertConfirmListener(() -> LoRaTrackerMainActivity.this.finish());
-        dialog.show(getSupportFragmentManager());
+        if (BuildConfig.IS_LIBRARY) {
+            finish();
+        } else {
+            AlertMessageDialog dialog = new AlertMessageDialog();
+            dialog.setMessage(R.string.main_exit_tips);
+            dialog.setOnAlertConfirmListener(() -> LoRaTrackerMainActivity.this.finish());
+            dialog.show(getSupportFragmentManager());
+        }
     }
 
     @Override

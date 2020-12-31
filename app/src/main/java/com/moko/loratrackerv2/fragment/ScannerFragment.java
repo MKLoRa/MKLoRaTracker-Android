@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
@@ -28,31 +29,31 @@ import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class ScannerFragment extends Fragment {
     private static final String TAG = ScannerFragment.class.getSimpleName();
-    @BindView(R.id.sb_scan_interval)
+    @BindView(R2.id.sb_scan_interval)
     SeekBar sbScanInterval;
-    @BindView(R.id.tv_scan_interval_value)
+    @BindView(R2.id.tv_scan_interval_value)
     TextView tvScanIntervalValue;
-    @BindView(R.id.tv_scan_interval_tips)
+    @BindView(R2.id.tv_scan_interval_tips)
     TextView tvScanIntervalTips;
-    @BindView(R.id.npv_alarm_notify)
+    @BindView(R2.id.npv_alarm_notify)
     NumberPickerView npvAlarmNotify;
-    @BindView(R.id.sb_alarm_trigger_rssi)
+    @BindView(R2.id.sb_alarm_trigger_rssi)
     SeekBar sbAlarmTriggerRssi;
-    @BindView(R.id.tv_alarm_trigger_rssi_value)
+    @BindView(R2.id.tv_alarm_trigger_rssi_value)
     TextView tvAlarmTriggerRssiValue;
-    @BindView(R.id.tv_alarm_trigger_rssi_tips)
+    @BindView(R2.id.tv_alarm_trigger_rssi_tips)
     TextView tvAlarmTriggerRssiTips;
-    @BindView(R.id.et_vibration_cycle)
+    @BindView(R2.id.et_vibration_cycle)
     EditText etVibrationCycle;
-    @BindView(R.id.et_vibration_duration)
+    @BindView(R2.id.et_vibration_duration)
     EditText etVibrationDuration;
-    @BindView(R.id.npv_vibration_intensity)
+    @BindView(R2.id.npv_vibration_intensity)
     NumberPickerView npvVibrationIntensity;
-    @BindView(R.id.tv_warning_range)
+    @BindView(R2.id.tv_warning_range)
     TextView tvWarningRange;
-    @BindView(R.id.tv_warning_value)
+    @BindView(R2.id.tv_warning_value)
     TextView tvWarningValue;
-    @BindView(R.id.tv_warning_tips)
+    @BindView(R2.id.tv_warning_tips)
     TextView tvWarningTips;
 
     private DeviceInfoActivity activity;

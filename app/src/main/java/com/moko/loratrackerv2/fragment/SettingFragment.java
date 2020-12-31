@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moko.loratrackerv2.R;
+import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
@@ -25,27 +26,27 @@ import butterknife.ButterKnife;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
-    @BindView(R.id.tv_change_password)
+    @BindView(R2.id.tv_change_password)
     TextView tvChangePassword;
-    @BindView(R.id.tv_factory_reset)
+    @BindView(R2.id.tv_factory_reset)
     TextView tvFactoryReset;
-    @BindView(R.id.tv_update_firmware)
+    @BindView(R2.id.tv_update_firmware)
     TextView tvUpdateFirmware;
-    @BindView(R.id.tv_lora_setting)
+    @BindView(R2.id.tv_lora_setting)
     TextView tvLoraSetting;
-    @BindView(R.id.tv_scan_window)
+    @BindView(R2.id.tv_scan_window)
     TextView tvScanWindow;
-    @BindView(R.id.iv_connectable)
+    @BindView(R2.id.iv_connectable)
     ImageView ivConnectable;
-    @BindView(R.id.iv_power_off)
+    @BindView(R2.id.iv_power_off)
     ImageView ivPowerOff;
-    @BindView(R.id.tv_lora_connectable)
+    @BindView(R2.id.tv_lora_connectable)
     TextView tvLoRaConnectable;
-    @BindView(R.id.tv_low_battery_value)
+    @BindView(R2.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
-    @BindView(R.id.tv_low_battery_tips)
+    @BindView(R2.id.tv_low_battery_tips)
     TextView tvLowBatteryTips;
-    @BindView(R.id.tv_device_info_interval_value)
+    @BindView(R2.id.tv_device_info_interval_value)
     TextView tvDeviceInfoIntervalValue;
     private String[] loraConnectable;
     private DeviceInfoActivity activity;
