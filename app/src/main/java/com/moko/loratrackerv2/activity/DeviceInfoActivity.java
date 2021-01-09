@@ -244,17 +244,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                             if (flag == 0x01) {
                                 // write
                                 switch (configKeyEnum) {
-                                    case KEY_TRANSMISSION:
-                                        if (length > 0) {
-                                            int result = value[3];
-                                            if (result == 0)
-                                                return;
-                                            AlertMessageDialog dialog = new AlertMessageDialog();
-                                            dialog.setMessage("Saved Successfully！");
-                                            dialog.setConfirm("OK");
-                                            dialog.setCancelGone();
-                                            dialog.show(getSupportFragmentManager());
-                                        }
                                     case KEY_ALARM_RSSI:
                                         if (length > 0) {
                                             int result = value[3];
@@ -277,47 +266,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
                                             final String deviceName = new String(rawDataBytes);
                                             mDeviceName = deviceName;
-                                            advFragment.setDeviceName(deviceName);
-                                        }
-                                        break;
-                                    case KEY_IBEACON_UUID:
-                                        if (length > 0) {
-                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                            final String uuid = MokoUtils.bytesToHexString(rawDataBytes);
-                                            advFragment.setUUID(uuid);
-                                        }
-                                        break;
-                                    case KEY_IBEACON_MAJOR:
-                                        if (length > 0) {
-                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                            final int major = MokoUtils.toInt(rawDataBytes);
-                                            advFragment.setMajor(major);
-                                        }
-                                        break;
-                                    case KEY_IBEACON_MINOR:
-                                        if (length > 0) {
-                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                            final int minor = MokoUtils.toInt(rawDataBytes);
-                                            advFragment.setMinor(minor);
-                                        }
-                                        break;
-                                    case KEY_ADV_INTERVAL:
-                                        if (length > 0) {
-                                            byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                            final int advInterval = MokoUtils.toInt(rawDataBytes);
-                                            advFragment.setAdvInterval(advInterval);
-                                        }
-                                        break;
-                                    case KEY_MEASURE_POWER:
-                                        if (length > 0) {
-                                            int rssi_1m = value[4];
-                                            advFragment.setMeasurePower(rssi_1m);
-                                        }
-                                        break;
-                                    case KEY_TRANSMISSION:
-                                        if (length > 0) {
-                                            int txPower = value[4];
-                                            advFragment.setTransmission(txPower);
+                                            settingFragment.setDeviceName(deviceName);
                                         }
                                         break;
                                     case KEY_FILTER_VALID_INTERVAL:
@@ -345,12 +294,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             scannerFragment.setWarningRssi(rssi);
                                         }
                                         break;
-                                    case KEY_NETWORK_STATUS:
-                                        if (length > 0) {
-                                            int connectable = value[4];
-                                            settingFragment.setLoRaConnectable(connectable);
-                                        }
-                                        break;
+//                                    case KEY_NETWORK_STATUS:
+//                                        if (length > 0) {
+//                                            int connectable = value[4];
+//                                            settingFragment.setLoRaConnectable(connectable);
+//                                        }
+//                                        break;
                                     case KEY_SCAN_WINDOW:
                                         if (length > 0) {
                                             int scannerState = value[4] & 0xFF;
@@ -917,5 +866,25 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     public void onWarningValue(View view) {
         scannerFragment.showWarningRssiDialog();
+    }
+
+    public void onAdvInfo(View view) {
+        startActivity(new Intent(this, AdvInfoActivity.class));
+    }
+
+    public void onVibrationSetting(View view) {
+        startActivity(new Intent(this, VibrationSettingActivity.class));
+    }
+
+    public void onSOSFunction(View view) {
+        startActivity(new Intent(this, SOSFucntionActivity.class));
+    }
+
+    public void onGPSFunction(View view) {
+        startActivity(new Intent(this, GPSFucntionActivity.class));
+    }
+
+    public void on3AxisSensor(View view) {
+        startActivity(new Intent(this, ThreeAxisSensorActivity.class));
     }
 }

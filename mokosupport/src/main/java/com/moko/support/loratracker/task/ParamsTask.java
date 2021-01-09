@@ -929,4 +929,144 @@ public class ParamsTask extends OrderTask {
                 (byte) rssi
         };
     }
+
+    public void setSOSEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_SOS_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    public void setSOSReportInterval(@IntRange(from = 1, to = 10) int interval) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_SOS_REPORT_INTERVAL.getParamsKey(),
+                (byte) 0x01,
+                (byte) interval
+        };
+    }
+
+    public void setSOSOptionalPayload(@IntRange(from = 0, to = 255) int payload) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_SOS.getParamsKey(),
+                (byte) 0x01,
+                (byte) payload
+        };
+    }
+
+    public void setGPSEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_GPS_FUNCTION_SWITCH.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    public void setGPSReportInterval(@IntRange(from = 10, to = 200) int interval) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_GPS_REPORT_INTERVAL.getParamsKey(),
+                (byte) 0x01,
+                (byte) interval
+        };
+    }
+
+    public void setGPSSearchTime(@IntRange(from = 1, to = 10) int time) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_GPS_SATELLITE_SEARCH_TIME.getParamsKey(),
+                (byte) 0x01,
+                (byte) time
+        };
+    }
+
+    public void setGPSOptionalPayload(@IntRange(from = 0, to = 255) int payload) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_GPS.getParamsKey(),
+                (byte) 0x01,
+                (byte) payload
+        };
+    }
+
+    public void set3AxisEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    public void set3AxisDataEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_DATA_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    public void set3AxisSampleRate(@IntRange(from = 0, to = 4) int sampleRate) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_SAMPLE_RATE.getParamsKey(),
+                (byte) 0x01,
+                (byte) sampleRate
+        };
+    }
+
+    public void set3AxisG(@IntRange(from = 0, to = 3) int g) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_G.getParamsKey(),
+                (byte) 0x01,
+                (byte) g
+        };
+    }
+
+    public void set3AxisTriggerSensitivity(@IntRange(from = 7, to = 255) int triggerSensitivity) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_TRIGGER_SENSITIVITY.getParamsKey(),
+                (byte) 0x01,
+                (byte) triggerSensitivity
+        };
+    }
+
+    public void set3AxisReportInterval(@IntRange(from = 1, to = 60) int reportInterval) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_THREE_AXIS_REPORT_INTERVAL.getParamsKey(),
+                (byte) 0x01,
+                (byte) reportInterval
+        };
+    }
+
+    public void set3AxisOptionalPayload(@IntRange(from = 0, to = 255) int payload) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_THREE_AXIS.getParamsKey(),
+                (byte) 0x01,
+                (byte) payload
+        };
+    }
 }

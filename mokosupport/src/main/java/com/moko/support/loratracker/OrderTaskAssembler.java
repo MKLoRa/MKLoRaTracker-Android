@@ -348,6 +348,90 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getSOSEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_SOS_ENABLE);
+        return task;
+    }
+
+    public static OrderTask getSOSReportInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_SOS_REPORT_INTERVAL);
+        return task;
+    }
+
+    public static OrderTask getSOSOptionalPayload() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_SOS);
+        return task;
+    }
+
+    public static OrderTask getGPSEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_GPS_FUNCTION_SWITCH);
+        return task;
+    }
+
+    public static OrderTask getGPSStatus() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_GPS_FUNCTION_STATUS);
+        return task;
+    }
+
+    public static OrderTask getGPSReportInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_GPS_REPORT_INTERVAL);
+        return task;
+    }
+
+    public static OrderTask getGPSOptionalPayload() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_GPS);
+        return task;
+    }
+
+    public static OrderTask get3AxisEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_ENABLE);
+        return task;
+    }
+
+    public static OrderTask get3AxisDataEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_DATA_ENABLE);
+        return task;
+    }
+
+    public static OrderTask get3AxisSampleRate() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_SAMPLE_RATE);
+        return task;
+    }
+
+    public static OrderTask get3AxisG() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_G);
+        return task;
+    }
+
+    public static OrderTask get3AxisTriggerSensitivity() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_TRIGGER_SENSITIVITY);
+        return task;
+    }
+
+    public static OrderTask get3AxisReportInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_THREE_AXIS_REPORT_INTERVAL);
+        return task;
+    }
+
+    public static OrderTask get3AxisOptionalPayload() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_THREE_AXIS);
+        return task;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // WRITE
     ///////////////////////////////////////////////////////////////////////////
@@ -680,6 +764,90 @@ public class OrderTaskAssembler {
     public static OrderTask setVibrationCycle(int cycle) {
         ParamsTask task = new ParamsTask();
         task.setVibrationCycle(cycle);
+        return task;
+    }
+
+    public static OrderTask setSOSEnable(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setSOSEnable(enable);
+        return task;
+    }
+
+    public static OrderTask setSOSReportInterval(int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setSOSReportInterval(interval);
+        return task;
+    }
+
+    public static OrderTask setSOSOptionalPayload(int payload) {
+        ParamsTask task = new ParamsTask();
+        task.setSOSOptionalPayload(payload);
+        return task;
+    }
+
+    public static OrderTask setGPSEnable(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setGPSEnable(enable);
+        return task;
+    }
+
+    public static OrderTask setGPSReportInterval(int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setGPSReportInterval(interval);
+        return task;
+    }
+
+    public static OrderTask setGPSSearchTime(int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setGPSSearchTime(interval);
+        return task;
+    }
+
+    public static OrderTask setGPSOptionalPayload(int payload) {
+        ParamsTask task = new ParamsTask();
+        task.setGPSOptionalPayload(payload);
+        return task;
+    }
+
+    public static OrderTask set3AxisEnable(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisEnable(enable);
+        return task;
+    }
+
+    public static OrderTask set3AxisDataEnable(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisDataEnable(enable);
+        return task;
+    }
+
+    public static OrderTask set3AxisSampleRate(int sampleRate) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisSampleRate(sampleRate);
+        return task;
+    }
+
+    public static OrderTask set3AxisG(int g) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisG(g);
+        return task;
+    }
+
+    public static OrderTask set3AxisTriggerSensitivity(int triggerSensitivity) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisTriggerSensitivity(triggerSensitivity);
+        return task;
+    }
+
+    public static OrderTask set3AxisReportInterval(int reportInterval) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisReportInterval(reportInterval);
+        return task;
+    }
+
+    public static OrderTask set3AxisOptionalPayload(int payload) {
+        ParamsTask task = new ParamsTask();
+        task.set3AxisOptionalPayload(payload);
         return task;
     }
 }

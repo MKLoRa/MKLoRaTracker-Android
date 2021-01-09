@@ -83,7 +83,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
     private BeaconListAdapter adapter;
     private Animation animation = null;
     private MokoBleScanner mokoBleScanner;
-    public Handler mHandler;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -392,7 +392,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         if (MokoConstants.ACTION_DISCOVER_SUCCESS.equals(action)) {
             dismissLoadingProgressDialog();
             showLoadingMessageDialog();
-            mHandler.postDelayed(() -> {
+            ivRefresh.postDelayed(() -> {
                 // open password notify and set passwrord
                 List<OrderTask> orderTasks = new ArrayList<>();
                 orderTasks.add(OrderTaskAssembler.setPassword(mPassword));

@@ -12,20 +12,25 @@
         android:padding="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
+            android:clickable="true"
             android:gravity="center_vertical"
-            android:text="LoRaWAN Status"
+            android:onClick="onAdvInfo"
+            android:text="Advertiser"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_lora_connectable"
+            android:id="@+id/tv_adv_name"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:text=""
             android:textColor="@color/loratracker_black_333333"
@@ -40,7 +45,111 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lora_connectable" />
+            app:layout_constraintTop_toBottomOf="@id/tv_adv_name" />
+
+        <TextView
+            android:id="@+id/tv_vibratiion_settings"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onVibrationSetting"
+            android:text="Vibration Setting"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_adv_name" />
+
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_vibratiion_settings" />
+
+        <TextView
+            android:id="@+id/tv_sos_function"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onSOSFunction"
+            android:text="SOS Function"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_vibratiion_settings" />
+
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sos_function" />
+
+        <TextView
+            android:id="@+id/tv_gps_function"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onGPSFunction"
+            android:text="GPS Function"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sos_function" />
+
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gps_function" />
+
+
+        <TextView
+            android:id="@+id/tv_3_axis_sensor"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="on3AxisSensor"
+            android:text="3-Axis Sensor"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gps_function" />
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_3_axis_sensor" />
 
         <TextView
             android:id="@+id/tv_change_password"
@@ -57,7 +166,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lora_connectable" />
+            app:layout_constraintTop_toBottomOf="@id/tv_3_axis_sensor" />
 
 
         <View
@@ -95,15 +204,13 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_factory_reset" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_update_firmware"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:clickable="true"
             android:drawableRight="@drawable/loratracker_ic_arrow_right"
             android:gravity="center_vertical"
-            android:onClick="onUpdateFirmware"
             android:text="Update Firmware(DFU)"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
@@ -162,7 +269,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lora_setting" />
+            app:layout_constraintTop_toBottomOf="@id/tv_lora_setting" />-->
 
 
         <View
@@ -171,7 +278,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_scan_window" />
+            app:layout_constraintTop_toBottomOf="@id/tv_factory_reset" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -196,7 +303,7 @@
             android:paddingLeft="20dp"
             android:src="@drawable/loratracker_ic_checked"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_scan_window" />
+            app:layout_constraintTop_toBottomOf="@id/tv_factory_reset" />
 
         <View
             style="@style/loratracker_divider_line"
@@ -287,7 +394,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_low_battery_tips" />
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -336,6 +443,6 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_device_info_interval_value" />
+            app:layout_constraintTop_toBottomOf="@id/tv_device_info_interval_value" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

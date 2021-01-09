@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@Deprecated
 public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final String TAG = AdvFragment.class.getSimpleName();
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
@@ -76,7 +77,7 @@ public class AdvFragment extends Fragment implements SeekBar.OnSeekBarChangeList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: ");
-        View view = inflater.inflate(R.layout.loratracker_fragment_adv, container, false);
+        View view = inflater.inflate(R.layout.loratracker_activity_adv, container, false);
         ButterKnife.bind(this, view);
         activity = (DeviceInfoActivity) getActivity();
         sbRssi1m.setOnSeekBarChangeListener(this);
