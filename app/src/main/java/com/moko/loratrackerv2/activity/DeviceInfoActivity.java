@@ -36,8 +36,8 @@ import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.LoadingMessageDialog;
-import com.moko.loratrackerv2.fragment.AdvFragment;
 import com.moko.loratrackerv2.fragment.DeviceFragment;
+import com.moko.loratrackerv2.fragment.LoRaFragment;
 import com.moko.loratrackerv2.fragment.ScannerFragment;
 import com.moko.loratrackerv2.fragment.SettingFragment;
 import com.moko.loratrackerv2.service.DfuService;
@@ -86,12 +86,15 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     @BindView(R2.id.iv_save)
     ImageView ivSave;
     private FragmentManager fragmentManager;
-    private AdvFragment advFragment;
+    private LoRaFragment loraFragment;
     private ScannerFragment scannerFragment;
     private SettingFragment settingFragment;
     private DeviceFragment deviceFragment;
     public String mDeviceMac;
     public String mDeviceName;
+    private String[] mUploadMode;
+    private String[] mRegions;
+    private int mSelectedRegion;
     private boolean mReceiverTag = false;
     private int disConnectType;
 
@@ -105,8 +108,10 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         fragmentManager = getFragmentManager();
         initFragment();
         radioBtnAdv.setChecked(true);
-        tvTitle.setText(R.string.title_advertiser);
+        tvTitle.setText(R.string.title_lora);
         rgOptions.setOnCheckedChangeListener(this);
+        mUploadMode = getResources().getStringArray(R.array.upload_mode);
+        mRegions = getResources().getStringArray(R.array.region);
         EventBus.getDefault().register(this);
         // 注册广播接收器
         IntentFilter filter = new IntentFilter();
@@ -120,29 +125,26 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             List<OrderTask> orderTasks = new ArrayList<>();
             // sync time after connect success;
             orderTasks.add(OrderTaskAssembler.setTime());
-            // get adv params
-            orderTasks.add(OrderTaskAssembler.getAdvName());
-            orderTasks.add(OrderTaskAssembler.getiBeaconUUID());
-            orderTasks.add(OrderTaskAssembler.getiBeaconMajor());
-            orderTasks.add(OrderTaskAssembler.getIBeaconMinor());
-            orderTasks.add(OrderTaskAssembler.getAdvInterval());
-            orderTasks.add(OrderTaskAssembler.getTransmission());
-            orderTasks.add(OrderTaskAssembler.getMeasurePower());
+            // get lora params
+            orderTasks.add(OrderTaskAssembler.getLoraRegion());
+            orderTasks.add(OrderTaskAssembler.getLoraMode());
+            orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
+            orderTasks.add(OrderTaskAssembler.getTimeSyncInterval());
             LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
     }
 
     private void initFragment() {
-        advFragment = AdvFragment.newInstance();
+        loraFragment = LoRaFragment.newInstance();
         scannerFragment = ScannerFragment.newInstance();
         settingFragment = SettingFragment.newInstance();
         deviceFragment = DeviceFragment.newInstance();
         fragmentManager.beginTransaction()
-                .add(R.id.frame_container, advFragment)
+                .add(R.id.frame_container, loraFragment)
                 .add(R.id.frame_container, scannerFragment)
                 .add(R.id.frame_container, settingFragment)
                 .add(R.id.frame_container, deviceFragment)
-                .show(advFragment)
+                .show(loraFragment)
                 .hide(scannerFragment)
                 .hide(settingFragment)
                 .hide(deviceFragment)
@@ -274,6 +276,26 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
+                                    case KEY_LORA_REGION:
+                                        if (length > 0) {
+                                            final int region = value[4] & 0xFF;
+                                            mSelectedRegion = region;
+                                        }
+                                        break;
+                                    case KEY_LORA_MODE:
+                                        if (length > 0) {
+                                            final int mode = value[4];
+                                            String loraInfo = String.format("%s/%s/ClassA",
+                                                    mUploadMode[mode - 1], mRegions[mSelectedRegion]);
+                                            loraFragment.setLoRaInfo(loraInfo);
+                                        }
+                                        break;
+                                    case KEY_NETWORK_STATUS:
+                                        if (length > 0) {
+                                            int connectable = value[4];
+                                            loraFragment.setNetworkCheck(connectable);
+                                        }
+                                        break;
                                     case KEY_ADV_NAME:
                                         if (length > 0) {
                                             byte[] rawDataBytes = Arrays.copyOfRange(value, 4, 4 + length);
@@ -307,12 +329,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             scannerFragment.setWarningRssi(rssi);
                                         }
                                         break;
-//                                    case KEY_NETWORK_STATUS:
-//                                        if (length > 0) {
-//                                            int connectable = value[4];
-//                                            settingFragment.setLoRaConnectable(connectable);
-//                                        }
-//                                        break;
                                     case KEY_SCAN_WINDOW:
                                         if (length > 0) {
                                             int scannerState = value[4] & 0xFF;
@@ -357,6 +373,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             deviceFragment.setBatteryValtage(battery);
                                         }
                                         break;
+
                                 }
                             }
 
@@ -525,9 +542,9 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     public void onSave(View view) {
         if (radioBtnAdv.isChecked()) {
-            if (advFragment.isValid()) {
+            if (loraFragment.isValid()) {
                 showSyncingProgressDialog();
-                advFragment.saveParams();
+                loraFragment.saveParams();
             } else {
                 ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
             }
@@ -555,7 +572,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         if (checkedId == R.id.radioBtn_adv) {
-            showAdvAndGetData();
+            showLoRaAndGetData();
         } else if (checkedId == R.id.radioBtn_scanner) {
             showScannerAndGetData();
         } else if (checkedId == R.id.radioBtn_setting) {
@@ -569,7 +586,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         tvTitle.setText(R.string.title_device);
         ivSave.setVisibility(View.GONE);
         fragmentManager.beginTransaction()
-                .hide(advFragment)
+                .hide(loraFragment)
                 .hide(scannerFragment)
                 .hide(settingFragment)
                 .show(deviceFragment)
@@ -591,7 +608,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         tvTitle.setText(R.string.title_setting);
         ivSave.setVisibility(View.GONE);
         fragmentManager.beginTransaction()
-                .hide(advFragment)
+                .hide(loraFragment)
                 .hide(scannerFragment)
                 .show(settingFragment)
                 .hide(deviceFragment)
@@ -599,7 +616,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
         // setting
-//        orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
         orderTasks.add(OrderTaskAssembler.getAdvName());
         orderTasks.add(OrderTaskAssembler.getConnectable());
         orderTasks.add(OrderTaskAssembler.getLowBattery());
@@ -611,7 +627,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         tvTitle.setText(R.string.title_scanner);
         ivSave.setVisibility(View.VISIBLE);
         fragmentManager.beginTransaction()
-                .hide(advFragment)
+                .hide(loraFragment)
                 .show(scannerFragment)
                 .hide(settingFragment)
                 .hide(deviceFragment)
@@ -627,25 +643,22 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
-    private void showAdvAndGetData() {
-        tvTitle.setText(R.string.title_advertiser);
+    private void showLoRaAndGetData() {
+        tvTitle.setText(R.string.title_lora);
         ivSave.setVisibility(View.VISIBLE);
         fragmentManager.beginTransaction()
-                .show(advFragment)
+                .show(loraFragment)
                 .hide(scannerFragment)
                 .hide(settingFragment)
                 .hide(deviceFragment)
                 .commit();
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
-        // get adv params
-        orderTasks.add(OrderTaskAssembler.getAdvName());
-        orderTasks.add(OrderTaskAssembler.getiBeaconUUID());
-        orderTasks.add(OrderTaskAssembler.getiBeaconMajor());
-        orderTasks.add(OrderTaskAssembler.getIBeaconMinor());
-        orderTasks.add(OrderTaskAssembler.getAdvInterval());
-        orderTasks.add(OrderTaskAssembler.getTransmission());
-        orderTasks.add(OrderTaskAssembler.getMeasurePower());
+        // get lora params
+        orderTasks.add(OrderTaskAssembler.getLoraRegion());
+        orderTasks.add(OrderTaskAssembler.getLoraMode());
+        orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
+        orderTasks.add(OrderTaskAssembler.getTimeSyncInterval());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
@@ -680,10 +693,10 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setLowBattery(lowBattery));
     }
 
-    public void setDeviceInfoInterval(int interval) {
-        showSyncingProgressDialog();
-        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setDeviceInfoInterval(interval));
-    }
+//    public void setDeviceInfoInterval(int interval) {
+//        showSyncingProgressDialog();
+//        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setDeviceInfoInterval(interval));
+//    }
 
     public void chooseFirmwareFile() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -819,12 +832,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         chooseFirmwareFile();
     }
 
-    public void onLoraSetting(View view) {
-        // LORA
-        Intent intent = new Intent(this, LoRaSettingActivity.class);
-        startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
-    }
-
     public void onScanWindow(View view) {
         scannerFragment.showBeaconScannerDialog();
     }
@@ -879,5 +886,19 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     public void onAlarmNotify(View view) {
         scannerFragment.showAlarmNotifyDialog();
+    }
+
+    public void onLoraSetting(View view) {
+        // LORA
+        Intent intent = new Intent(this, LoRaSettingActivity.class);
+        startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
+    }
+
+    public void onNetworkCheck(View view) {
+        // TODO: 2021/1/12 networkcheck
+    }
+
+    public void onUplinkPayload(View view) {
+        // TODO: 2021/1/12 uplinkpayload
     }
 }

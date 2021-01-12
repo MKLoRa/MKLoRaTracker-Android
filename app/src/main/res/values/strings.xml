@@ -32,7 +32,7 @@
     <string name="permission_location_close_content">Please find it in cellphone setting- permission, and allow LoRaTrackerV2 use the Location and Storage permission</string>
     <string name="permission_location_need_title">Turn on Location permission</string>
     <string name="permission_location_need_content">After that, LoRaTrackerV2 could search and connect with the device</string>
-    <string name="title_advertiser">ADVERTISER</string>
+    <string name="title_lora">LORA</string>
     <string name="title_scanner">SCANNER</string>
     <string name="title_setting">SETTINGS</string>
     <string name="title_device">DEVICE</string>
@@ -68,6 +68,7 @@
         <item>IN865</item>
         <item>CN470PREQUEL</item>
         <item>STE920</item>
+        <item>RU864</item>
     </string-array>
     <string-array name="upload_mode">
         <item>ABP</item>

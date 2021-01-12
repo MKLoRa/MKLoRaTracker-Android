@@ -1246,6 +1246,17 @@ public class ParamsTask extends OrderTask {
         };
     }
 
+
+    public void setLoraDutyCycleEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_LORA_DUTY_CYCLE_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
     public void setLoraDR(int dr1) {
         data = new byte[]{
                 (byte) 0xED,
@@ -1263,6 +1274,16 @@ public class ParamsTask extends OrderTask {
                 (byte) ParamsKeyEnum.KEY_LORA_ADR.getParamsKey(),
                 (byte) 0x01,
                 (byte) adr
+        };
+    }
+
+    public void setLoraUplinkDellTime(@IntRange(from = 0, to = 1) int uplinkDellTime) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_LORA_UPLINK_DELL_TIME.getParamsKey(),
+                (byte) 0x01,
+                (byte) uplinkDellTime
         };
     }
 
@@ -1455,6 +1476,16 @@ public class ParamsTask extends OrderTask {
                 (byte) ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_THREE_AXIS.getParamsKey(),
                 (byte) 0x01,
                 (byte) payload
+        };
+    }
+
+    public void setTimeSyncInterval(@IntRange(from = 0, to = 240) int timeSyncInterval) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TIME_SYNC_INTERVAL.getParamsKey(),
+                (byte) 0x01,
+                (byte) timeSyncInterval
         };
     }
 }

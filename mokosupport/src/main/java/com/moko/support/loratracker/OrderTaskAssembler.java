@@ -450,6 +450,12 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getLoraDutyCycleEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_LORA_DUTY_CYCLE_ENABLE);
+        return task;
+    }
+
     public static OrderTask getLoraDR() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LORA_DR);
@@ -459,6 +465,12 @@ public class OrderTaskAssembler {
     public static OrderTask getLoraADR() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LORA_ADR);
+        return task;
+    }
+
+    public static OrderTask getLoraUplinkDellTime() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_LORA_UPLINK_DELL_TIME);
         return task;
     }
 
@@ -543,6 +555,12 @@ public class OrderTaskAssembler {
     public static OrderTask get3AxisOptionalPayload() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_THREE_AXIS);
+        return task;
+    }
+
+    public static OrderTask getTimeSyncInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TIME_SYNC_INTERVAL);
         return task;
     }
 
@@ -958,6 +976,11 @@ public class OrderTaskAssembler {
         task.setLoraCH(ch1, ch2);
         return task;
     }
+    public static OrderTask setLoraDutyCycleEnable(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setLoraDutyCycleEnable(enable);
+        return task;
+    }
 
     public static OrderTask setLoraDR(int dr1) {
         ParamsTask task = new ParamsTask();
@@ -968,6 +991,12 @@ public class OrderTaskAssembler {
     public static OrderTask setLoraADR(int adr) {
         ParamsTask task = new ParamsTask();
         task.setLoraADR(adr);
+        return task;
+    }
+
+    public static OrderTask setLoraUplinkDellTime(int uplinkDellTime) {
+        ParamsTask task = new ParamsTask();
+        task.setLoraUplinkDellTime(uplinkDellTime);
         return task;
     }
 
@@ -1076,6 +1105,12 @@ public class OrderTaskAssembler {
     public static OrderTask set3AxisOptionalPayload(int payload) {
         ParamsTask task = new ParamsTask();
         task.set3AxisOptionalPayload(payload);
+        return task;
+    }
+
+    public static OrderTask setTimeSyncInterval(int timeSyncInterval) {
+        ParamsTask task = new ParamsTask();
+        task.setTimeSyncInterval(timeSyncInterval);
         return task;
     }
 }

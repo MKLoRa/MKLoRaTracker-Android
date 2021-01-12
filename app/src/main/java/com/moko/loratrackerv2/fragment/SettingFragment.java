@@ -26,9 +26,7 @@ import butterknife.ButterKnife;
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
     @BindView(R2.id.iv_connectable)
-    ImageView ivConnectable;
-//    @BindView(R2.id.tv_lora_connectable)
-//    TextView tvLoRaConnectable;
+    ImageView ivConnectable;;
     @BindView(R2.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
     @BindView(R2.id.tv_low_battery_tips)
@@ -37,7 +35,6 @@ public class SettingFragment extends Fragment {
 //    TextView tvDeviceInfoIntervalValue;
     @BindView(R2.id.tv_adv_name)
     TextView tvAdvName;
-    private String[] loraConnectable;
     private DeviceInfoActivity activity;
 
     public SettingFragment() {
@@ -62,7 +59,6 @@ public class SettingFragment extends Fragment {
         View view = inflater.inflate(R.layout.loratracker_fragment_setting, container, false);
         ButterKnife.bind(this, view);
         activity = (DeviceInfoActivity) getActivity();
-        loraConnectable = getResources().getStringArray(R.array.lora_connectable);
         createLowBatteryList();
         return view;
     }
@@ -168,10 +164,6 @@ public class SettingFragment extends Fragment {
         connectState = connectable == 1;
         ivConnectable.setImageResource(connectable == 1 ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
     }
-
-//    public void setLoRaConnectable(int connectable) {
-//        tvLoRaConnectable.setText(loraConnectable[connectable]);
-//    }
 
     private int lowBatteryValue;
     private ArrayList<String> lowBatteryList;
