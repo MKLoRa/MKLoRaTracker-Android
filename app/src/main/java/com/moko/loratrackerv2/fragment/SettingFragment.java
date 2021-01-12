@@ -15,7 +15,6 @@ import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
 import com.moko.loratrackerv2.dialog.ChangePasswordDialog;
-import com.moko.loratrackerv2.dialog.ScanWindowDialog;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -26,8 +25,6 @@ import butterknife.ButterKnife;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
-//    @BindView(R2.id.tv_scan_window)
-//    TextView tvScanWindow;
     @BindView(R2.id.iv_connectable)
     ImageView ivConnectable;
 //    @BindView(R2.id.tv_lora_connectable)
@@ -112,35 +109,6 @@ public class SettingFragment extends Fragment {
         }, 200);
     }
 
-//    public void showBeaconScannerDialog() {
-//        final ScanWindowDialog dialog = new ScanWindowDialog(getActivity());
-//        dialog.setData(scannerState ? startTime : 0);
-//        dialog.setOnScanWindowClicked(scanMode -> {
-//            String scanModeStr = "";
-//            switch (scanMode) {
-//                case 4:
-//                    scanModeStr = "0";
-//                    break;
-//                case 0:
-//                    scanModeStr = "1/2";
-//                    break;
-//                case 1:
-//                    scanModeStr = "1/4";
-//                    break;
-//                case 2:
-//                    scanModeStr = "1/8";
-//                    break;
-//            }
-//            tvScanWindow.setText(String.format("Scan Window(%s)", scanModeStr));
-//            if (scanMode < 3) {
-//                scanMode += 2;
-//                activity.setScanWindow(1, scanMode);
-//            } else {
-//                activity.setScanWindow(0, 1);
-//            }
-//        });
-//        dialog.show();
-//    }
 
     public void showConnectableDialog() {
         AlertMessageDialog dialog = new AlertMessageDialog();
@@ -192,28 +160,6 @@ public class SettingFragment extends Fragment {
 //            activity.setDeviceInfoInterval(intervalValue);
 //        });
 //        dialog.show(activity.getSupportFragmentManager());
-//    }
-
-//    private boolean scannerState;
-//    private int startTime;
-//
-//    public void setScanWindow(int scanner, int startTime) {
-//        scannerState = scanner == 1;
-//        this.startTime = startTime;
-//        String scanModeStr = "";
-//        switch (startTime) {
-//            case 2:
-//                scanModeStr = "1/2";
-//                break;
-//            case 3:
-//                scanModeStr = "1/4";
-//                break;
-//            case 4:
-//                scanModeStr = "1/8";
-//                break;
-//        }
-//        tvScanWindow.setText(scannerState ? String.format("Scan Window(%s)", scanModeStr)
-//                : "Scan Window(0ms/1000ms)");
 //    }
 
     private boolean connectState;

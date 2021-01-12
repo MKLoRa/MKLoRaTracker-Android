@@ -150,7 +150,7 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setScanInterval(@IntRange(from = 1, to = 600) int seconds) {
+    public void setFilterValidInterval(@IntRange(from = 1, to = 600) int seconds) {
         byte[] intervalBytes = MokoUtils.toByteArray(seconds, 2);
         data = new byte[]{
                 (byte) 0xED,
@@ -207,7 +207,7 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setFilterRssiA(@IntRange(from = -127, to = 0) int rssi) {
+    public void setLBFilterRssiA(@IntRange(from = -127, to = 0) int rssi) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
@@ -217,7 +217,7 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setFilterMacA(String mac, boolean isReverse) {
+    public void setLBFilterMacA(String mac, boolean isReverse) {
         if (TextUtils.isEmpty(mac)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -242,7 +242,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterNameA(String name, boolean isReverse) {
+    public void setLBFilterNameA(String name, boolean isReverse) {
         if (TextUtils.isEmpty(name)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -266,7 +266,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterUUIDA(String uuid, boolean isReverse) {
+    public void setLBFilterUUIDA(String uuid, boolean isReverse) {
         if (TextUtils.isEmpty(uuid)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -290,10 +290,10 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterMajorRangeA(@IntRange(from = 0, to = 1) int enable,
-                                     @IntRange(from = 0, to = 65535) int majorMin,
-                                     @IntRange(from = 0, to = 65535) int majorMax,
-                                     boolean isReverse) {
+    public void setLBFilterMajorRangeA(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int majorMin,
+                                       @IntRange(from = 0, to = 65535) int majorMax,
+                                       boolean isReverse) {
         if (enable == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -319,10 +319,10 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterMinorRangeA(@IntRange(from = 0, to = 1) int enable,
-                                     @IntRange(from = 0, to = 65535) int minorMin,
-                                     @IntRange(from = 0, to = 65535) int minorMax,
-                                     boolean isReverse) {
+    public void setLBFilterMinorRangeA(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int minorMin,
+                                       @IntRange(from = 0, to = 65535) int minorMax,
+                                       boolean isReverse) {
         if (enable == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -348,7 +348,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
+    public void setLBFilterRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
         if (filterRawDatas == null || filterRawDatas.size() == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -376,7 +376,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterSwitchA(@IntRange(from = 0, to = 1) int enable) {
+    public void setLBFilterSwitchA(@IntRange(from = 0, to = 1) int enable) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
@@ -386,7 +386,7 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setFilterRssiB(@IntRange(from = -127, to = 0) int rssi) {
+    public void setLBFilterRssiB(@IntRange(from = -127, to = 0) int rssi) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
@@ -396,7 +396,7 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setFilterMacB(String mac, boolean isReverse) {
+    public void setLBFilterMacB(String mac, boolean isReverse) {
         if (TextUtils.isEmpty(mac)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -421,7 +421,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterNameB(String name, boolean isReverse) {
+    public void setLBFilterNameB(String name, boolean isReverse) {
         if (TextUtils.isEmpty(name)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -445,7 +445,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterUUIDB(String uuid, boolean isReverse) {
+    public void setLBFilterUUIDB(String uuid, boolean isReverse) {
         if (TextUtils.isEmpty(uuid)) {
             data = new byte[]{
                     (byte) 0xED,
@@ -469,10 +469,10 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterMajorRangeB(@IntRange(from = 0, to = 1) int enable,
-                                     @IntRange(from = 0, to = 65535) int majorMin,
-                                     @IntRange(from = 0, to = 65535) int majorMax,
-                                     boolean isReverse) {
+    public void setLBFilterMajorRangeB(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int majorMin,
+                                       @IntRange(from = 0, to = 65535) int majorMax,
+                                       boolean isReverse) {
         if (enable == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -498,10 +498,10 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterMinorRangeB(@IntRange(from = 0, to = 1) int enable,
-                                     @IntRange(from = 0, to = 65535) int minorMin,
-                                     @IntRange(from = 0, to = 65535) int minorMax,
-                                     boolean isReverse) {
+    public void setLBFilterMinorRangeB(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int minorMin,
+                                       @IntRange(from = 0, to = 65535) int minorMax,
+                                       boolean isReverse) {
         if (enable == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -527,7 +527,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
+    public void setLBFilterRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
         if (filterRawDatas == null || filterRawDatas.size() == 0) {
             data = new byte[]{
                     (byte) 0xED,
@@ -555,7 +555,7 @@ public class ParamsTask extends OrderTask {
         }
     }
 
-    public void setFilterSwitchB(@IntRange(from = 0, to = 1) int enable) {
+    public void setLBFilterSwitchB(@IntRange(from = 0, to = 1) int enable) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
@@ -565,13 +565,401 @@ public class ParamsTask extends OrderTask {
         };
     }
 
-    public void setFilterABRelation(@IntRange(from = 0, to = 1) int relation) {
+    public void setLBFilterABRelation(@IntRange(from = 0, to = 1) int relation) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_A_B_RELATION.getParamsKey(),
                 (byte) 0x01,
                 (byte) relation,
+        };
+    }
+
+    public void setLBFilterRepeat(@IntRange(from = 0, to = 3) int repeat) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_LOCATION_FILTER_REPEAT.getParamsKey(),
+                (byte) 0x01,
+                (byte) repeat,
+        };
+    }
+
+    public void setCTFilterRssiA(@IntRange(from = -127, to = 0) int rssi) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_RSSI_A.getParamsKey(),
+                (byte) 0x01,
+                (byte) rssi
+        };
+    }
+
+    public void setCTFilterMacA(String mac, boolean isReverse) {
+        if (TextUtils.isEmpty(mac)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+
+        } else {
+            byte[] macBytes = MokoUtils.hex2bytes(mac);
+            int length = macBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_A.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < macBytes.length; i++) {
+                data[5 + i] = macBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterNameA(String name, boolean isReverse) {
+        if (TextUtils.isEmpty(name)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] nameBytes = name.getBytes();
+            int length = nameBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_A.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < nameBytes.length; i++) {
+                data[5 + i] = nameBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterUUIDA(String uuid, boolean isReverse) {
+        if (TextUtils.isEmpty(uuid)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] uuidBytes = MokoUtils.hex2bytes(uuid);
+            int length = uuidBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_A.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < uuidBytes.length; i++) {
+                data[5 + i] = uuidBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterMajorRangeA(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int majorMin,
+                                       @IntRange(from = 0, to = 65535) int majorMax,
+                                       boolean isReverse) {
+        if (enable == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] majorMinBytes = MokoUtils.toByteArray(majorMin, 2);
+            byte[] majorMaxBytes = MokoUtils.toByteArray(majorMax, 2);
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_A.getParamsKey(),
+                    (byte) 0x05,
+                    (byte) (isReverse ? 0x02 : 0x01),
+                    majorMinBytes[0],
+                    majorMinBytes[1],
+                    majorMaxBytes[0],
+                    majorMaxBytes[1],
+            };
+        }
+    }
+
+    public void setCTFilterMinorRangeA(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int minorMin,
+                                       @IntRange(from = 0, to = 65535) int minorMax,
+                                       boolean isReverse) {
+        if (enable == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] minorMinBytes = MokoUtils.toByteArray(minorMin, 2);
+            byte[] minorMaxBytes = MokoUtils.toByteArray(minorMax, 2);
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_A.getParamsKey(),
+                    (byte) 0x05,
+                    (byte) (isReverse ? 0x02 : 0x01),
+                    minorMinBytes[0],
+                    minorMinBytes[1],
+                    minorMaxBytes[0],
+                    minorMaxBytes[1],
+            };
+        }
+    }
+
+    public void setCTFilterRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
+        if (filterRawDatas == null || filterRawDatas.size() == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_A.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            StringBuffer stringBuffer = new StringBuffer();
+            for (String rawData : filterRawDatas) {
+                stringBuffer.append(rawData);
+            }
+            byte[] mRawDatas = MokoUtils.hex2bytes(stringBuffer.toString());
+            final int length = mRawDatas.length + 1;
+            data = new byte[length + 4];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_A.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < mRawDatas.length; i++) {
+                data[5 + i] = mRawDatas[i];
+            }
+        }
+    }
+
+    public void setCTFilterSwitchA(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_SWITCH_A.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable,
+        };
+    }
+
+    public void setCTFilterRssiB(@IntRange(from = -127, to = 0) int rssi) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_RSSI_B.getParamsKey(),
+                (byte) 0x01,
+                (byte) rssi
+        };
+    }
+
+    public void setCTFilterMacB(String mac, boolean isReverse) {
+        if (TextUtils.isEmpty(mac)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+
+        } else {
+            byte[] macBytes = MokoUtils.hex2bytes(mac);
+            int length = macBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_B.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < macBytes.length; i++) {
+                data[5 + i] = macBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterNameB(String name, boolean isReverse) {
+        if (TextUtils.isEmpty(name)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] nameBytes = name.getBytes();
+            int length = nameBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_B.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < nameBytes.length; i++) {
+                data[5 + i] = nameBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterUUIDB(String uuid, boolean isReverse) {
+        if (TextUtils.isEmpty(uuid)) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] uuidBytes = MokoUtils.hex2bytes(uuid);
+            int length = uuidBytes.length + 1;
+            data = new byte[4 + length];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_B.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < uuidBytes.length; i++) {
+                data[5 + i] = uuidBytes[i];
+            }
+        }
+    }
+
+    public void setCTFilterMajorRangeB(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int majorMin,
+                                       @IntRange(from = 0, to = 65535) int majorMax,
+                                       boolean isReverse) {
+        if (enable == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] majorMinBytes = MokoUtils.toByteArray(majorMin, 2);
+            byte[] majorMaxBytes = MokoUtils.toByteArray(majorMax, 2);
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_B.getParamsKey(),
+                    (byte) 0x05,
+                    (byte) (isReverse ? 0x02 : 0x01),
+                    majorMinBytes[0],
+                    majorMinBytes[1],
+                    majorMaxBytes[0],
+                    majorMaxBytes[1],
+            };
+        }
+    }
+
+    public void setCTFilterMinorRangeB(@IntRange(from = 0, to = 1) int enable,
+                                       @IntRange(from = 0, to = 65535) int minorMin,
+                                       @IntRange(from = 0, to = 65535) int minorMax,
+                                       boolean isReverse) {
+        if (enable == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            byte[] minorMinBytes = MokoUtils.toByteArray(minorMin, 2);
+            byte[] minorMaxBytes = MokoUtils.toByteArray(minorMax, 2);
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_B.getParamsKey(),
+                    (byte) 0x05,
+                    (byte) (isReverse ? 0x02 : 0x01),
+                    minorMinBytes[0],
+                    minorMinBytes[1],
+                    minorMaxBytes[0],
+                    minorMaxBytes[1],
+            };
+        }
+    }
+
+    public void setCTFilterRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
+        if (filterRawDatas == null || filterRawDatas.size() == 0) {
+            data = new byte[]{
+                    (byte) 0xED,
+                    (byte) 0x01,
+                    (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_B.getParamsKey(),
+                    (byte) 0x01,
+                    (byte) 0x00,
+            };
+        } else {
+            StringBuffer stringBuffer = new StringBuffer();
+            for (String rawData : filterRawDatas) {
+                stringBuffer.append(rawData);
+            }
+            byte[] mRawDatas = MokoUtils.hex2bytes(stringBuffer.toString());
+            final int length = mRawDatas.length + 1;
+            data = new byte[length + 4];
+            data[0] = (byte) 0xED;
+            data[1] = (byte) 0x01;
+            data[2] = (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_B.getParamsKey();
+            data[3] = (byte) length;
+            data[4] = (byte) (isReverse ? 0x02 : 0x01);
+            for (int i = 0; i < mRawDatas.length; i++) {
+                data[5 + i] = mRawDatas[i];
+            }
+        }
+    }
+
+    public void setCTFilterSwitchB(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_SWITCH_B.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable,
+        };
+    }
+
+    public void setCTFilterABRelation(@IntRange(from = 0, to = 1) int relation) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_A_B_RELATION.getParamsKey(),
+                (byte) 0x01,
+                (byte) relation,
+        };
+    }
+
+    public void setCTFilterRepeat(@IntRange(from = 0, to = 3) int repeat) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_TRACKING_FILTER_REPEAT.getParamsKey(),
+                (byte) 0x01,
+                (byte) repeat,
         };
     }
 

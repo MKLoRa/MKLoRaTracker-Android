@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="FILTER OPTIONS"
+            android:text="Filter Options"
             android:textColor="@color/loratracker_white_ffffff"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -45,6 +45,7 @@
 
 
         <TextView
+            android:id="@+id/tv_condition_a_title"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center_vertical"
@@ -67,6 +68,8 @@
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onFilterA"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -80,6 +83,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_condition_a" />
 
         <TextView
+            android:id="@+id/tv_condition_b_title"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -88,6 +92,8 @@
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onFilterB"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_condition_a" />
 
@@ -145,16 +151,62 @@
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+            android:background="@drawable/loratracker_selector_btn_bg"
             android:clickable="true"
+            android:enabled="false"
             android:gravity="center"
             android:onClick="onRelation"
             android:text="And"
-            android:textColor="@color/loratracker_white_ffffff"
+            android:textColor="@drawable/loratracker_selector_btn_text"
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_condition_b" />
 
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_relation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:text="Filter Repeating Data"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_relation" />
+
+        <TextView
+            android:id="@+id/tv_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:onClick="onRepeat"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="No"
+            android:textColor="@color/loratracker_white_ffffff"
+            android:textSize="15sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_relation" />
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_repeat" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

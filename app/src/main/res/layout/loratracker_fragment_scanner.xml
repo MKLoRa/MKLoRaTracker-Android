@@ -12,14 +12,14 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/tv_filter_options"
+            android:id="@+id/tv_lb_filter_options"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:clickable="true"
             android:drawableRight="@drawable/loratracker_ic_arrow_right"
             android:gravity="center_vertical"
-            android:onClick="onFilterOptions"
-            android:text="Filter Options"
+            android:onClick="onLBFilterOptions"
+            android:text="Location Beacon Filter Options"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -33,7 +33,32 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_filter_options" />
+            app:layout_constraintTop_toBottomOf="@id/tv_lb_filter_options" />
+
+        <TextView
+            android:id="@+id/tv_ct_filter_options"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onCTFilterOptions"
+            android:text="Contact Tracking Filter Options"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lb_filter_options" />
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ct_filter_options" />
 
         <TextView
             android:id="@+id/scan_interval"
@@ -71,7 +96,7 @@
             android:progress="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_scan_interval_value"
-            app:layout_constraintTop_toBottomOf="@id/tv_filter_options" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ct_filter_options" />
 
         <TextView
             android:id="@+id/tv_scan_interval_value"
@@ -113,99 +138,27 @@
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/npv_alarm_notify"
+            app:layout_constraintBottom_toBottomOf="@id/tv_alarm_notify"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/npv_alarm_notify" />
-
-        <cn.carbswang.android.numberpickerview.library.NumberPickerView
-            android:id="@+id/npv_alarm_notify"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/loratracker_shape_stroke_blue_bg"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_scan_interval_tips"
-            app:npv_DividerColor="@color/loratracker_blue_2f84d0"
-            app:npv_DividerMarginLeft="15dp"
-            app:npv_DividerMarginRight="15dp"
-            app:npv_TextArray="@array/tracking_notify"
-            app:npv_TextColorNormal="@color/loratracker_grey_b3b3b3"
-            app:npv_TextColorSelected="@color/loratracker_blue_2f84d0"
-            app:npv_TextSizeNormal="10sp"
-            app:npv_TextSizeSelected="13sp"
-            app:npv_WrapSelectorWheel="false" />
-
-        <View
-            style="@style/loratracker_divider_line"
-            android:layout_width="0dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/npv_alarm_notify" />
+            app:layout_constraintTop_toTopOf="@id/tv_alarm_notify" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Vibration Intensity"
-            android:textColor="@color/loratracker_black_333333"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/npv_vibration_intensity"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/npv_vibration_intensity" />
-
-        <cn.carbswang.android.numberpickerview.library.NumberPickerView
-            android:id="@+id/npv_vibration_intensity"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:id="@+id/tv_alarm_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/loratracker_shape_stroke_blue_bg"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/npv_alarm_notify"
-            app:npv_DividerColor="@color/loratracker_blue_2f84d0"
-            app:npv_DividerMarginLeft="15dp"
-            app:npv_DividerMarginRight="15dp"
-            app:npv_TextArray="@array/vibration_intensity"
-            app:npv_TextColorNormal="@color/loratracker_grey_b3b3b3"
-            app:npv_TextColorSelected="@color/loratracker_blue_2f84d0"
-            app:npv_TextSizeNormal="10sp"
-            app:npv_TextSizeSelected="13sp"
-            app:npv_WrapSelectorWheel="false" />
-
-        <View
-            style="@style/loratracker_divider_line"
-            android:layout_width="0dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/npv_vibration_intensity" />
-
-        <EditText
-            android:id="@+id/et_vibration_cycle"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+            android:clickable="true"
             android:gravity="center"
-            android:hint="1~600s"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textColor="@color/loratracker_black_333333"
+            android:minWidth="70dp"
+            android:onClick="onAlarmNotify"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Off"
+            android:textColor="@color/loratracker_white_ffffff"
             android:textSize="15sp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/npv_vibration_intensity" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Vibration Cycle"
-            android:textColor="@color/loratracker_black_333333"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/et_vibration_cycle"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/et_vibration_cycle" />
+            app:layout_constraintTop_toBottomOf="@id/tv_scan_interval_tips" />
 
         <View
             style="@style/loratracker_divider_line"
@@ -213,41 +166,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_vibration_cycle" />
-
-        <EditText
-            android:id="@+id/et_vibration_duration"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:hint="0~10s"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textColor="@color/loratracker_black_333333"
-            android:textSize="15sp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_vibration_cycle" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Duration Of Vibration"
-            android:textColor="@color/loratracker_black_333333"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/et_vibration_duration"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/et_vibration_duration" />
-
-        <View
-            style="@style/loratracker_divider_line"
-            android:layout_width="0dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_vibration_duration" />
+            app:layout_constraintTop_toBottomOf="@id/tv_alarm_notify" />
 
         <TextView
             android:id="@+id/alarm_trigger_rssi"
@@ -285,7 +204,7 @@
             android:progress="0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tv_alarm_trigger_rssi_value"
-            app:layout_constraintTop_toBottomOf="@id/et_vibration_duration" />
+            app:layout_constraintTop_toBottomOf="@id/tv_alarm_notify" />
 
         <TextView
             android:id="@+id/tv_alarm_trigger_rssi_value"
@@ -352,9 +271,9 @@
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+            android:clickable="true"
             android:gravity="center"
             android:onClick="onWarningValue"
-            android:clickable="true"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="-5"
@@ -373,5 +292,39 @@
             android:textSize="12sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_warning_value" />
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_tips" />
+
+        <TextView
+            android:id="@+id/tv_scan_window"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:gravity="center_vertical"
+            android:onClick="onScanWindow"
+            android:text="Scanner Window(1/2)"
+            android:textColor="@color/loratracker_black_333333"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_warning_tips" />
+
+
+        <View
+            style="@style/loratracker_divider_line"
+            android:layout_width="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_scan_window" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

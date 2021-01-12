@@ -168,105 +168,219 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask getFilterSwitchA() {
+    public static OrderTask getLBFilterSwitchA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_SWITCH_A);
         return task;
     }
 
-    public static OrderTask getFilterRssiA() {
+    public static OrderTask getLBFilterRssiA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_RSSI_A);
         return task;
     }
 
-    public static OrderTask getFilterMacA() {
+    public static OrderTask getLBFilterMacA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_A);
         return task;
     }
 
-    public static OrderTask getFilterNameA() {
+    public static OrderTask getLBFilterNameA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_A);
         return task;
     }
 
-    public static OrderTask getFilterUUIDA() {
+    public static OrderTask getLBFilterUUIDA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_A);
         return task;
     }
 
-    public static OrderTask getFilterAdvRawDataA() {
+    public static OrderTask getLBFilterAdvRawDataA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_A);
         return task;
     }
 
-    public static OrderTask getFilterMajorRangeA() {
+    public static OrderTask getLBFilterMajorRangeA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_A);
         return task;
     }
 
-    public static OrderTask getFilterMinorRangeA() {
+    public static OrderTask getLBFilterMinorRangeA() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_A);
         return task;
     }
 
-    public static OrderTask getFilterSwitchB() {
+    public static OrderTask getLBFilterSwitchB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_SWITCH_B);
         return task;
     }
 
-    public static OrderTask getFilterRssiB() {
+    public static OrderTask getLBFilterRssiB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_RSSI_B);
         return task;
     }
 
-    public static OrderTask getFilterMacB() {
+    public static OrderTask getLBFilterMacB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MAC_B);
         return task;
     }
 
-    public static OrderTask getFilterNameB() {
+    public static OrderTask getLBFilterNameB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_NAME_B);
         return task;
     }
 
-    public static OrderTask getFilterUUIDB() {
+    public static OrderTask getLBFilterUUIDB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_UUID_B);
         return task;
     }
 
-    public static OrderTask getFilterAdvRawDataB() {
+    public static OrderTask getLBFilterAdvRawDataB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_ADV_RAW_DATA_B);
         return task;
     }
 
-    public static OrderTask getFilterMajorRangeB() {
+    public static OrderTask getLBFilterMajorRangeB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MAJOR_RANGE_B);
         return task;
     }
 
-    public static OrderTask getFilterMinorRangeB() {
+    public static OrderTask getLBFilterMinorRangeB() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_MINOR_RANGE_B);
         return task;
     }
 
-    public static OrderTask getFilterABRelation() {
+    public static OrderTask getLBFilterABRelation() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_A_B_RELATION);
+        return task;
+    }
+
+    public static OrderTask getLBFilterRepeat() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_LOCATION_FILTER_REPEAT);
+        return task;
+    }
+
+    public static OrderTask getCTFilterSwitchA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_SWITCH_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterRssiA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_RSSI_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMacA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterNameA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterUUIDA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterAdvRawDataA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMajorRangeA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMinorRangeA() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_A);
+        return task;
+    }
+
+    public static OrderTask getCTFilterSwitchB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_SWITCH_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterRssiB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_RSSI_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMacB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MAC_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterNameB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_NAME_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterUUIDB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_UUID_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterAdvRawDataB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_ADV_RAW_DATA_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMajorRangeB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MAJOR_RANGE_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterMinorRangeB() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_MINOR_RANGE_B);
+        return task;
+    }
+
+    public static OrderTask getCTFilterABRelation() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_A_B_RELATION);
+        return task;
+    }
+
+    public static OrderTask getCTFilterRepeat() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_TRACKING_FILTER_REPEAT);
         return task;
     }
 
@@ -497,9 +611,9 @@ public class OrderTaskAssembler {
         return writeConfigTask;
     }
 
-    public static ParamsTask setScanInterval(int seconds) {
+    public static ParamsTask setFilterValidInterval(int seconds) {
         ParamsTask writeConfigTask = new ParamsTask();
-        writeConfigTask.setScanInterval(seconds);
+        writeConfigTask.setFilterValidInterval(seconds);
         return writeConfigTask;
     }
 
@@ -563,105 +677,219 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setFilterRssiA(int rssi) {
+    public static OrderTask setLBFilterRssiA(int rssi) {
         ParamsTask task = new ParamsTask();
-        task.setFilterRssiA(rssi);
+        task.setLBFilterRssiA(rssi);
         return task;
     }
 
-    public static OrderTask setFilterMacA(String mac, boolean isReverse) {
+    public static OrderTask setLBFilterMacA(String mac, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMacA(mac, isReverse);
+        task.setLBFilterMacA(mac, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterNameA(String name, boolean isReverse) {
+    public static OrderTask setLBFilterNameA(String name, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterNameA(name, isReverse);
+        task.setLBFilterNameA(name, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterUUIDA(String uuid, boolean isReverse) {
+    public static OrderTask setLBFilterUUIDA(String uuid, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterUUIDA(uuid, isReverse);
+        task.setLBFilterUUIDA(uuid, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterAdvRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
+    public static OrderTask setLBFilterAdvRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterRawDataA(filterRawDatas, isReverse);
+        task.setLBFilterRawDataA(filterRawDatas, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterMajorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
+    public static OrderTask setLBFilterMajorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMajorRangeA(enable, majorMin, majorMax, isReverse);
+        task.setLBFilterMajorRangeA(enable, majorMin, majorMax, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterMinorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
+    public static OrderTask setLBFilterMinorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMinorRangeA(enable, majorMin, majorMax, isReverse);
+        task.setLBFilterMinorRangeA(enable, majorMin, majorMax, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterSwitchA(int enable) {
+    public static OrderTask setLBFilterSwitchA(int enable) {
         ParamsTask task = new ParamsTask();
-        task.setFilterSwitchA(enable);
+        task.setLBFilterSwitchA(enable);
         return task;
     }
 
-    public static OrderTask setFilterRssiB(int rssi) {
+    public static OrderTask setLBFilterRssiB(int rssi) {
         ParamsTask task = new ParamsTask();
-        task.setFilterRssiB(rssi);
+        task.setLBFilterRssiB(rssi);
         return task;
     }
 
-    public static OrderTask setFilterMacB(String mac, boolean isReverse) {
+    public static OrderTask setLBFilterMacB(String mac, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMacB(mac, isReverse);
+        task.setLBFilterMacB(mac, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterNameB(String name, boolean isReverse) {
+    public static OrderTask setLBFilterNameB(String name, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterNameB(name, isReverse);
+        task.setLBFilterNameB(name, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterUUIDB(String uuid, boolean isReverse) {
+    public static OrderTask setLBFilterUUIDB(String uuid, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterUUIDB(uuid, isReverse);
+        task.setLBFilterUUIDB(uuid, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterAdvRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
+    public static OrderTask setLBFilterAdvRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterRawDataB(filterRawDatas, isReverse);
+        task.setLBFilterRawDataB(filterRawDatas, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterMajorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
+    public static OrderTask setLBFilterMajorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMajorRangeB(enable, majorMin, majorMax, isReverse);
+        task.setLBFilterMajorRangeB(enable, majorMin, majorMax, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterMinorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
+    public static OrderTask setLBFilterMinorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
         ParamsTask task = new ParamsTask();
-        task.setFilterMinorRangeB(enable, majorMin, majorMax, isReverse);
+        task.setLBFilterMinorRangeB(enable, majorMin, majorMax, isReverse);
         return task;
     }
 
-    public static OrderTask setFilterSwitchB(int enable) {
+    public static OrderTask setLBFilterSwitchB(int enable) {
         ParamsTask task = new ParamsTask();
-        task.setFilterSwitchB(enable);
+        task.setLBFilterSwitchB(enable);
         return task;
     }
 
-    public static OrderTask setFilterABRelation(int relation) {
+    public static OrderTask setLBFilterABRelation(int relation) {
         ParamsTask task = new ParamsTask();
-        task.setFilterABRelation(relation);
+        task.setLBFilterABRelation(relation);
+        return task;
+    }
+
+    public static OrderTask setLBFilterRepeat(int relation) {
+        ParamsTask task = new ParamsTask();
+        task.setLBFilterRepeat(relation);
+        return task;
+    }
+
+    public static OrderTask setCTFilterRssiA(int rssi) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterRssiA(rssi);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMacA(String mac, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMacA(mac, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterNameA(String name, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterNameA(name, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterUUIDA(String uuid, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterUUIDA(uuid, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterAdvRawDataA(ArrayList<String> filterRawDatas, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterRawDataA(filterRawDatas, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMajorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMajorRangeA(enable, majorMin, majorMax, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMinorRangeA(int enable, int majorMin, int majorMax, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMinorRangeA(enable, majorMin, majorMax, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterSwitchA(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterSwitchA(enable);
+        return task;
+    }
+
+    public static OrderTask setCTFilterRssiB(int rssi) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterRssiB(rssi);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMacB(String mac, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMacB(mac, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterNameB(String name, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterNameB(name, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterUUIDB(String uuid, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterUUIDB(uuid, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterAdvRawDataB(ArrayList<String> filterRawDatas, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterRawDataB(filterRawDatas, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMajorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMajorRangeB(enable, majorMin, majorMax, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterMinorRangeB(int enable, int majorMin, int majorMax, boolean isReverse) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterMinorRangeB(enable, majorMin, majorMax, isReverse);
+        return task;
+    }
+
+    public static OrderTask setCTFilterSwitchB(int enable) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterSwitchB(enable);
+        return task;
+    }
+
+    public static OrderTask setCTFilterABRelation(int relation) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterABRelation(relation);
+        return task;
+    }
+
+    public static OrderTask setCTFilterRepeat(int relation) {
+        ParamsTask task = new ParamsTask();
+        task.setCTFilterRepeat(relation);
         return task;
     }
 

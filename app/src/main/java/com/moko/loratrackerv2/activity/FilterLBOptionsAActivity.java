@@ -49,7 +49,7 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener {
+public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.OnSeekBarChangeListener {
     public static final String UUID_PATTERN = "[A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}";
     private final String FILTER_ASCII = "\\A\\p{ASCII}*\\z";
     @BindView(R2.id.sb_rssi_filter)
@@ -126,9 +126,9 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         setContentView(R.layout.loratracker_activity_filter);
         ButterKnife.bind(this);
 
-        tvTitle.setText("FILTER Condition B");
-        tvCondition.setText("Filter Condition B");
-        tvConditionTips.setText(getString(R.string.condition_tips, "B", "B"));
+        tvTitle.setText("Location Beacon Filter Option A");
+        tvCondition.setText("Enable Filter Condition A");
+        tvConditionTips.setText(getString(R.string.condition_tips, "A", "A"));
 
         sbRssiFilter.setOnSeekBarChangeListener(this);
         pattern = Pattern.compile(UUID_PATTERN);
@@ -198,14 +198,14 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         } else {
             showSyncingProgressDialog();
             List<OrderTask> orderTasks = new ArrayList<>();
-            orderTasks.add(OrderTaskAssembler.getFilterSwitchB());
-            orderTasks.add(OrderTaskAssembler.getFilterRssiB());
-            orderTasks.add(OrderTaskAssembler.getFilterMacB());
-            orderTasks.add(OrderTaskAssembler.getFilterNameB());
-            orderTasks.add(OrderTaskAssembler.getFilterUUIDB());
-            orderTasks.add(OrderTaskAssembler.getFilterMajorRangeB());
-            orderTasks.add(OrderTaskAssembler.getFilterMinorRangeB());
-            orderTasks.add(OrderTaskAssembler.getFilterAdvRawDataB());
+            orderTasks.add(OrderTaskAssembler.getLBFilterSwitchA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterRssiA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterMacA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterNameA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterUUIDA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterMajorRangeA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterMinorRangeA());
+            orderTasks.add(OrderTaskAssembler.getLBFilterAdvRawDataA());
             LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
     }
@@ -253,23 +253,23 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
-                                    case KEY_TRACKING_FILTER_SWITCH_B:
-                                    case KEY_TRACKING_FILTER_RSSI_B:
-                                    case KEY_TRACKING_FILTER_MAC_B:
-                                    case KEY_TRACKING_FILTER_ADV_NAME_B:
-                                    case KEY_TRACKING_FILTER_UUID_B:
-                                    case KEY_TRACKING_FILTER_MAJOR_RANGE_B:
-                                    case KEY_TRACKING_FILTER_MINOR_RANGE_B:
+                                    case KEY_LOCATION_FILTER_SWITCH_A:
+                                    case KEY_LOCATION_FILTER_RSSI_A:
+                                    case KEY_LOCATION_FILTER_MAC_A:
+                                    case KEY_LOCATION_FILTER_ADV_NAME_A:
+                                    case KEY_LOCATION_FILTER_UUID_A:
+                                    case KEY_LOCATION_FILTER_MAJOR_RANGE_A:
+                                    case KEY_LOCATION_FILTER_MINOR_RANGE_A:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_ADV_RAW_DATA_B:
+                                    case KEY_LOCATION_FILTER_ADV_RAW_DATA_A:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
                                         if (savedParamsError) {
-                                            ToastUtils.showToast(FilterOptionsBActivity.this, "Opps！Save failed. Please check the input characters and try again.");
+                                            ToastUtils.showToast(FilterLBOptionsAActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {
                                             AlertMessageDialog dialog = new AlertMessageDialog();
                                             dialog.setMessage("Saved Successfully！");
@@ -283,14 +283,14 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
-                                    case KEY_TRACKING_FILTER_SWITCH_B:
+                                    case KEY_LOCATION_FILTER_SWITCH_A:
                                         if (length == 1) {
                                             final int enable = value[4] & 0xFF;
                                             filterSwitchEnable = enable == 1;
                                             ivCondition.setImageResource(filterSwitchEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_RSSI_B:
+                                    case KEY_LOCATION_FILTER_RSSI_A:
                                         if (length == 1) {
                                             final int rssi = value[4];
                                             int progress = rssi + 127;
@@ -299,7 +299,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             tvRssiFilterTips.setText(getString(R.string.rssi_filter, rssi));
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_MAC_B:
+                                    case KEY_LOCATION_FILTER_MAC_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMacEnable = enable > 0;
@@ -314,7 +314,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_ADV_NAME_B:
+                                    case KEY_LOCATION_FILTER_ADV_NAME_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterNameEnable = enable > 0;
@@ -329,7 +329,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_UUID_B:
+                                    case KEY_LOCATION_FILTER_UUID_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterUUIDEnable = enable > 0;
@@ -349,7 +349,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_MAJOR_RANGE_B:
+                                    case KEY_LOCATION_FILTER_MAJOR_RANGE_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMajorEnable = enable > 0;
@@ -367,7 +367,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_MINOR_RANGE_B:
+                                    case KEY_LOCATION_FILTER_MINOR_RANGE_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterMinorEnable = enable > 0;
@@ -385,7 +385,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             }
                                         }
                                         break;
-                                    case KEY_TRACKING_FILTER_ADV_RAW_DATA_B:
+                                    case KEY_LOCATION_FILTER_ADV_RAW_DATA_A:
                                         if (length > 0) {
                                             final int enable = value[4] & 0xFF;
                                             filterRawAdvDataEnable = enable > 5;
@@ -398,7 +398,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                                             if (length > 1) {
                                                 byte[] rawDataBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 for (int i = 0, l = rawDataBytes.length; i < l; ) {
-                                                    View v = LayoutInflater.from(FilterOptionsBActivity.this).inflate(R.layout.loratracker_item_raw_data_filter, llRawDataFilter, false);
+                                                    View v = LayoutInflater.from(FilterLBOptionsAActivity.this).inflate(R.layout.loratracker_item_raw_data_filter, llRawDataFilter, false);
                                                     EditText etDataType = v.findViewById(R.id.et_data_type);
                                                     EditText etMin = v.findViewById(R.id.et_min);
                                                     EditText etMax = v.findViewById(R.id.et_max);
@@ -444,7 +444,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
                     switch (blueState) {
                         case BluetoothAdapter.STATE_TURNING_OFF:
                             dismissSyncProgressDialog();
-                            FilterOptionsBActivity.this.setResult(RESULT_OK);
+                            FilterLBOptionsAActivity.this.setResult(RESULT_OK);
                             finish();
                             break;
                     }
@@ -569,6 +569,7 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         ivCondition.setImageResource(filterSwitchEnable ? R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
     }
 
+
     private void saveParams() {
         final int progress = sbRssiFilter.getProgress();
         int filterRssi = progress - 127;
@@ -582,23 +583,23 @@ public class FilterOptionsBActivity extends BaseActivity implements SeekBar.OnSe
         final String minorMin = etIbeaconMinorMin.getText().toString();
         final String minorMax = etIbeaconMinorMax.getText().toString();
 
-        orderTasks.add(OrderTaskAssembler.setFilterRssiB(filterRssi));
-        orderTasks.add(OrderTaskAssembler.setFilterMacB(filterMacEnable ? mac : "", cbMacAddress.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterNameB(filterNameEnable ? name : "", cbAdvName.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterUUIDB(filterUUIDEnable ? uuidStr : "", cbIbeaconUuid.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterMajorRangeB(
+        orderTasks.add(OrderTaskAssembler.setLBFilterRssiA(filterRssi));
+        orderTasks.add(OrderTaskAssembler.setLBFilterMacA(filterMacEnable ? mac : "", cbMacAddress.isChecked()));
+        orderTasks.add(OrderTaskAssembler.setLBFilterNameA(filterNameEnable ? name : "", cbAdvName.isChecked()));
+        orderTasks.add(OrderTaskAssembler.setLBFilterUUIDA(filterUUIDEnable ? uuidStr : "", cbIbeaconUuid.isChecked()));
+        orderTasks.add(OrderTaskAssembler.setLBFilterMajorRangeA(
                 filterMajorEnable ? 1 : 0,
                 filterMajorEnable ? Integer.parseInt(majorMin) : 0,
                 filterMajorEnable ? Integer.parseInt(majorMax) : 0,
                 cbIbeaconMajor.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterMinorRangeB(
+        orderTasks.add(OrderTaskAssembler.setLBFilterMinorRangeA(
                 filterMinorEnable ? 1 : 0,
                 filterMinorEnable ? Integer.parseInt(minorMin) : 0,
                 filterMinorEnable ? Integer.parseInt(minorMax) : 0,
                 cbIbeaconMinor.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterAdvRawDataB(filterRawAdvDataEnable ? filterRawDatas : null
+        orderTasks.add(OrderTaskAssembler.setLBFilterAdvRawDataA(filterRawAdvDataEnable ? filterRawDatas : null
                 , cbRawAdvData.isChecked()));
-        orderTasks.add(OrderTaskAssembler.setFilterSwitchB(filterSwitchEnable ? 1 : 0));
+        orderTasks.add(OrderTaskAssembler.setLBFilterSwitchA(filterSwitchEnable ? 1 : 0));
 
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }

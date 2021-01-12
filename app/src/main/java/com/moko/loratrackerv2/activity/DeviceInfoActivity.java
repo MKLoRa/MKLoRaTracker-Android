@@ -95,6 +95,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     private boolean mReceiverTag = false;
     private int disConnectType;
 
+    private boolean savedParamsError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,13 +244,24 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                             }
                             int length = value[3] & 0xFF;
                             if (flag == 0x01) {
+
                                 // write
+                                int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
+                                    case KEY_FILTER_VALID_INTERVAL:
+                                    case KEY_ALARM_NOTIFY:
+                                    case KEY_WARNING_RSSI:
+                                        if (result != 1) {
+                                            savedParamsError = true;
+                                        }
+                                        break;
                                     case KEY_ALARM_RSSI:
-                                        if (length > 0) {
-                                            int result = value[3];
-                                            if (result == 0)
-                                                return;
+                                        if (result != 1) {
+                                            savedParamsError = true;
+                                        }
+                                        if (savedParamsError) {
+                                            ToastUtils.showToast(DeviceInfoActivity.this, "Opps！Save failed. Please check the input characters and try again.");
+                                        } else {
                                             AlertMessageDialog dialog = new AlertMessageDialog();
                                             dialog.setMessage("Saved Successfully！");
                                             dialog.setConfirm("OK");
@@ -304,7 +317,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         if (length > 0) {
                                             int scannerState = value[4] & 0xFF;
                                             int startTime = value[5] & 0xFF;
-                                            settingFragment.setScanWindow(scannerState, startTime);
+                                            scannerFragment.setScanWindow(scannerState, startTime);
                                         }
                                         break;
                                     case KEY_CONNECTABLE:
@@ -319,12 +332,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             settingFragment.setLowBattery(lowBattery);
                                         }
                                         break;
-                                    case KEY_DEVICE_INFO_INTERVAL:
-                                        if (length > 0) {
-                                            int interval = value[4] & 0xFF;
-                                            settingFragment.setDeviceInfoInterval(interval);
-                                        }
-                                        break;
+//                                    case KEY_DEVICE_INFO_INTERVAL:
+//                                        if (length > 0) {
+//                                            int interval = value[4] & 0xFF;
+//                                            settingFragment.setDeviceInfoInterval(interval);
+//                                        }
+//                                        break;
                                     case KEY_DEVICE_MAC:
                                         if (length > 0) {
                                             byte[] macBytes = Arrays.copyOfRange(value, 4, 4 + length);
@@ -342,25 +355,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         if (length > 0) {
                                             int battery = value[4] & 0xFF;
                                             deviceFragment.setBatteryValtage(battery);
-                                        }
-                                        break;
-                                    case KEY_VIBRATION_INTENSITY:
-                                        if (length > 0) {
-                                            int intansity = value[4] & 0xFF;
-                                            scannerFragment.setVibrationIntansity(intansity);
-                                        }
-                                        break;
-                                    case KEY_VIBRATION_DURATION:
-                                        if (length > 0) {
-                                            int duration = value[4] & 0xFF;
-                                            scannerFragment.setVibrationDuration(duration);
-                                        }
-                                        break;
-                                    case KEY_VIBRATION_CYCLE:
-                                        if (length > 0) {
-                                            byte[] cycleBytes = Arrays.copyOfRange(value, 4, 4 + length);
-                                            int cycle = MokoUtils.toInt(cycleBytes);
-                                            scannerFragment.setVibrationCycle(cycle);
                                         }
                                         break;
                                 }
@@ -539,14 +533,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             }
         }
         if (radioBtnScanner.isChecked()) {
-            if (scannerFragment.isValid()) {
-                if (scannerFragment.isDurationLessThanCycle()) {
-                    showSyncingProgressDialog();
-                    scannerFragment.saveParams();
-                }
-            } else {
-                ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
-            }
+            showSyncingProgressDialog();
+            scannerFragment.saveParams();
         }
     }
 
@@ -611,12 +599,11 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
         // setting
-        orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
-        orderTasks.add(OrderTaskAssembler.getScanWindow());
+//        orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
+        orderTasks.add(OrderTaskAssembler.getAdvName());
         orderTasks.add(OrderTaskAssembler.getConnectable());
         orderTasks.add(OrderTaskAssembler.getLowBattery());
-        orderTasks.add(OrderTaskAssembler.getDeviceInfoInterval());
-        orderTasks.add(OrderTaskAssembler.getMacAddress());
+//        orderTasks.add(OrderTaskAssembler.getDeviceInfoInterval());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
@@ -635,10 +622,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getScanInterval());
         orderTasks.add(OrderTaskAssembler.getAlarmNotify());
         orderTasks.add(OrderTaskAssembler.getAlarmRssi());
-        orderTasks.add(OrderTaskAssembler.getVibrationIntansity());
-        orderTasks.add(OrderTaskAssembler.getVibrationCycle());
-        orderTasks.add(OrderTaskAssembler.getVibrationDuration());
         orderTasks.add(OrderTaskAssembler.getWarningRssi());
+        orderTasks.add(OrderTaskAssembler.getScanWindow());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
@@ -841,7 +826,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     public void onScanWindow(View view) {
-        settingFragment.showBeaconScannerDialog();
+        scannerFragment.showBeaconScannerDialog();
     }
 
     public void onConnectable(View view) {
@@ -856,12 +841,16 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         settingFragment.showLowBatteryDialog();
     }
 
-    public void onDeviceInfoIntervalValue(View view) {
-        settingFragment.showIntervalDialog();
+//    public void onDeviceInfoIntervalValue(View view) {
+//        settingFragment.showIntervalDialog();
+//    }
+
+    public void onLBFilterOptions(View view) {
+        startActivity(new Intent(this, FilterLBOptionsActivity.class));
     }
 
-    public void onFilterOptions(View view) {
-        startActivity(new Intent(this, FilterOptionsActivity.class));
+    public void onCTFilterOptions(View view) {
+        startActivity(new Intent(this, FilterCTOptionsActivity.class));
     }
 
     public void onWarningValue(View view) {
@@ -886,5 +875,9 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     public void on3AxisSensor(View view) {
         startActivity(new Intent(this, ThreeAxisSensorActivity.class));
+    }
+
+    public void onAlarmNotify(View view) {
+        scannerFragment.showAlarmNotifyDialog();
     }
 }

@@ -2,12 +2,10 @@ package com.moko.loratrackerv2.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -15,8 +13,8 @@ import com.moko.ble.lib.task.OrderTask;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
-import com.moko.loratrackerv2.dialog.AlertMessageDialog;
 import com.moko.loratrackerv2.dialog.BottomDialog;
+import com.moko.loratrackerv2.dialog.ScanWindowDialog;
 import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 
@@ -25,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.carbswang.android.numberpickerview.library.NumberPickerView;
 
 public class ScannerFragment extends Fragment {
     private static final String TAG = ScannerFragment.class.getSimpleName();
@@ -35,28 +32,27 @@ public class ScannerFragment extends Fragment {
     TextView tvScanIntervalValue;
     @BindView(R2.id.tv_scan_interval_tips)
     TextView tvScanIntervalTips;
-    @BindView(R2.id.npv_alarm_notify)
-    NumberPickerView npvAlarmNotify;
+    @BindView(R2.id.tv_alarm_notify)
+    TextView tvAlarmNotify;
     @BindView(R2.id.sb_alarm_trigger_rssi)
     SeekBar sbAlarmTriggerRssi;
     @BindView(R2.id.tv_alarm_trigger_rssi_value)
     TextView tvAlarmTriggerRssiValue;
     @BindView(R2.id.tv_alarm_trigger_rssi_tips)
     TextView tvAlarmTriggerRssiTips;
-    @BindView(R2.id.et_vibration_cycle)
-    EditText etVibrationCycle;
-    @BindView(R2.id.et_vibration_duration)
-    EditText etVibrationDuration;
-    @BindView(R2.id.npv_vibration_intensity)
-    NumberPickerView npvVibrationIntensity;
     @BindView(R2.id.tv_warning_range)
     TextView tvWarningRange;
     @BindView(R2.id.tv_warning_value)
     TextView tvWarningValue;
     @BindView(R2.id.tv_warning_tips)
     TextView tvWarningTips;
+    @BindView(R2.id.tv_scan_window)
+    TextView tvScanWindow;
 
     private DeviceInfoActivity activity;
+
+    private ArrayList<String> mValues;
+    private int mSelected;
 
     public ScannerFragment() {
     }
@@ -123,15 +119,11 @@ public class ScannerFragment extends Fragment {
 
             }
         });
-        npvAlarmNotify.setDisplayedValues(getResources().getStringArray(R.array.tracking_notify));
-        npvAlarmNotify.setMaxValue(3);
-        npvAlarmNotify.setMinValue(0);
-        npvAlarmNotify.setValue(0);
-
-        npvVibrationIntensity.setDisplayedValues(getResources().getStringArray(R.array.vibration_intensity));
-        npvVibrationIntensity.setMaxValue(2);
-        npvVibrationIntensity.setMinValue(0);
-        npvVibrationIntensity.setValue(0);
+        mValues = new ArrayList<>();
+        mValues.add("Off");
+        mValues.add("Light");
+        mValues.add("Vibration");
+        mValues.add("Light+Vibration");
         return view;
     }
 
@@ -159,69 +151,44 @@ public class ScannerFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-    public boolean isValid() {
-        final String durationStr = etVibrationDuration.getText().toString();
-        final String cycleStr = etVibrationCycle.getText().toString();
-        if (TextUtils.isEmpty(durationStr))
-            return false;
-        if (TextUtils.isEmpty(cycleStr))
-            return false;
-        int duration = Integer.parseInt(durationStr);
-        if (duration > 10)
-            return false;
-        if (TextUtils.isEmpty(cycleStr))
-            return false;
-        int cycle = Integer.parseInt(cycleStr);
-        if (cycle < 1 || cycle > 600)
-            return false;
-        return true;
-    }
-
-    public boolean isDurationLessThanCycle() {
-        final String durationStr = etVibrationDuration.getText().toString();
-        final String cycleStr = etVibrationCycle.getText().toString();
-        int duration = Integer.parseInt(durationStr);
-        int cycle = Integer.parseInt(cycleStr);
-        if (duration > cycle) {
-            AlertMessageDialog dialog = new AlertMessageDialog();
-            dialog.setCancelGone();
-            dialog.setMessage("Vibration Cycle should be no less than Duration of  Vibration");
-            dialog.setConfirm("OK");
-            dialog.show(activity.getSupportFragmentManager());
-            return false;
-        }
-        return true;
+    public void showBeaconScannerDialog() {
+        final ScanWindowDialog dialog = new ScanWindowDialog(getActivity());
+        dialog.setData(scannerState ? startTime : 0);
+        dialog.setOnScanWindowClicked(scanMode -> {
+            String scanModeStr = "";
+            switch (scanMode) {
+                case 4:
+                    scanModeStr = "0";
+                    break;
+                case 0:
+                    scanModeStr = "1/2";
+                    break;
+                case 1:
+                    scanModeStr = "1/4";
+                    break;
+                case 2:
+                    scanModeStr = "1/8";
+                    break;
+            }
+            tvScanWindow.setText(String.format("Scan Window(%s)", scanModeStr));
+            if (scanMode < 3) {
+                scanMode += 2;
+                activity.setScanWindow(1, scanMode);
+            } else {
+                activity.setScanWindow(0, 1);
+            }
+        });
+        dialog.show();
     }
 
     public void saveParams() {
         final int scanIntervalProgress = sbScanInterval.getProgress();
-        final int alarmNotify = npvAlarmNotify.getValue();
         final int alarmTriggerRssiProgress = sbAlarmTriggerRssi.getProgress();
-        final int intensityValue = npvVibrationIntensity.getValue();
-        int intensity = 0;
-        switch (intensityValue) {
-            case 0:
-                intensity = 10;
-                break;
-            case 1:
-                intensity = 50;
-                break;
-            case 2:
-                intensity = 100;
-                break;
-        }
-        final String durationStr = etVibrationDuration.getText().toString();
-        final String cycleStr = etVibrationCycle.getText().toString();
-        int duration = Integer.parseInt(durationStr);
-        int cycle = Integer.parseInt(cycleStr);
         int rssi = alarmTriggerRssiProgress - 127;
         List<OrderTask> orderTasks = new ArrayList<>();
 
-        orderTasks.add(OrderTaskAssembler.setScanInterval(scanIntervalProgress));
-        orderTasks.add(OrderTaskAssembler.setAlarmNotify(alarmNotify));
-        orderTasks.add(OrderTaskAssembler.setVibrationIntensity(intensity));
-        orderTasks.add(OrderTaskAssembler.setVibrationDuration(duration));
-        orderTasks.add(OrderTaskAssembler.setVibrationCycle(cycle));
+        orderTasks.add(OrderTaskAssembler.setFilterValidInterval(scanIntervalProgress));
+        orderTasks.add(OrderTaskAssembler.setAlarmNotify(mSelected));
         orderTasks.add(OrderTaskAssembler.setWarningRssi(rssi));
         orderTasks.add(OrderTaskAssembler.setAlarmTriggerRssi(rssi));
 
@@ -231,20 +198,6 @@ public class ScannerFragment extends Fragment {
     public void setScanInterval(int time) {
         if (time <= 600)
             sbScanInterval.setProgress(time);
-    }
-
-    public void setVibrationIntansity(int intansity) {
-        switch (intansity) {
-            case 10:
-                npvVibrationIntensity.setValue(0);
-                break;
-            case 50:
-                npvVibrationIntensity.setValue(1);
-                break;
-            case 100:
-                npvVibrationIntensity.setValue(2);
-                break;
-        }
     }
 
     private int warningMax;
@@ -287,16 +240,38 @@ public class ScannerFragment extends Fragment {
 
     public void setAlarmNotify(int alarmNotify) {
         if (alarmNotify <= 3)
-            npvAlarmNotify.setValue(alarmNotify);
+            tvAlarmNotify.setText(mValues.get(alarmNotify));
     }
 
-    public void setVibrationDuration(int duration) {
-        etVibrationDuration.setText(String.valueOf(duration));
-    }
+    private boolean scannerState;
+    private int startTime;
 
-    public void setVibrationCycle(int cycle) {
-        if (cycle >= 1 && cycle <= 600) {
-            etVibrationCycle.setText(String.valueOf(cycle));
+    public void setScanWindow(int scanner, int startTime) {
+        scannerState = scanner == 1;
+        this.startTime = startTime;
+        String scanModeStr = "";
+        switch (startTime) {
+            case 2:
+                scanModeStr = "1/2";
+                break;
+            case 3:
+                scanModeStr = "1/4";
+                break;
+            case 4:
+                scanModeStr = "1/8";
+                break;
         }
+        tvScanWindow.setText(scannerState ? String.format("Scan Window(%s)", scanModeStr)
+                : "Scan Window(0ms/1000ms)");
+    }
+
+    public void showAlarmNotifyDialog() {
+        BottomDialog dialog = new BottomDialog();
+        dialog.setDatas(mValues, mSelected);
+        dialog.setListener(value -> {
+            mSelected = value;
+            tvAlarmNotify.setText(mValues.get(value));
+        });
+        dialog.show(activity.getSupportFragmentManager());
     }
 }
