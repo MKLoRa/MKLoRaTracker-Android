@@ -112,7 +112,7 @@ public class ParamsTask extends OrderTask {
             case KEY_LOCATION_FILTER_REPEAT:
 
             case KEY_OPTIONAL_PAYLOAD_TRACKING:
-            case KEY_REPORT_BEACONS:
+            case KEY_REPORT_LOCATION_BEACONS:
 
             case KEY_THREE_AXIS_SAMPLE_RATE:
             case KEY_THREE_AXIS_G:
@@ -134,8 +134,7 @@ public class ParamsTask extends OrderTask {
 
             case KEY_LORA_UPLINK_DELL_TIME:
             case KEY_LORA_DUTY_CYCLE_ENABLE:
-
-
+            case KEY_REPORT_LOCATION_ENABLE:
                 createGetConfigData(key.getParamsKey());
                 break;
         }
@@ -963,6 +962,26 @@ public class ParamsTask extends OrderTask {
         };
     }
 
+    public void setTrackingOptionPayload(@IntRange(from = 0, to = 255) int payload) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_TRACKING.getParamsKey(),
+                (byte) 0x01,
+                (byte) payload,
+        };
+    }
+
+    public void setReportLocationBeacons(@IntRange(from = 1, to = 4) int num) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_REPORT_LOCATION_BEACONS.getParamsKey(),
+                (byte) 0x01,
+                (byte) num,
+        };
+    }
+
     public void setAdvName(String advName) {
         byte[] advNameBytes = advName.getBytes();
         int length = advNameBytes.length;
@@ -1486,6 +1505,26 @@ public class ParamsTask extends OrderTask {
                 (byte) ParamsKeyEnum.KEY_TIME_SYNC_INTERVAL.getParamsKey(),
                 (byte) 0x01,
                 (byte) timeSyncInterval
+        };
+    }
+
+    public void setNetworkCheckInterval(@IntRange(from = 0, to = 240) int interval) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_NETWORK_CHECK_INTERVAL.getParamsKey(),
+                (byte) 0x01,
+                (byte) interval
+        };
+    }
+
+    public void setReportLocationEnable(@IntRange(from = 0, to = 1) int enable) {
+        data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) ParamsKeyEnum.KEY_REPORT_LOCATION_ENABLE.getParamsKey(),
+                (byte) 0x01,
+                (byte) enable
         };
     }
 }

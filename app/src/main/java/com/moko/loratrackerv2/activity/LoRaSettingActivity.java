@@ -597,7 +597,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
             BottomDialog bottomDialog = new BottomDialog();
             bottomDialog.setDatas(mUplinkDellTimeList, mSelectedUplinkDellTime);
             bottomDialog.setListener(value -> {
-                mSelectedCh2 = value;
+                mSelectedUplinkDellTime = value;
                 tvCh2.setText(mUplinkDellTimeList.get(value));
             });
             bottomDialog.show(getSupportFragmentManager());

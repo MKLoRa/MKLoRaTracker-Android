@@ -279,16 +279,16 @@ public class ThreeAxisSensorActivity extends BaseActivity {
 
     private boolean isValid() {
         final String triggerSensitivityStr = etTriggerSensitivity.getText().toString();
-        final String intervalStr = etReportInterval.getText().toString();
         if (TextUtils.isEmpty(triggerSensitivityStr))
             return false;
         int triggerSensitivity = Integer.parseInt(triggerSensitivityStr);
         if (triggerSensitivity < 7 || triggerSensitivity > 255)
             return false;
+        final String intervalStr = etReportInterval.getText().toString();
         if (TextUtils.isEmpty(intervalStr))
             return false;
         int interval = Integer.parseInt(intervalStr);
-        if (interval < 1 || interval > 10)
+        if (interval < 1 || interval > 60)
             return false;
         return true;
     }

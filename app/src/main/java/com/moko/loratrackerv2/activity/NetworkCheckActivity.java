@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.moko.ble.lib.MokoConstants;
 import com.moko.ble.lib.event.ConnectStatusEvent;
@@ -37,26 +38,22 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SOSFucntionActivity extends BaseActivity {
+public class NetworkCheckActivity extends BaseActivity {
 
-    private static final int OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE = 1;
-    private static final int OPTIONAL_PAYLOAD_MAC_ENABLE = 2;
 
-    @BindView(R2.id.cb_sos_switch)
-    CheckBox cbSosSwitch;
-    @BindView(R2.id.et_sos_report_interval)
-    EditText etSosReportInterval;
-    @BindView(R2.id.cb_sos_timestamp)
-    CheckBox cbSosTimestamp;
-    @BindView(R2.id.cb_sos_mac)
-    CheckBox cbSosMac;
+    @BindView(R2.id.cb_network_check)
+    CheckBox cbNetworkCheck;
+    @BindView(R2.id.et_network_check_interval)
+    EditText etNetworkCheckInterval;
+    @BindView(R2.id.tv_network_status)
+    TextView tvNetworkStatus;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loratracker_activity_sos_function);
+        setContentView(R.layout.loratracker_activity_network_check);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
@@ -67,9 +64,8 @@ public class SOSFucntionActivity extends BaseActivity {
         mReceiverTag = true;
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
-        orderTasks.add(OrderTaskAssembler.getSOSEnable());
-        orderTasks.add(OrderTaskAssembler.getSOSReportInterval());
-        orderTasks.add(OrderTaskAssembler.getSOSOptionalPayload());
+        orderTasks.add(OrderTaskAssembler.getNetworkInterval());
+        orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
@@ -116,18 +112,12 @@ public class SOSFucntionActivity extends BaseActivity {
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
-                                    case KEY_SOS_ENABLE:
-                                    case KEY_SOS_REPORT_INTERVAL:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
-                                        break;
-                                    case KEY_OPTIONAL_PAYLOAD_SOS:
+                                    case KEY_NETWORK_CHECK_INTERVAL:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
                                         if (savedParamsError) {
-                                            ToastUtils.showToast(SOSFucntionActivity.this, "Opps！Save failed. Please check the input characters and try again.");
+                                            ToastUtils.showToast(NetworkCheckActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {
                                             AlertMessageDialog dialog = new AlertMessageDialog();
                                             dialog.setMessage("Saved Successfully！");
@@ -141,23 +131,30 @@ public class SOSFucntionActivity extends BaseActivity {
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
-                                    case KEY_SOS_ENABLE:
-                                        if (length > 0) {
-                                            int enable = value[4] & 0xFF;
-                                            cbSosSwitch.setChecked(enable == 1);
-                                        }
-                                        break;
-                                    case KEY_SOS_REPORT_INTERVAL:
+                                    case KEY_NETWORK_CHECK_INTERVAL:
                                         if (length > 0) {
                                             int interval = value[4] & 0xFF;
-                                            etSosReportInterval.setText(String.valueOf(interval));
+                                            if (interval > 0)
+                                                cbNetworkCheck.setChecked(true);
+                                            tvNetworkStatus.setText(String.valueOf(interval));
                                         }
                                         break;
-                                    case KEY_OPTIONAL_PAYLOAD_SOS:
+                                    case KEY_NETWORK_STATUS:
                                         if (length > 0) {
-                                            int optionalPayload = value[4] & 0xFF;
-                                            cbSosTimestamp.setChecked((optionalPayload & OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE) == OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE);
-                                            cbSosMac.setChecked((optionalPayload & OPTIONAL_PAYLOAD_MAC_ENABLE) == OPTIONAL_PAYLOAD_MAC_ENABLE);
+                                            int connectable = value[4];
+                                            String networkCheckDisPlay = "";
+                                            switch (connectable) {
+                                                case 0:
+                                                    networkCheckDisPlay = "Disconnected";
+                                                    break;
+                                                case 1:
+                                                    networkCheckDisPlay = "Connecting";
+                                                    break;
+                                                case 2:
+                                                    networkCheckDisPlay = "Connected";
+                                                    break;
+                                            }
+                                            tvNetworkStatus.setText(networkCheckDisPlay);
                                         }
                                         break;
                                 }
@@ -179,30 +176,22 @@ public class SOSFucntionActivity extends BaseActivity {
     }
 
     private boolean isValid() {
-        final String intervalStr = etSosReportInterval.getText().toString();
+        final String intervalStr = etNetworkCheckInterval.getText().toString();
         if (TextUtils.isEmpty(intervalStr))
             return false;
         int interval = Integer.parseInt(intervalStr);
-        if (interval < 1 || interval > 10)
+        cbNetworkCheck.setChecked(interval > 0);
+        if (interval > 240)
             return false;
         return true;
     }
 
 
     private void saveParams() {
-        final String intervalStr = etSosReportInterval.getText().toString();
+        final String intervalStr = etNetworkCheckInterval.getText().toString();
         int interval = Integer.parseInt(intervalStr);
-        List<OrderTask> orderTasks = new ArrayList<>();
-        orderTasks.add(OrderTaskAssembler.setSOSEnable(cbSosSwitch.isChecked() ? 1 : 0));
-        orderTasks.add(OrderTaskAssembler.setSOSReportInterval(interval));
-        int timestamp = 0;
-        int mac = 0;
-        if (cbSosTimestamp.isChecked())
-            timestamp = OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE;
-        if (cbSosMac.isChecked())
-            mac = OPTIONAL_PAYLOAD_MAC_ENABLE;
-        orderTasks.add(OrderTaskAssembler.setSOSOptionalPayload(timestamp | mac));
-        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        LoRaTrackerMokoSupport.getInstance().sendOrder(
+                OrderTaskAssembler.setNetworkCheckInterval(interval));
     }
 
 
@@ -218,7 +207,7 @@ public class SOSFucntionActivity extends BaseActivity {
                     switch (blueState) {
                         case BluetoothAdapter.STATE_TURNING_OFF:
                             dismissSyncProgressDialog();
-                            SOSFucntionActivity.this.setResult(RESULT_OK);
+                            NetworkCheckActivity.this.setResult(RESULT_OK);
                             finish();
                             break;
                     }

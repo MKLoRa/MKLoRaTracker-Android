@@ -348,12 +348,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             settingFragment.setLowBattery(lowBattery);
                                         }
                                         break;
-//                                    case KEY_DEVICE_INFO_INTERVAL:
-//                                        if (length > 0) {
-//                                            int interval = value[4] & 0xFF;
-//                                            settingFragment.setDeviceInfoInterval(interval);
-//                                        }
-//                                        break;
                                     case KEY_DEVICE_MAC:
                                         if (length > 0) {
                                             byte[] macBytes = Arrays.copyOfRange(value, 4, 4 + length);
@@ -847,10 +841,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     public void onLowBatteryValue(View view) {
         settingFragment.showLowBatteryDialog();
     }
-
-//    public void onDeviceInfoIntervalValue(View view) {
-//        settingFragment.showIntervalDialog();
-//    }
 
     public void onLBFilterOptions(View view) {
         startActivity(new Intent(this, FilterLBOptionsActivity.class));

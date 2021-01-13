@@ -118,7 +118,7 @@ public enum ParamsKeyEnum implements Serializable {
     // 警报和定时上报数据包内容可选项
     KEY_OPTIONAL_PAYLOAD_TRACKING(0x71),
     // 上报beacon设备数量
-    KEY_REPORT_BEACONS(0x72),
+    KEY_REPORT_LOCATION_BEACONS(0x72),
 
     // 三轴采样率
     KEY_THREE_AXIS_SAMPLE_RATE(0x73),
@@ -147,6 +147,7 @@ public enum ParamsKeyEnum implements Serializable {
 
     KEY_LORA_UPLINK_DELL_TIME(0x83),
     KEY_LORA_DUTY_CYCLE_ENABLE(0x84),
+    KEY_REPORT_LOCATION_ENABLE(0x85),
     ;
 
     private int paramsKey;

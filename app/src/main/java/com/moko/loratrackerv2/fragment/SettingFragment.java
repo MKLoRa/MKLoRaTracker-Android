@@ -26,13 +26,11 @@ import butterknife.ButterKnife;
 public class SettingFragment extends Fragment {
     private static final String TAG = SettingFragment.class.getSimpleName();
     @BindView(R2.id.iv_connectable)
-    ImageView ivConnectable;;
+    ImageView ivConnectable;
     @BindView(R2.id.tv_low_battery_value)
     TextView tvLowBatteryValue;
     @BindView(R2.id.tv_low_battery_tips)
     TextView tvLowBatteryTips;
-//    @BindView(R2.id.tv_device_info_interval_value)
-//    TextView tvDeviceInfoIntervalValue;
     @BindView(R2.id.tv_adv_name)
     TextView tvAdvName;
     private DeviceInfoActivity activity;
@@ -146,18 +144,6 @@ public class SettingFragment extends Fragment {
         dialog.show(activity.getSupportFragmentManager());
     }
 
-//    public void showIntervalDialog() {
-//        BottomDialog dialog = new BottomDialog();
-//        dialog.setDatas(intervalList, intervalListIndex);
-//        dialog.setListener(value -> {
-//            intervalListIndex = value;
-//            intervalValue = value + 2;
-//            tvDeviceInfoIntervalValue.setText(String.valueOf(intervalValue));
-//            activity.setDeviceInfoInterval(intervalValue);
-//        });
-//        dialog.show(activity.getSupportFragmentManager());
-//    }
-
     private boolean connectState;
 
     public void setConnectable(int connectable) {
@@ -187,26 +173,4 @@ public class SettingFragment extends Fragment {
             lowBatteryList.add(lowBatteryStr);
         }
     }
-
-//    private int intervalValue;
-//    private ArrayList<String> intervalList;
-//    private int intervalListIndex;
-//
-//    public void setDeviceInfoInterval(int interval) {
-//        intervalValue = interval;
-//        intervalListIndex = interval - 2;
-//        tvDeviceInfoIntervalValue.setText(String.valueOf(intervalValue));
-//    }
-
-//    private void createIntervalList() {
-//        if (intervalList == null) {
-//            intervalList = new ArrayList<>();
-//        } else {
-//            intervalList.clear();
-//        }
-//        for (int i = 2; i <= 120; i++) {
-//            String intervalStr = String.valueOf(i);
-//            intervalList.add(intervalStr);
-//        }
-//    }
 }

@@ -384,6 +384,18 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getReportLocationBeacons() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_REPORT_LOCATION_BEACONS);
+        return task;
+    }
+
+    public static OrderTask getTrackingOptionalPayload() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_TRACKING);
+        return task;
+    }
+
     public static OrderTask getLoraMode() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_LORA_MODE);
@@ -563,6 +575,19 @@ public class OrderTaskAssembler {
         task.setData(ParamsKeyEnum.KEY_TIME_SYNC_INTERVAL);
         return task;
     }
+
+    public static OrderTask getNetworkInterval() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_NETWORK_CHECK_INTERVAL);
+        return task;
+    }
+
+    public static OrderTask getReportLocationEnable() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_REPORT_LOCATION_ENABLE);
+        return task;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // WRITE
@@ -911,6 +936,18 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask setTrackingOptionPayload(int payload) {
+        ParamsTask task = new ParamsTask();
+        task.setTrackingOptionPayload(payload);
+        return task;
+    }
+
+    public static OrderTask setReportLocationBeacons(int num) {
+        ParamsTask task = new ParamsTask();
+        task.setReportLocationBeacons(num);
+        return task;
+    }
+
     public static OrderTask setLoraDevAddr(String devAddr) {
         ParamsTask task = new ParamsTask();
         task.setLoraDevAddr(devAddr);
@@ -976,6 +1013,7 @@ public class OrderTaskAssembler {
         task.setLoraCH(ch1, ch2);
         return task;
     }
+
     public static OrderTask setLoraDutyCycleEnable(int enable) {
         ParamsTask task = new ParamsTask();
         task.setLoraDutyCycleEnable(enable);
@@ -1111,6 +1149,18 @@ public class OrderTaskAssembler {
     public static OrderTask setTimeSyncInterval(int timeSyncInterval) {
         ParamsTask task = new ParamsTask();
         task.setTimeSyncInterval(timeSyncInterval);
+        return task;
+    }
+
+    public static OrderTask setNetworkCheckInterval(int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setNetworkCheckInterval(interval);
+        return task;
+    }
+
+    public static OrderTask setReportLocationEnable(int interval) {
+        ParamsTask task = new ParamsTask();
+        task.setReportLocationEnable(interval);
         return task;
     }
 }
