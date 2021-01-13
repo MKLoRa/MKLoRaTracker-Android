@@ -230,6 +230,26 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         }
     }
 
+    public void onBack(View view) {
+        back();
+    }
+
+    private void back() {
+        if (animation != null) {
+            mHandler.removeMessages(0);
+            mokoBleScanner.stopScanDevice();
+        }
+        if (BuildConfig.IS_LIBRARY) {
+            finish();
+        } else {
+            AlertMessageDialog dialog = new AlertMessageDialog();
+            dialog.setMessage(R.string.main_exit_tips);
+            dialog.setOnAlertConfirmListener(() -> LoRaTrackerMainActivity.this.finish());
+            dialog.show(getSupportFragmentManager());
+        }
+    }
+
+
     public void onAbout(View view) {
         startActivity(new Intent(this, AboutActivity.class));
     }
@@ -484,14 +504,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
 
     @Override
     public void onBackPressed() {
-        if (BuildConfig.IS_LIBRARY) {
-            finish();
-        } else {
-            AlertMessageDialog dialog = new AlertMessageDialog();
-            dialog.setMessage(R.string.main_exit_tips);
-            dialog.setOnAlertConfirmListener(() -> LoRaTrackerMainActivity.this.finish());
-            dialog.show(getSupportFragmentManager());
-        }
+        back();
     }
 
     @Override
