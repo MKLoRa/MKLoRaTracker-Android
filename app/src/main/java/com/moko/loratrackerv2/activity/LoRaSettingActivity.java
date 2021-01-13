@@ -91,9 +91,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     private ArrayList<Region> mRegionsList;
     private ArrayList<String> mMessageTypeList;
     private ArrayList<String> mUplinkDellTimeList;
-    private String[] mUploadMode;
     private String[] mRegions;
-    private String[] mMessageType;
     private int mSelectedMode;
     private int mSelectedRegion;
     private int mSelectedMessageType;
@@ -110,13 +108,10 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loratracker_activity_lora_setting);
         ButterKnife.bind(this);
-        mUploadMode = getResources().getStringArray(R.array.upload_mode);
         mRegions = getResources().getStringArray(R.array.region);
-        mMessageType = getResources().getStringArray(R.array.message_type);
         mModeList = new ArrayList<>();
-        for (int i = 0, l = mUploadMode.length; i < l; i++) {
-            mModeList.add(mUploadMode[i]);
-        }
+        mModeList.add("ABP");
+        mModeList.add("OTAA");
         mRegionsList = new ArrayList<>();
         for (int i = 0; i < mRegions.length; i++) {
             String name = mRegions[i];
@@ -130,9 +125,9 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
             mRegionsList.add(region);
         }
         mMessageTypeList = new ArrayList<>();
-        for (int i = 0, l = mMessageType.length; i < l; i++) {
-            mMessageTypeList.add(mMessageType[i]);
-        }
+        mMessageTypeList.add("Unconfirmed");
+        mMessageTypeList.add("Confirmed");
+
         cbAdvanceSetting.setOnCheckedChangeListener(this);
         mUplinkDellTimeList = new ArrayList<>();
         mUplinkDellTimeList.add("0");
@@ -245,7 +240,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                     case KEY_LORA_MODE:
                                         if (length > 0) {
                                             final int mode = value[4];
-                                            tvUploadMode.setText(mUploadMode[mode - 1]);
+                                            tvUploadMode.setText(mModeList.get(mode - 1));
                                             mSelectedMode = mode - 1;
                                             if (mode == 1) {
                                                 llModemAbp.setVisibility(View.VISIBLE);
@@ -305,7 +300,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                         if (length > 0) {
                                             final int messageType = value[4] & 0xFF;
                                             mSelectedMessageType = messageType;
-                                            tvMessageType.setText(mMessageType[messageType]);
+                                            tvMessageType.setText(mMessageTypeList.get(messageType));
                                         }
                                         break;
                                     case KEY_LORA_CH:
@@ -415,7 +410,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         BottomDialog bottomDialog = new BottomDialog();
         bottomDialog.setDatas(mModeList, mSelectedMode);
         bottomDialog.setListener(value -> {
-            tvUploadMode.setText(mUploadMode[value]);
+            tvUploadMode.setText(mModeList.get(value));
             mSelectedMode = value;
             if (value == 0) {
                 llModemAbp.setVisibility(View.VISIBLE);
@@ -449,7 +444,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
             BottomDialog bottomDialog = new BottomDialog();
             bottomDialog.setDatas(mMessageTypeList, mSelectedMessageType);
             bottomDialog.setListener(value -> {
-                tvMessageType.setText(mMessageType[value]);
+                tvMessageType.setText(mMessageTypeList.get(value));
                 mSelectedMessageType = value;
             });
             bottomDialog.show(getSupportFragmentManager());

@@ -17,7 +17,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:onClick="onLoraSetting"
-            android:text="LoRa Setting"
+            android:text="@string/lora_setting"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
