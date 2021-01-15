@@ -48,7 +48,7 @@ public class BeaconInfoParseableImpl implements DeviceInfoParseable<BeaconInfo> 
         Iterator iterator = map.keySet().iterator();
         if (iterator.hasNext()) {
             ParcelUuid parcelUuid = (ParcelUuid) iterator.next();
-            if (parcelUuid.toString().startsWith("0000ff03")) {
+            if (parcelUuid.toString().startsWith("0000aa01")) {
                 byte[] bytes = map.get(parcelUuid);
                 if (bytes != null) {
                     deviceType = bytes[0] & 0xFF;

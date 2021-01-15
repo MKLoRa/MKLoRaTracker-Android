@@ -184,25 +184,20 @@ public class ParamsTask extends OrderTask {
 
     public void setTime() {
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int date = calendar.get(Calendar.DATE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-        byte[] yearBytes = MokoUtils.toByteArray(year, 2);
+        long time = calendar.getTimeInMillis();
+        byte[] bytes = new byte[4];
+        for (int i = 0; i < 4; ++i) {
+            bytes[i] = (byte) (time >> 8 * (3 - i) & 255);
+        }
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_TIME.getParamsKey(),
-                (byte) 0x07,
-                yearBytes[0],
-                yearBytes[1],
-                (byte) month,
-                (byte) date,
-                (byte) hour,
-                (byte) minute,
-                (byte) second,
+                (byte) 0x04,
+                bytes[0],
+                bytes[1],
+                bytes[2],
+                bytes[3],
         };
     }
 

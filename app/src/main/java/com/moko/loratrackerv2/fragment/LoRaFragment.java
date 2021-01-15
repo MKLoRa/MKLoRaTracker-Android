@@ -108,4 +108,8 @@ public class LoRaFragment extends Fragment {
         LoRaTrackerMokoSupport.getInstance().sendOrder(
                 OrderTaskAssembler.setTimeSyncInterval(timeSyncInterval));
     }
+
+    public void setTimeSyncInterval(int interval) {
+        etTimeSyncInterval.setText(String.valueOf(interval));
+    }
 }

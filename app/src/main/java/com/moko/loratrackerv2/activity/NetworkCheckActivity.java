@@ -82,7 +82,6 @@ public class NetworkCheckActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
@@ -91,6 +90,7 @@ public class NetworkCheckActivity extends BaseActivity {
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
@@ -136,7 +136,7 @@ public class NetworkCheckActivity extends BaseActivity {
                                             int interval = value[4] & 0xFF;
                                             if (interval > 0)
                                                 cbNetworkCheck.setChecked(true);
-                                            tvNetworkStatus.setText(String.valueOf(interval));
+                                            etNetworkCheckInterval.setText(String.valueOf(interval));
                                         }
                                         break;
                                     case KEY_NETWORK_STATUS:

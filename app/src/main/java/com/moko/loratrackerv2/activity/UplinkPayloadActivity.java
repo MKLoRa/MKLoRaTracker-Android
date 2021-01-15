@@ -154,7 +154,6 @@ public class UplinkPayloadActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
@@ -163,6 +162,7 @@ public class UplinkPayloadActivity extends BaseActivity {
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
@@ -272,7 +272,7 @@ public class UplinkPayloadActivity extends BaseActivity {
                                     case KEY_GPS_REPORT_INTERVAL:
                                         if (length > 0) {
                                             int gpsReportInterval = value[4] & 0xFF;
-                                            tvGpsReportInterval.setText(gpsReportInterval * mLoraReportInterval);
+                                            tvGpsReportInterval.setText(String.valueOf(gpsReportInterval * mLoraReportInterval));
                                             mGPSSelected = gpsReportInterval / 10 - 1;
                                         }
                                         break;

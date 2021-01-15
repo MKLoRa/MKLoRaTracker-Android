@@ -100,13 +100,6 @@ public class ScannerFragment extends Fragment {
                 tvAlarmTriggerRssiValue.setText(String.format("%dBm", rssi));
                 tvAlarmTriggerRssiTips.setText(getString(R.string.alarm_trigger_rssi, rssi));
                 warningMax = rssi;
-                tvWarningRange.setText(getString(R.string.warning_range, rssi));
-                createWarningRssiList();
-                if (warningRssiValue >= -127 && warningRssiValue > rssi - 3) {
-                    warningRssiValue = rssi - 3;
-                    tvWarningValue.setText(String.valueOf(warningRssiValue));
-                    tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
-                }
             }
 
             @Override
@@ -116,7 +109,19 @@ public class ScannerFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if (warningMax >= -124) {
+                    if (warningRssiValue >= warningMax) {
+                        warningRssiValue = warningMax - 3;
+                        tvWarningRange.setText(getString(R.string.warning_range, warningMax));
+                        tvWarningValue.setText(String.valueOf(warningRssiValue));
+                        tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
+                    }
+                } else {
+                    warningRssiValue = -127;
+                    tvWarningRange.setText(getString(R.string.warning_range, warningMax));
+                    tvWarningValue.setText(String.valueOf(warningRssiValue));
+                    tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
+                }
             }
         });
         mValues = new ArrayList<>();
@@ -140,11 +145,12 @@ public class ScannerFragment extends Fragment {
     }
 
     public void showWarningRssiDialog() {
+        createWarningRssiList();
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(warningRssiList, warningRssiListIndex);
         dialog.setListener(value -> {
             warningRssiListIndex = value;
-            warningRssiValue = value - 127;
+            warningRssiValue = -(value - warningMax);
             tvWarningValue.setText(String.valueOf(warningRssiValue));
             tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
         });
@@ -189,7 +195,7 @@ public class ScannerFragment extends Fragment {
 
         orderTasks.add(OrderTaskAssembler.setFilterValidInterval(scanIntervalProgress));
         orderTasks.add(OrderTaskAssembler.setAlarmNotify(mSelected));
-        orderTasks.add(OrderTaskAssembler.setWarningRssi(rssi));
+        orderTasks.add(OrderTaskAssembler.setWarningRssi(warningRssiValue));
         orderTasks.add(OrderTaskAssembler.setAlarmTriggerRssi(rssi));
 
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
@@ -214,7 +220,6 @@ public class ScannerFragment extends Fragment {
             tvAlarmTriggerRssiTips.setText(getString(R.string.alarm_trigger_rssi, value));
             warningMax = rssi;
             tvWarningRange.setText(getString(R.string.warning_range, rssi));
-            createWarningRssiList();
         }
     }
 
@@ -229,18 +234,21 @@ public class ScannerFragment extends Fragment {
             String rssiStr = String.valueOf(i - 127);
             warningRssiList.add(0, rssiStr);
         }
+        warningRssiListIndex = Math.abs(warningRssiValue) + warningMax;
     }
 
     public void setWarningRssi(int rssi) {
         warningRssiValue = rssi;
-        warningRssiListIndex = rssi + 127;
+        warningRssiListIndex = Math.abs(rssi) + warningMax;
         tvWarningValue.setText(String.valueOf(warningRssiValue));
         tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
     }
 
     public void setAlarmNotify(int alarmNotify) {
-        if (alarmNotify <= 3)
+        if (alarmNotify <= 3) {
             tvAlarmNotify.setText(mValues.get(alarmNotify));
+            mSelected = alarmNotify;
+        }
     }
 
     private boolean scannerState;

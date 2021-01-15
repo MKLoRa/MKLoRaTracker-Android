@@ -522,6 +522,12 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getGPSSatelliteSearchTime() {
+        ParamsTask task = new ParamsTask();
+        task.setData(ParamsKeyEnum.KEY_GPS_SATELLITE_SEARCH_TIME);
+        return task;
+    }
+
     public static OrderTask getGPSOptionalPayload() {
         ParamsTask task = new ParamsTask();
         task.setData(ParamsKeyEnum.KEY_OPTIONAL_PAYLOAD_GPS);

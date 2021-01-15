@@ -92,7 +92,6 @@ public class VibrationSettingActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
@@ -101,6 +100,7 @@ public class VibrationSettingActivity extends BaseActivity {
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
@@ -315,7 +315,7 @@ public class VibrationSettingActivity extends BaseActivity {
         BottomDialog dialog = new BottomDialog();
         dialog.setDatas(mValues, mSelected);
         dialog.setListener(value -> {
-            tvVibrationIntensity.setText(mValues.get(0));
+            tvVibrationIntensity.setText(mValues.get(value));
             mSelected = value;
         });
         dialog.show(getSupportFragmentManager());

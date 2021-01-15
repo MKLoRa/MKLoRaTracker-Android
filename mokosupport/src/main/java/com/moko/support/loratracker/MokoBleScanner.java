@@ -14,6 +14,7 @@ import com.moko.support.loratracker.entity.DeviceInfo;
 import com.moko.support.loratracker.entity.OrderServices;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
@@ -45,7 +46,7 @@ public final class MokoBleScanner {
                 .build();
         List<ScanFilter> scanFilterList = new ArrayList<>();
         ScanFilter.Builder builder = new ScanFilter.Builder();
-        builder.setServiceUuid(new ParcelUuid(OrderServices.SERVICE_ADV.getUuid()));
+        builder.setServiceData(new ParcelUuid(OrderServices.SERVICE_ADV.getUuid()), null);
         scanFilterList.add(builder.build());
 //        List<ScanFilter> scanFilterList = Collections.singletonList(new ScanFilter.Builder().build());
         mMokoLeScanHandler = new MokoLeScanHandler(callback);

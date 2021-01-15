@@ -67,8 +67,6 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     TextView tvCh2;
     @BindView(R2.id.tv_dr_1)
     TextView tvDr1;
-    @BindView(R2.id.tv_connect)
-    TextView tvConnect;
     @BindView(R2.id.cb_adr)
     CheckBox cbAdr;
     @BindView(R2.id.tv_upload_mode)
@@ -173,7 +171,6 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
@@ -182,6 +179,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
@@ -234,7 +232,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                         break;
                                 }
                             }
-                            if (flag == 0x01) {
+                            if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
                                     case KEY_LORA_MODE:
@@ -335,6 +333,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                     case KEY_LORA_UPLINK_DELL_TIME:
                                         if (length > 0) {
                                             final int uplinkDellTime = value[4] & 0xFF;
+                                            mSelectedUplinkDellTime = uplinkDellTime;
                                             tvUplinkDellTime.setText(mUplinkDellTimeList.get(uplinkDellTime));
                                         }
                                         break;

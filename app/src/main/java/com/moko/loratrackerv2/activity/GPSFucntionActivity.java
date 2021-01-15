@@ -92,6 +92,7 @@ public class GPSFucntionActivity extends BaseActivity {
         orderTasks.add(OrderTaskAssembler.getGPSEnable());
         orderTasks.add(OrderTaskAssembler.getLoraReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSReportInterval());
+        orderTasks.add(OrderTaskAssembler.getGPSSatelliteSearchTime());
         orderTasks.add(OrderTaskAssembler.getGPSOptionalPayload());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
@@ -109,7 +110,6 @@ public class GPSFucntionActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_ORDER_TIMEOUT.equals(action)) {
@@ -118,6 +118,7 @@ public class GPSFucntionActivity extends BaseActivity {
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;
@@ -185,7 +186,7 @@ public class GPSFucntionActivity extends BaseActivity {
                                     case KEY_GPS_REPORT_INTERVAL:
                                         if (length > 0) {
                                             int gpsReportInterval = value[4] & 0xFF;
-                                            tvGpsReportInterval.setText(gpsReportInterval * mLoraReportInterval);
+                                            tvGpsReportInterval.setText(String.valueOf(gpsReportInterval * mLoraReportInterval));
                                             mSelected = gpsReportInterval / 10 - 1;
                                         }
                                         break;

@@ -128,7 +128,6 @@ public class ThreeAxisSensorActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 200)
     public void onOrderTaskResponseEvent(OrderTaskResponseEvent event) {
-        EventBus.getDefault().cancelEventDelivery(event);
         final String action = event.getAction();
         runOnUiThread(() -> {
             if (MokoConstants.ACTION_CURRENT_DATA.equals(action)) {
@@ -139,7 +138,7 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                 switch (orderCHAR) {
                     case CHAR_THREE_AXIS:
                         final int length = value.length;
-                        if (length != 5)
+                        if (length != 10)
                             return;
                         int header = value[0] & 0xFF;
                         int flag = value[1] & 0xFF;
@@ -149,9 +148,9 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                             byte[] xBytes = Arrays.copyOfRange(value, 4, 6);
                             byte[] yBytes = Arrays.copyOfRange(value, 6, 8);
                             byte[] zBytes = Arrays.copyOfRange(value, 8, 10);
-                            tv3AxisX.setText(MokoUtils.toInt(xBytes));
-                            tv3AxisY.setText(MokoUtils.toInt(yBytes));
-                            tv3AxisZ.setText(MokoUtils.toInt(zBytes));
+                            tv3AxisX.setText(String.valueOf(MokoUtils.toInt(xBytes)));
+                            tv3AxisY.setText(String.valueOf(MokoUtils.toInt(yBytes)));
+                            tv3AxisZ.setText(String.valueOf(MokoUtils.toInt(zBytes)));
                         }
                         break;
                 }
@@ -162,6 +161,7 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                 dismissSyncProgressDialog();
             }
             if (MokoConstants.ACTION_ORDER_RESULT.equals(action)) {
+                EventBus.getDefault().cancelEventDelivery(event);
                 OrderTaskResponse response = event.getResponse();
                 OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
                 int responseType = response.responseType;

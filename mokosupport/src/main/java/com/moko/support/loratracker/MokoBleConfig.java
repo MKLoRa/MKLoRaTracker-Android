@@ -76,7 +76,7 @@ final class MokoBleConfig extends MokoBleManager {
 
     @Override
     public void onDeviceFailedToConnect(@NonNull BluetoothDevice device, int reason) {
-
+        mMokoResponseCallback.onDeviceDisconnected(device, reason);
     }
 
     @Override

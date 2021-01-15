@@ -258,6 +258,10 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         }
                                         break;
                                     case KEY_ALARM_RSSI:
+                                    case KEY_TIME_SYNC_INTERVAL:
+                                    case KEY_SCAN_WINDOW:
+                                    case KEY_CONNECTABLE:
+                                    case KEY_LOW_POWER_PERCENT:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
@@ -294,6 +298,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         if (length > 0) {
                                             int connectable = value[4];
                                             loraFragment.setNetworkCheck(connectable);
+                                        }
+                                        break;
+                                    case KEY_TIME_SYNC_INTERVAL:
+                                        if (length > 0) {
+                                            int interval = value[4];
+                                            loraFragment.setTimeSyncInterval(interval);
                                         }
                                         break;
                                     case KEY_ADV_NAME:
@@ -498,6 +508,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                     showSyncingProgressDialog();
                     List<OrderTask> orderTasks = new ArrayList<>();
                     // setting
+                    orderTasks.add(OrderTaskAssembler.getLoraRegion());
+                    orderTasks.add(OrderTaskAssembler.getLoraMode());
                     orderTasks.add(OrderTaskAssembler.getLoRaConnectable());
                     LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
                 }, 500);
@@ -885,10 +897,10 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     public void onNetworkCheck(View view) {
-        // TODO: 2021/1/12 networkcheck
+        startActivity(new Intent(this, NetworkCheckActivity.class));
     }
 
     public void onUplinkPayload(View view) {
-        // TODO: 2021/1/12 uplinkpayload
+        startActivity(new Intent(this, UplinkPayloadActivity.class));
     }
 }
