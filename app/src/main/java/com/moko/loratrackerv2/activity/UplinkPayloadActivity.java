@@ -66,11 +66,11 @@ public class UplinkPayloadActivity extends BaseActivity {
     TextView tvReportedLocationBeacons;
     @BindView(R2.id.et_non_alarm_report_interval)
     EditText etNonAlarmReportInterval;
-    @BindView(R.id.cb_tracking_mac)
+    @BindView(R2.id.cb_tracking_mac)
     CheckBox cbTrackingMac;
-    @BindView(R.id.cb_tracking_raw_data)
+    @BindView(R2.id.cb_tracking_raw_data)
     CheckBox cbTrackingRawData;
-    @BindView(R.id.cb_tracking_battery)
+    @BindView(R2.id.cb_tracking_battery)
     CheckBox cbTrackingBattery;
     @BindView(R2.id.et_sos_report_interval)
     EditText etSosReportInterval;
