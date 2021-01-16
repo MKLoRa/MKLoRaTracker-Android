@@ -93,7 +93,7 @@
             android:gravity="center"
             android:hint="0~240"
             android:inputType="number"
-            android:maxLength="2"
+            android:maxLength="3"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             app:layout_constraintRight_toRightOf="parent"

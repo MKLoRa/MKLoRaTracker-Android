@@ -80,6 +80,7 @@ public class BeaconInfoParseableImpl implements DeviceInfoParseable<BeaconInfo> 
             beaconInfo.rssi = deviceInfo.rssi;
             beaconInfo.battery = battery;
             beaconInfo.deviceType = deviceType;
+            beaconInfo.connectable = connectable;
             long currentTime = SystemClock.elapsedRealtime();
             long intervalTime = currentTime - beaconInfo.scanTime;
             beaconInfo.intervalTime = intervalTime;

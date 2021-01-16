@@ -174,8 +174,11 @@ public class FilterLBOptionsActivity extends BaseActivity {
                                             final int enable = value[4] & 0xFF;
                                             tvConditionB.setText(enable == 0 ? "OFF" : "ON");
                                             isFilterBEnable = enable == 1;
-                                            if (isFilterAEnable && isFilterBEnable)
+                                            if (isFilterAEnable && isFilterBEnable) {
                                                 tvRelation.setEnabled(true);
+                                            } else {
+                                                tvRelation.setEnabled(false);
+                                            }
                                         }
                                         break;
                                     case KEY_LOCATION_FILTER_A_B_RELATION:
@@ -276,11 +279,11 @@ public class FilterLBOptionsActivity extends BaseActivity {
         dialog.show(getSupportFragmentManager());
     }
 
-    public void onLBFilterA(View view) {
+    public void onFilterA(View view) {
         startActivityForResult(new Intent(this, FilterLBOptionsAActivity.class), AppConstants.REQUEST_CODE_FILTER);
     }
 
-    public void onLBFilterB(View view) {
+    public void onFilterB(View view) {
         startActivityForResult(new Intent(this, FilterLBOptionsBActivity.class), AppConstants.REQUEST_CODE_FILTER);
     }
 
@@ -288,12 +291,14 @@ public class FilterLBOptionsActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstants.REQUEST_CODE_FILTER) {
-            showSyncingProgressDialog();
-            List<OrderTask> orderTasks = new ArrayList<>();
-            orderTasks.add(OrderTaskAssembler.getLBFilterSwitchA());
-            orderTasks.add(OrderTaskAssembler.getLBFilterSwitchB());
-            orderTasks.add(OrderTaskAssembler.getLBFilterABRelation());
-            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            tvTitle.postDelayed(() -> {
+                showSyncingProgressDialog();
+                List<OrderTask> orderTasks = new ArrayList<>();
+                orderTasks.add(OrderTaskAssembler.getLBFilterSwitchA());
+                orderTasks.add(OrderTaskAssembler.getLBFilterSwitchB());
+                orderTasks.add(OrderTaskAssembler.getLBFilterABRelation());
+                LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            }, 500);
         }
     }
 }

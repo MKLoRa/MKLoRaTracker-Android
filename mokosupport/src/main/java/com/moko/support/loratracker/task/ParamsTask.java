@@ -74,6 +74,7 @@ public class ParamsTask extends OrderTask {
             case KEY_TRACKING_FILTER_UUID_A:
             case KEY_TRACKING_FILTER_MAJOR_RANGE_A:
             case KEY_TRACKING_FILTER_MINOR_RANGE_A:
+            case KEY_TRACKING_FILTER_ADV_RAW_DATA_A:
 
             case KEY_TRACKING_FILTER_RSSI_B:
             case KEY_TRACKING_FILTER_MAC_B:
@@ -81,6 +82,7 @@ public class ParamsTask extends OrderTask {
             case KEY_TRACKING_FILTER_UUID_B:
             case KEY_TRACKING_FILTER_MAJOR_RANGE_B:
             case KEY_TRACKING_FILTER_MINOR_RANGE_B:
+            case KEY_TRACKING_FILTER_ADV_RAW_DATA_B:
 
             case KEY_TRACKING_FILTER_SWITCH_A:
             case KEY_TRACKING_FILTER_SWITCH_B:
@@ -98,6 +100,7 @@ public class ParamsTask extends OrderTask {
             case KEY_LOCATION_FILTER_UUID_A:
             case KEY_LOCATION_FILTER_MAJOR_RANGE_A:
             case KEY_LOCATION_FILTER_MINOR_RANGE_A:
+            case KEY_LOCATION_FILTER_ADV_RAW_DATA_A:
 
             case KEY_LOCATION_FILTER_RSSI_B:
             case KEY_LOCATION_FILTER_MAC_B:
@@ -105,6 +108,7 @@ public class ParamsTask extends OrderTask {
             case KEY_LOCATION_FILTER_UUID_B:
             case KEY_LOCATION_FILTER_MAJOR_RANGE_B:
             case KEY_LOCATION_FILTER_MINOR_RANGE_B:
+            case KEY_LOCATION_FILTER_ADV_RAW_DATA_B:
 
             case KEY_LOCATION_FILTER_SWITCH_A:
             case KEY_LOCATION_FILTER_SWITCH_B:

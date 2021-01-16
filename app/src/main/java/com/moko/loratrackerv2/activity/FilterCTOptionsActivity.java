@@ -174,8 +174,11 @@ public class FilterCTOptionsActivity extends BaseActivity {
                                             final int enable = value[4] & 0xFF;
                                             tvConditionB.setText(enable == 0 ? "OFF" : "ON");
                                             isFilterBEnable = enable == 1;
-                                            if (isFilterAEnable && isFilterBEnable)
+                                            if (isFilterAEnable && isFilterBEnable) {
                                                 tvRelation.setEnabled(true);
+                                            } else {
+                                                tvRelation.setEnabled(false);
+                                            }
                                         }
                                         break;
                                     case KEY_TRACKING_FILTER_A_B_RELATION:
@@ -288,12 +291,14 @@ public class FilterCTOptionsActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstants.REQUEST_CODE_FILTER) {
-            showSyncingProgressDialog();
-            List<OrderTask> orderTasks = new ArrayList<>();
-            orderTasks.add(OrderTaskAssembler.getCTFilterSwitchA());
-            orderTasks.add(OrderTaskAssembler.getCTFilterSwitchB());
-            orderTasks.add(OrderTaskAssembler.getCTFilterABRelation());
-            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            tvTitle.postDelayed(() -> {
+                showSyncingProgressDialog();
+                List<OrderTask> orderTasks = new ArrayList<>();
+                orderTasks.add(OrderTaskAssembler.getCTFilterSwitchA());
+                orderTasks.add(OrderTaskAssembler.getCTFilterSwitchB());
+                orderTasks.add(OrderTaskAssembler.getCTFilterABRelation());
+                LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            }, 500);
         }
     }
 }

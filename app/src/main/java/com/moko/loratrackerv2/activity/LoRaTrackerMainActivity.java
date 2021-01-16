@@ -84,6 +84,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
     private Animation animation = null;
     private MokoBleScanner mokoBleScanner;
     private Handler mHandler;
+    private boolean isPasswordError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -404,7 +405,11 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
             mPassword = "";
             dismissLoadingProgressDialog();
             dismissLoadingMessageDialog();
-            ToastUtils.showToast(LoRaTrackerMainActivity.this, "Connection Failed");
+            if (isPasswordError) {
+                isPasswordError = false;
+            } else {
+                ToastUtils.showToast(LoRaTrackerMainActivity.this, "Connection Failed");
+            }
             if (animation == null) {
                 startScan();
             }
@@ -453,6 +458,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
                                 startActivityForResult(i, AppConstants.REQUEST_CODE_DEVICE_INFO);
                             }
                             if (0 == result) {
+                                isPasswordError = true;
                                 ToastUtils.showToast(LoRaTrackerMainActivity.this, "Password Error");
                                 LoRaTrackerMokoSupport.getInstance().disConnectBle();
                             }
