@@ -52,7 +52,7 @@ public class FilterCTOptionsActivity extends BaseActivity {
     TextView tvRelation;
     @BindView(R2.id.tv_repeat)
     TextView tvRepeat;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView tvTitle;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
