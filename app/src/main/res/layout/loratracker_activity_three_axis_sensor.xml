@@ -66,18 +66,18 @@
                 android:textColor="@color/loratracker_black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/cb_3_axis_sensor_switch"
+                app:layout_constraintBottom_toBottomOf="@id/iv_3_axis_sensor_switch"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/cb_3_axis_sensor_switch" />
+                app:layout_constraintTop_toTopOf="@id/iv_3_axis_sensor_switch" />
 
-            <CheckBox
-                android:id="@+id/cb_3_axis_sensor_switch"
+            <ImageView
+                android:id="@+id/iv_3_axis_sensor_switch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:checked="false"
-                android:drawableRight="@drawable/loratracker_selector_cb_btn"
+                android:clickable="true"
+                android:onClick="on3AxisSwitch"
                 android:padding="6dp"
+                android:src="@drawable/loratracker_ic_unchecked"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +87,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_3_axis_sensor_switch" />
+                app:layout_constraintTop_toBottomOf="@id/iv_3_axis_sensor_switch" />
 
             <TextView
                 android:layout_width="0dp"
@@ -114,7 +114,7 @@
                 android:textColor="@color/loratracker_white_ffffff"
                 android:textSize="15sp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_3_axis_sensor_switch" />
+                app:layout_constraintTop_toBottomOf="@id/iv_3_axis_sensor_switch" />
 
             <View
                 style="@style/loratracker_divider_line"

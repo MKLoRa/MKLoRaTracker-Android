@@ -56,7 +56,24 @@ public class NetworkCheckActivity extends BaseActivity {
         setContentView(R.layout.loratracker_activity_network_check);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-
+        cbNetworkCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                final String intervalStr = etNetworkCheckInterval.getText().toString();
+                if (TextUtils.isEmpty(intervalStr)) {
+                    etNetworkCheckInterval.setText("4");
+                    etNetworkCheckInterval.setSelection(1);
+                    return;
+                }
+                final int interval = Integer.parseInt(intervalStr);
+                if (interval == 0) {
+                    etNetworkCheckInterval.setText("4");
+                    etNetworkCheckInterval.setSelection(1);
+                }
+            } else {
+                etNetworkCheckInterval.setText("0");
+                etNetworkCheckInterval.setSelection(1);
+            }
+        });
         // 注册广播接收器
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);

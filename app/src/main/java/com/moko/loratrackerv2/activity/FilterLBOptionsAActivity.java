@@ -307,7 +307,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             etMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
                                             cbMacAddress.setVisibility(filterMacEnable ? View.VISIBLE : View.GONE);
                                             cbMacAddress.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] macBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 String filterMac = MokoUtils.bytesToHexString(macBytes).toUpperCase();
                                                 etMacAddress.setText(filterMac);
@@ -322,7 +322,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             etAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
                                             cbAdvName.setVisibility(filterNameEnable ? View.VISIBLE : View.GONE);
                                             cbAdvName.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] nameBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 String filterName = new String(nameBytes);
                                                 etAdvName.setText(filterName);
@@ -337,7 +337,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             etIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconUuid.setVisibility(filterUUIDEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconUuid.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] uuidBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 String filterUUID = MokoUtils.bytesToHexString(uuidBytes).toUpperCase();
                                                 StringBuilder stringBuilder = new StringBuilder(filterUUID);
@@ -357,7 +357,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             llIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMajor.setVisibility(filterMajorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMajor.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] majorMinBytes = Arrays.copyOfRange(value, 5, 7);
                                                 int majorMin = MokoUtils.toInt(majorMinBytes);
                                                 etIbeaconMajorMin.setText(String.valueOf(majorMin));
@@ -375,7 +375,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             llIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMinor.setVisibility(filterMinorEnable ? View.VISIBLE : View.GONE);
                                             cbIbeaconMinor.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] minorMinBytes = Arrays.copyOfRange(value, 5, 7);
                                                 int minorMin = MokoUtils.toInt(minorMinBytes);
                                                 etIbeaconMinorMin.setText(String.valueOf(minorMin));
@@ -395,7 +395,7 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
                                             ivRawDataDel.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
                                             cbRawAdvData.setVisibility(filterRawAdvDataEnable ? View.VISIBLE : View.GONE);
                                             cbRawAdvData.setChecked(enable > 1);
-                                            if (length > 2) {
+                                            if (length > 1) {
                                                 byte[] rawDataBytes = Arrays.copyOfRange(value, 5, 4 + length);
                                                 for (int i = 0, l = rawDataBytes.length; i < l; ) {
                                                     View v = LayoutInflater.from(FilterLBOptionsAActivity.this).inflate(R.layout.loratracker_item_raw_data_filter, llRawDataFilter, false);

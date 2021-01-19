@@ -47,8 +47,8 @@ public class ThreeAxisSensorActivity extends BaseActivity {
 
     private static final int OPTIONAL_PAYLOAD_MAC_ENABLE = 1;
     private static final int OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE = 2;
-    @BindView(R2.id.cb_3_axis_sensor_switch)
-    CheckBox cb3AxisSensorSwitch;
+    @BindView(R2.id.iv_3_axis_sensor_switch)
+    ImageView iv3AxisSensorSwitch;
     @BindView(R2.id.tv_3_axis_sample_rate)
     TextView tv3AxisSampleRate;
     @BindView(R2.id.tv_3_axis_g)
@@ -80,6 +80,7 @@ public class ThreeAxisSensorActivity extends BaseActivity {
     private ArrayList<String> mGValues;
     private int mGSelected;
     private boolean mSensorDataOpen;
+    private boolean m3AxisEnable;
     private boolean mIsBack;
 
     @Override
@@ -183,7 +184,6 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
-                                    case KEY_THREE_AXIS_ENABLE:
                                     case KEY_THREE_AXIS_SAMPLE_RATE:
                                     case KEY_THREE_AXIS_G:
                                     case KEY_THREE_AXIS_TRIGGER_SENSITIVITY:
@@ -192,6 +192,9 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                                             savedParamsError = true;
                                         }
                                         break;
+                                    case KEY_THREE_AXIS_ENABLE:
+                                        iv3AxisSensorSwitch.setImageResource(m3AxisEnable ?
+                                                R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                     case KEY_OPTIONAL_PAYLOAD_THREE_AXIS:
                                         if (result != 1) {
                                             savedParamsError = true;
@@ -223,7 +226,9 @@ public class ThreeAxisSensorActivity extends BaseActivity {
                                     case KEY_THREE_AXIS_ENABLE:
                                         if (length > 0) {
                                             int status = value[4] & 0xFF;
-                                            cb3AxisSensorSwitch.setEnabled(status == 1);
+                                            m3AxisEnable = status == 1;
+                                            iv3AxisSensorSwitch.setImageResource(m3AxisEnable ?
+                                                    R.drawable.loratracker_ic_checked : R.drawable.loratracker_ic_unchecked);
                                         }
                                         break;
                                     case KEY_THREE_AXIS_SAMPLE_RATE:
@@ -300,7 +305,6 @@ public class ThreeAxisSensorActivity extends BaseActivity {
         int triggerSensitivity = Integer.parseInt(triggerSensitivityStr);
         int interval = Integer.parseInt(intervalStr);
         List<OrderTask> orderTasks = new ArrayList<>();
-        orderTasks.add(OrderTaskAssembler.set3AxisEnable(cb3AxisSensorSwitch.isChecked() ? 1 : 0));
         orderTasks.add(OrderTaskAssembler.set3AxisSampleRate(mSampleRateSelected));
         orderTasks.add(OrderTaskAssembler.set3AxisG(mGSelected));
         orderTasks.add(OrderTaskAssembler.set3AxisTriggerSensitivity(triggerSensitivity));
@@ -406,6 +410,27 @@ public class ThreeAxisSensorActivity extends BaseActivity {
             return;
         mSensorDataOpen = !mSensorDataOpen;
         showSyncingProgressDialog();
-        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.set3AxisDataEnable(mSensorDataOpen ? 1 : 0));
+        if (mSensorDataOpen) {
+            List<OrderTask> orderTasks = new ArrayList<>();
+            orderTasks.add(OrderTaskAssembler.set3AxisDataEnable(1));
+            orderTasks.add(OrderTaskAssembler.get3AxisEnable());
+            LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+        } else {
+            LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.set3AxisDataEnable(0));
+        }
+    }
+
+    public void on3AxisSwitch(View view) {
+        if (isWindowLocked())
+            return;
+        m3AxisEnable = !m3AxisEnable;
+        showSyncingProgressDialog();
+        if (!m3AxisEnable && mSensorDataOpen) {
+            mSensorDataOpen = false;
+            iv3AxisSensorData.setImageResource(R.drawable.loratracker_ic_unchecked);
+            cl3AxisSensorData.setVisibility(View.GONE);
+        }
+        LoRaTrackerMokoSupport.getInstance().sendOrder(
+                OrderTaskAssembler.set3AxisEnable(m3AxisEnable ? 1 : 0));
     }
 }
