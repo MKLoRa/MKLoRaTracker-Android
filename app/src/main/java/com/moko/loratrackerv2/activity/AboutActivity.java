@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.moko.loratrackerv2.BuildConfig;
 import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.utils.Utils;
@@ -23,7 +24,9 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loratracker_activity_about);
         ButterKnife.bind(this);
-        appVersion.setText(String.format("Version:V%s", Utils.getVersionInfo(this)));
+        if (!BuildConfig.IS_LIBRARY) {
+            appVersion.setText(String.format("Version:V%s", Utils.getVersionInfo(this)));
+        }
     }
 
     public void onBack(View view) {

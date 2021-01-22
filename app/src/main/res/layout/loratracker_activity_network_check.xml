@@ -89,49 +89,58 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cb_network_check" />
 
-            <EditText
-                android:id="@+id/et_network_check_interval"
-                android:layout_width="70dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_network_check_interval"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:gravity="center"
-                android:hint="0~240"
-                android:inputType="number"
-                android:maxLength="3"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="15sp"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_network_check" />
+                app:layout_constraintTop_toBottomOf="@id/cb_network_check">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="H"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="15sp"
-                app:layout_constraintBaseline_toBaselineOf="@id/et_network_check_interval"
-                app:layout_constraintRight_toRightOf="parent" />
+                <EditText
+                    android:id="@+id/et_network_check_interval"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:gravity="center"
+                    android:hint="0~240"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="15sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="Network Check Interval"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBaseline_toBaselineOf="@id/et_network_check_interval"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="15sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/et_network_check_interval"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-            <View
-                style="@style/loratracker_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_network_check_interval" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Network Check Interval"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/et_network_check_interval"
+                    app:layout_constraintLeft_toLeftOf="parent" />
 
+                <View
+                    style="@style/loratracker_divider_line"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_network_check_interval" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_network_status"
@@ -143,7 +152,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_network_check_interval" />
+                app:layout_constraintTop_toBottomOf="@id/cl_network_check_interval" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,7 +164,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_network_status"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_network_check_interval" />
+                app:layout_constraintTop_toBottomOf="@id/cl_network_check_interval" />
 
             <TextView
                 android:id="@+id/tv_network_check_tips"

@@ -233,6 +233,7 @@ public class UplinkPayloadActivity extends BaseActivity {
                                         if (length > 0) {
                                             int num = value[4] & 0xFF;
                                             mReportBeaconsSelected = num - 1;
+                                            tvReportedLocationBeacons.setText(mReportBeaconsValues.get(mReportBeaconsSelected));
                                         }
                                         break;
                                     case KEY_LORA_REPORT_INTERVAL:

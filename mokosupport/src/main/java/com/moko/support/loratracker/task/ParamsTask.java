@@ -188,7 +188,7 @@ public class ParamsTask extends OrderTask {
 
     public void setTime() {
         Calendar calendar = Calendar.getInstance();
-        long time = calendar.getTimeInMillis();
+        long time = calendar.getTimeInMillis() / 1000;
         byte[] bytes = new byte[4];
         for (int i = 0; i < 4; ++i) {
             bytes[i] = (byte) (time >> 8 * (3 - i) & 255);

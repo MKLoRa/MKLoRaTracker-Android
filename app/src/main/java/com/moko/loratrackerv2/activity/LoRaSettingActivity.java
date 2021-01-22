@@ -83,6 +83,10 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     CheckBox cbDutyCycle;
     @BindView(R2.id.tv_uplink_dell_time)
     TextView tvUplinkDellTime;
+    @BindView(R2.id.ll_duty_cycle)
+    LinearLayout llDutyCycle;
+    @BindView(R2.id.ll_uplink_dell_time)
+    LinearLayout llUplinkDellTime;
 
     private boolean mReceiverTag = false;
     private ArrayList<String> mModeList;
@@ -292,6 +296,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                             tvRegion.setText(mRegions[region]);
                                             initCHDRRange();
                                             initDutyCycle();
+                                            initUplinkDellTime();
                                         }
                                         break;
                                     case KEY_LORA_MESSAGE_TYPE:
@@ -433,6 +438,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                 initCHDRRange();
                 updateCHDR();
                 initDutyCycle();
+                initUplinkDellTime();
             }
         });
         bottomDialog.show(getSupportFragmentManager());
@@ -536,11 +542,20 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     private void initDutyCycle() {
-        if (mSelectedRegion == 1 || mSelectedRegion == 5 || mSelectedRegion == 7) {
-            // US915、AU915、CN470
-            cbDutyCycle.setEnabled(false);
+        if (mSelectedRegion != 1 && mSelectedRegion != 5 && mSelectedRegion != 7) {
+            // EU868,CN779, EU433,AS923,KR920,IN865,and RU864
+            llDutyCycle.setVisibility(View.VISIBLE);
         } else {
-            cbDutyCycle.setEnabled(true);
+            llDutyCycle.setVisibility(View.GONE);
+        }
+    }
+
+    private void initUplinkDellTime() {
+        if (mSelectedRegion == 5 || mSelectedRegion == 8) {
+            // AS923 and AU915
+            llUplinkDellTime.setVisibility(View.VISIBLE);
+        } else {
+            llUplinkDellTime.setVisibility(View.GONE);
         }
     }
 
@@ -587,15 +602,13 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     public void onUplinkDellTime(View view) {
-        if (mSelectedRegion == 5 || mSelectedRegion == 8) {
-            BottomDialog bottomDialog = new BottomDialog();
-            bottomDialog.setDatas(mUplinkDellTimeList, mSelectedUplinkDellTime);
-            bottomDialog.setListener(value -> {
-                mSelectedUplinkDellTime = value;
-                tvUplinkDellTime.setText(mUplinkDellTimeList.get(value));
-            });
-            bottomDialog.show(getSupportFragmentManager());
-        }
+        BottomDialog bottomDialog = new BottomDialog();
+        bottomDialog.setDatas(mUplinkDellTimeList, mSelectedUplinkDellTime);
+        bottomDialog.setListener(value -> {
+            mSelectedUplinkDellTime = value;
+            tvUplinkDellTime.setText(mUplinkDellTimeList.get(value));
+        });
+        bottomDialog.show(getSupportFragmentManager());
     }
 
     public void onSave(View view) {
@@ -658,10 +671,14 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         // 保存并连接
         orderTasks.add(OrderTaskAssembler.setLoraRegion(mSelectedRegion));
         orderTasks.add(OrderTaskAssembler.setLoraCH(mSelectedCh1, mSelectedCh2));
-        orderTasks.add(OrderTaskAssembler.setLoraDutyCycleEnable(cbDutyCycle.isChecked() ? 1 : 0));
+        if (mSelectedRegion != 1 && mSelectedRegion != 5 && mSelectedRegion != 7) {
+            orderTasks.add(OrderTaskAssembler.setLoraDutyCycleEnable(cbDutyCycle.isChecked() ? 1 : 0));
+        }
         orderTasks.add(OrderTaskAssembler.setLoraDR(mSelectedDr1));
         orderTasks.add(OrderTaskAssembler.setLoraADR(cbAdr.isChecked() ? 1 : 0));
-        orderTasks.add(OrderTaskAssembler.setLoraUplinkDellTime(mSelectedUplinkDellTime));
+        if (mSelectedRegion == 5 || mSelectedRegion == 8) {
+            orderTasks.add(OrderTaskAssembler.setLoraUplinkDellTime(mSelectedUplinkDellTime));
+        }
         orderTasks.add(OrderTaskAssembler.setLoraConnect());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         showSyncingProgressDialog();

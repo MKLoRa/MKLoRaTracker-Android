@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,6 +48,8 @@ public class NetworkCheckActivity extends BaseActivity {
     EditText etNetworkCheckInterval;
     @BindView(R2.id.tv_network_status)
     TextView tvNetworkStatus;
+    @BindView(R2.id.cl_network_check_interval)
+    ConstraintLayout clNetworkCheckInterval;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
 
@@ -57,22 +60,7 @@ public class NetworkCheckActivity extends BaseActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         cbNetworkCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                final String intervalStr = etNetworkCheckInterval.getText().toString();
-                if (TextUtils.isEmpty(intervalStr)) {
-                    etNetworkCheckInterval.setText("4");
-                    etNetworkCheckInterval.setSelection(1);
-                    return;
-                }
-                final int interval = Integer.parseInt(intervalStr);
-                if (interval == 0) {
-                    etNetworkCheckInterval.setText("4");
-                    etNetworkCheckInterval.setSelection(1);
-                }
-            } else {
-                etNetworkCheckInterval.setText("0");
-                etNetworkCheckInterval.setSelection(1);
-            }
+            clNetworkCheckInterval.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         });
         // 注册广播接收器
         IntentFilter filter = new IntentFilter();
@@ -151,8 +139,7 @@ public class NetworkCheckActivity extends BaseActivity {
                                     case KEY_NETWORK_CHECK_INTERVAL:
                                         if (length > 0) {
                                             int interval = value[4] & 0xFF;
-                                            if (interval > 0)
-                                                cbNetworkCheck.setChecked(true);
+                                            cbNetworkCheck.setChecked(interval > 0);
                                             etNetworkCheckInterval.setText(String.valueOf(interval));
                                         }
                                         break;
@@ -165,10 +152,10 @@ public class NetworkCheckActivity extends BaseActivity {
                                                     networkCheckDisPlay = "Disconnected";
                                                     break;
                                                 case 1:
-                                                    networkCheckDisPlay = "Connecting";
+                                                    networkCheckDisPlay = "Connected";
                                                     break;
                                                 case 2:
-                                                    networkCheckDisPlay = "Connected";
+                                                    networkCheckDisPlay = "Connecting";
                                                     break;
                                             }
                                             tvNetworkStatus.setText(networkCheckDisPlay);
@@ -193,22 +180,34 @@ public class NetworkCheckActivity extends BaseActivity {
     }
 
     private boolean isValid() {
-        final String intervalStr = etNetworkCheckInterval.getText().toString();
-        if (TextUtils.isEmpty(intervalStr))
-            return false;
-        int interval = Integer.parseInt(intervalStr);
-        cbNetworkCheck.setChecked(interval > 0);
-        if (interval > 240)
-            return false;
-        return true;
+        if (cbNetworkCheck.isChecked()) {
+            final String intervalStr = etNetworkCheckInterval.getText().toString();
+            if (TextUtils.isEmpty(intervalStr))
+                return false;
+            final int interval = Integer.parseInt(intervalStr);
+            if (interval == 0) {
+                cbNetworkCheck.setChecked(false);
+                return true;
+            }
+            if (interval > 240)
+                return false;
+            return true;
+        } else {
+            return true;
+        }
     }
 
 
     private void saveParams() {
-        final String intervalStr = etNetworkCheckInterval.getText().toString();
-        int interval = Integer.parseInt(intervalStr);
-        LoRaTrackerMokoSupport.getInstance().sendOrder(
-                OrderTaskAssembler.setNetworkCheckInterval(interval));
+        if (cbNetworkCheck.isChecked()) {
+            final String intervalStr = etNetworkCheckInterval.getText().toString();
+            final int interval = Integer.parseInt(intervalStr);
+            LoRaTrackerMokoSupport.getInstance().sendOrder(
+                    OrderTaskAssembler.setNetworkCheckInterval(interval));
+        } else {
+            LoRaTrackerMokoSupport.getInstance().sendOrder(
+                    OrderTaskAssembler.setNetworkCheckInterval(0));
+        }
     }
 
 

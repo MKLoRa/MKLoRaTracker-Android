@@ -71,8 +71,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     @BindView(R2.id.frame_container)
     FrameLayout frameContainer;
-    @BindView(R2.id.radioBtn_adv)
-    RadioButton radioBtnAdv;
+    @BindView(R2.id.radioBtn_lora)
+    RadioButton radioBtnLora;
     @BindView(R2.id.radioBtn_scanner)
     RadioButton radioBtnScanner;
     @BindView(R2.id.radioBtn_setting)
@@ -107,7 +107,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         ButterKnife.bind(this);
         fragmentManager = getFragmentManager();
         initFragment();
-        radioBtnAdv.setChecked(true);
+        radioBtnLora.setChecked(true);
         tvTitle.setText(R.string.title_lora);
         rgOptions.setOnCheckedChangeListener(this);
         mUploadMode = getResources().getStringArray(R.array.upload_mode);
@@ -547,7 +547,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     public void onSave(View view) {
-        if (radioBtnAdv.isChecked()) {
+        if (radioBtnLora.isChecked()) {
             if (loraFragment.isValid()) {
                 showSyncingProgressDialog();
                 loraFragment.saveParams();
@@ -577,7 +577,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        if (checkedId == R.id.radioBtn_adv) {
+        if (checkedId == R.id.radioBtn_lora) {
             showLoRaAndGetData();
         } else if (checkedId == R.id.radioBtn_scanner) {
             showScannerAndGetData();

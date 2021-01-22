@@ -81,10 +81,10 @@ public class LoRaFragment extends Fragment {
                 networkCheckDisPlay = "Disconnected";
                 break;
             case 1:
-                networkCheckDisPlay = "Connecting";
+                networkCheckDisPlay = "Connected";
                 break;
             case 2:
-                networkCheckDisPlay = "Connected";
+                networkCheckDisPlay = "Connecting";
                 break;
         }
         tvNetworkCheck.setText(networkCheckDisPlay);

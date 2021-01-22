@@ -123,12 +123,9 @@ public class LoRaTrackerMokoSupport extends MokoBleLib {
 
 
     @Override
-    public void orderNotify(BluetoothGattCharacteristic characteristic, byte[] value) {
+    public boolean orderNotify(BluetoothGattCharacteristic characteristic, byte[] value) {
         final UUID responseUUID = characteristic.getUuid();
         OrderCHAR orderCHAR = null;
-        if (responseUUID.equals(OrderCHAR.CHAR_PARAMS.getUuid())) {
-            orderCHAR = OrderCHAR.CHAR_PARAMS;
-        }
         if (responseUUID.equals(OrderCHAR.CHAR_DISCONNECTED_NOTIFY.getUuid())) {
             orderCHAR = OrderCHAR.CHAR_DISCONNECTED_NOTIFY;
         }
@@ -136,7 +133,7 @@ public class LoRaTrackerMokoSupport extends MokoBleLib {
             orderCHAR = OrderCHAR.CHAR_THREE_AXIS;
         }
         if (orderCHAR == null)
-            return;
+            return false;
         XLog.i(orderCHAR.name());
         OrderTaskResponse response = new OrderTaskResponse();
         response.orderCHAR = orderCHAR;
@@ -145,5 +142,6 @@ public class LoRaTrackerMokoSupport extends MokoBleLib {
         event.setAction(MokoConstants.ACTION_CURRENT_DATA);
         event.setResponse(response);
         EventBus.getDefault().post(event);
+        return true;
     }
 }
