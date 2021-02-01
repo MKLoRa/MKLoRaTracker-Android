@@ -543,6 +543,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
 
     private void initDutyCycle() {
         if (mSelectedRegion != 1 && mSelectedRegion != 5 && mSelectedRegion != 7) {
+            cbDutyCycle.setChecked(false);
             // EU868,CN779, EU433,AS923,KR920,IN865,and RU864
             llDutyCycle.setVisibility(View.VISIBLE);
         } else {
@@ -552,6 +553,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
 
     private void initUplinkDellTime() {
         if (mSelectedRegion == 5 || mSelectedRegion == 8) {
+            mSelectedUplinkDellTime = 0;
+            tvUplinkDellTime.setText(mUplinkDellTimeList.get(0));
             // AS923 and AU915
             llUplinkDellTime.setVisibility(View.VISIBLE);
         } else {

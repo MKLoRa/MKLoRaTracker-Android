@@ -88,8 +88,8 @@ public class GPSFucntionActivity extends BaseActivity {
         mReceiverTag = true;
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
-        orderTasks.add(OrderTaskAssembler.getGPSStatus());
         orderTasks.add(OrderTaskAssembler.getGPSEnable());
+        orderTasks.add(OrderTaskAssembler.getGPSStatus());
         orderTasks.add(OrderTaskAssembler.getLoraReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSSatelliteSearchTime());
@@ -169,6 +169,7 @@ public class GPSFucntionActivity extends BaseActivity {
                                     case KEY_GPS_FUNCTION_STATUS:
                                         if (length > 0) {
                                             int status = value[4] & 0xFF;
+                                            cbGpsSwitch.setChecked(status == 1);
                                             cbGpsSwitch.setEnabled(status == 1);
                                         }
                                         break;

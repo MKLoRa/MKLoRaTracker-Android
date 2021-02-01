@@ -514,6 +514,14 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                     LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
                 }, 500);
             }
+        } else if (requestCode == AppConstants.REQUEST_CODE_ADV) {
+            if (resultCode == RESULT_OK) {
+                ivSave.postDelayed(() -> {
+                    showSyncingProgressDialog();
+                    // setting
+                    LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.getAdvName());
+                }, 500);
+            }
         }
     }
 
@@ -867,7 +875,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     public void onAdvInfo(View view) {
-        startActivity(new Intent(this, AdvInfoActivity.class));
+        Intent intent = new Intent(this, AdvInfoActivity.class);
+        startActivityForResult(intent, AppConstants.REQUEST_CODE_ADV);
     }
 
     public void onVibrationSetting(View view) {
