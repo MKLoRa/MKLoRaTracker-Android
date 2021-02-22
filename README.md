@@ -28,7 +28,7 @@ include ':app', ':mokosupport'
 **Initialize sdk at project initialization**
 
 ```
-MokoSupport.getInstance().init(getApplicationContext());
+LoRaTrackerMokoSupport.getInstance().init(getApplicationContext());
 ```
 
 **SDK provides three main functions:**
@@ -42,19 +42,19 @@ MokoSupport.getInstance().init(getApplicationContext());
  **Start scanning**
 
 ```
-MokoSupport.getInstance().startScanDevice(callback);
+mokoBleScanner.startScanDevice(callback);
 ```
 
  **End scanning**
 
 ```
-MokoSupport.getInstance().stopScanDevice();
+mokoBleScanner.stopScanDevice();
 ```
  **Implement the scanning callback interface**
 
 ```java
 /**
- * @ClassPath com.moko.support.callback.MokoScanDeviceCallback
+ * @ClassPath com.moko.support.loratracker.callback.MokoScanDeviceCallback
  */
 public interface MokoScanDeviceCallback {
     void onStartScan();
@@ -93,14 +93,13 @@ Device types can be distinguished by `parseDeviceInfo(DeviceInfo deviceInfo)`.Re
                 return null;
             }
         }
-
 ```
 
 ### 2.2 Connect to the device
 
 
 ```
-MokoSupport.getInstance().connDevice(context, address);
+LoRaTrackerMokoSupport.getInstance().connDevice(context, address);
 ```
 
 When connecting to the device, context, MAC address and callback by EventBus.
@@ -136,46 +135,24 @@ At present, all the tasks sent from the SDK can be divided into 4 types:
 
 Encapsulated tasks are as follows:
 
-|Task Class|Task Type|Function
-|----|----|----
-|`OpenNotifyTask`|NOTIFY|Enable notification property
-
 
 Custom device information
 --
 
 |Task Class|Task Type|Function
 |----|----|----
-|`GetManufacturerTask`|READ|Get manufacturer.
-|`GetDeviceModelTask`|READ|Get product model.
-|`GetProductDateTask`|READ|Get production date.
-|`GetHardwareVersionTask`|READ|Get hardware version.
-|`GetFirmwareVersionTask`|READ|Get firmware version.
-|`GetSoftwareVersionTask`|READ|Get software version.
-|`GetBatteryTask`|READ|Get battery capacity.
-|`GetDeviceNameTask`|READ|Get adv name.
-|`GetConnectionModeTask`|READ|Get connectable.
-|`GetDeviceTypeTask`|READ|Get deviceType,5:no-3-Axis.
+|`GetManufacturerNameTask`|READ|Get manufacturer.
+|`GetModelNumberTask`|READ|Get model number.
+|`GetHardwareRevisionTask`|READ|Get hardware version.
+|`GetFirmwareRevisionTask`|READ|Get firmware version.
+|`GetSoftwareRevisionTask`|READ|Get software version.
 
-Adv iBeacon information
+Custom params information
 --
 
 |Task Class|Task Type|Function
 |----|----|----
-|`GetMajorTask`|READ|Get major.
-|`GetMinorTask`|READ|Get minor.
-|`GetMeasurePowerTask`|READ|Get iBeacon measurePower.
-|`GetTransmissionTask`|READ|Get iBeacon transmission.
-|`GetUUIDTask`|READ|Get iBeacon UUID.
-|`GetAdvIntervalTask`|READ|Get adv interval.
-|`WriteConfigTask`|WRITE|Write `GET_ADV_MOVE_CONDITION`，get adv trigger.
-|`SetMajorTask`|WRITE|Set major.
-|`SetMinorTask`|WRITE|Set minor.
-|`SetMeasurePowerTask`|WRITE|Set iBeacon measurePower.
-|`SetTransmissionTask`|WRITE|Set iBeacon transmission.
-|`SetUUIDTask`|WRITE|Set iBeacon UUID.
-|`SetAdvIntervalTask`|WRITE|Set adv interval.
-|`WriteConfigTask`|WRITE|Call `setAdvMoveCondition(int seconds)`，set adv trigger.
+|`ParamsTask`|RESPONSE_TYPE_WRITE_NO_RESPONSE|Get or set params.
 
 ...
 
@@ -184,29 +161,21 @@ Adv iBeacon information
 Examples of creating tasks are as follows:
 
 ```
-	 // read
-    public static OrderTask getManufacturer() {
-        GetManufacturerTask getManufacturerTask = new GetManufacturerTask();
-        return getManufacturerTask;
-    }
-    // write
-    public static OrderTask setPassword(String password) {
-        SetPasswordTask setPasswordTask = new SetPasswordTask();
-        setPasswordTask.setData(password);
-        return setPasswordTask;
-    }
-    public static OrderTask setLoraConnect() {
-        WriteConfigTask task = new WriteConfigTask();
-        task.setLoraConnect();
-        return task;
-    }
-    
+        List<OrderTask> orderTasks = new ArrayList<>();
+        orderTasks.add(OrderTaskAssembler.getAdvName());
+        orderTasks.add(OrderTaskAssembler.getiBeaconUUID());
+        orderTasks.add(OrderTaskAssembler.getiBeaconMajor());
+        orderTasks.add(OrderTaskAssembler.getIBeaconMinor());
+        orderTasks.add(OrderTaskAssembler.getAdvInterval());
+        orderTasks.add(OrderTaskAssembler.getTransmission());
+        orderTasks.add(OrderTaskAssembler.getMeasurePower());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));    
 ```
 
 * **Send tasks**
 
 ```
-MokoSupport.getInstance().sendOrder(OrderTask... orderTasks);
+LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTask... orderTasks);
 ```
 
 The task can be one or more.
@@ -230,7 +199,7 @@ The task can be one or more.
 
 `ACTION_ORDER_RESULT`
 
-	After the task is sent to the device, the data returned by the device can be obtained by using the `onOrderResult` function, and you can determine witch class the task is according to the `response.orderType` function. The `response.responseValue` is the returned data.
+	After the task is sent to the device, the data returned by the device can be obtained by using the `onOrderResult` function, and you can determine witch class the task is according to the `response.orderCHAR` function. The `response.responseValue` is the returned data.
 
 `ACTION_ORDER_TIMEOUT`
 
@@ -249,7 +218,7 @@ String action = intent.getAction();
 ...
 if (MokoConstants.ACTION_CURRENT_DATA.equals(action)) {
     OrderTaskResponse response = event.getResponse();
-    OrderType orderType = response.orderType;
+    OrderCHAR orderCHAR = (OrderCHAR) response.orderCHAR;
     int responseType = response.responseType;
     byte[] value = response.responseValue;
     ...
@@ -261,7 +230,7 @@ Get `OrderTaskResponse` from the `OrderTaskResponseEvent`, and the corresponding
 ## 3. Special instructions
 
 > 1. AndroidManifest.xml of SDK has declared to access SD card and get Bluetooth permissions.
-> 2. The SDK comes with logging, and if you want to view the log in the SD card, please to use "LogModule". The log path is : root directory of SD card/LoRaTrackerV2/LoRaTrackerV2.txt. It only records the log of the day and the day before.
+> 2. The SDK comes with logging, and if you want to view the log in the SD card, please to use "XLog". The log path is : root directory of SD card/LoRaTrackerV2/LoRaTrackerV2.txt. It only records the log of the day and the day before.
 
 
 

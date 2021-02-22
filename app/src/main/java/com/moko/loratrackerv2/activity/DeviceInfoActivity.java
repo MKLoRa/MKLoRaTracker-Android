@@ -250,6 +250,9 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                 // write
                                 int result = value[4] & 0xFF;
                                 switch (configKeyEnum) {
+                                    case KEY_TIME:
+                                        if (result == 1)
+                                            ToastUtils.showToast(DeviceInfoActivity.this, "Time sync completed!");
                                     case KEY_FILTER_VALID_INTERVAL:
                                     case KEY_ALARM_NOTIFY:
                                     case KEY_WARNING_RSSI:
@@ -423,7 +426,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             dialog.show(getSupportFragmentManager());
         } else if (disConnectType == 1) {
             AlertMessageDialog dialog = new AlertMessageDialog();
-            dialog.setMessage("The Beacon is disconnected.");
+            dialog.setMessage("The device disconnected!");
             dialog.setConfirm("OK");
             dialog.setCancelGone();
             dialog.setOnAlertConfirmListener(() -> {
@@ -435,7 +438,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
             if (LoRaTrackerMokoSupport.getInstance().isBluetoothOpen() && !isUpgrade) {
                 AlertMessageDialog dialog = new AlertMessageDialog();
                 dialog.setTitle("Dismiss");
-                dialog.setMessage("The Beacon disconnected!");
+                dialog.setMessage("The device disconnected!");
                 dialog.setConfirm("Exit");
                 dialog.setCancelGone();
                 dialog.setOnAlertConfirmListener(() -> {

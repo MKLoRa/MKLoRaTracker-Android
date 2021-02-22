@@ -33,6 +33,9 @@ public class ScanWindowDialog extends BaseDialog<Integer> implements SeekBar.OnS
             case 0:
                 tvScanWindowValue.setText("0");
                 break;
+            case 1:
+                tvScanWindowValue.setText("1");
+                break;
             case 2:
                 tvScanWindowValue.setText("1/2");
                 break;
@@ -44,7 +47,7 @@ public class ScanWindowDialog extends BaseDialog<Integer> implements SeekBar.OnS
                 break;
         }
         if (progress > 0) {
-            progress -= 2;
+            progress -= 1;
         } else {
             progress = 4;
         }
@@ -74,16 +77,19 @@ public class ScanWindowDialog extends BaseDialog<Integer> implements SeekBar.OnS
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         switch (progress) {
-            case 3:
+            case 4:
                 tvScanWindowValue.setText("0");
                 break;
             case 0:
-                tvScanWindowValue.setText("1/2");
+                tvScanWindowValue.setText("1");
                 break;
             case 1:
-                tvScanWindowValue.setText("1/4");
+                tvScanWindowValue.setText("1/2");
                 break;
             case 2:
+                tvScanWindowValue.setText("1/4");
+                break;
+            case 3:
                 tvScanWindowValue.setText("1/8");
                 break;
         }

@@ -167,18 +167,21 @@ public class ScannerFragment extends Fragment {
                     scanModeStr = "0";
                     break;
                 case 0:
-                    scanModeStr = "1/2";
+                    scanModeStr = "1";
                     break;
                 case 1:
-                    scanModeStr = "1/4";
+                    scanModeStr = "1/2";
                     break;
                 case 2:
+                    scanModeStr = "1/4";
+                    break;
+                case 3:
                     scanModeStr = "1/8";
                     break;
             }
             tvScanWindow.setText(String.format("Scan Window(%s)", scanModeStr));
-            if (scanMode < 3) {
-                scanMode += 2;
+            if (scanMode < 4) {
+                scanMode += 1;
                 activity.setScanWindow(1, scanMode);
             } else {
                 activity.setScanWindow(0, 1);
@@ -259,6 +262,9 @@ public class ScannerFragment extends Fragment {
         this.startTime = startTime;
         String scanModeStr = "";
         switch (startTime) {
+            case 1:
+                scanModeStr = "1";
+                break;
             case 2:
                 scanModeStr = "1/2";
                 break;
@@ -270,7 +276,7 @@ public class ScannerFragment extends Fragment {
                 break;
         }
         tvScanWindow.setText(scannerState ? String.format("Scan Window(%s)", scanModeStr)
-                : "Scan Window(0ms/1000ms)");
+                : "Scan Window(0)");
     }
 
     public void showAlarmNotifyDialog() {
