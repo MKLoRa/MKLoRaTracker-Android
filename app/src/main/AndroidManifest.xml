@@ -36,12 +36,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.moko.loratrackerv2.activity.FilterLBOptionsAActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.moko.loratrackerv2.activity.FilterLBOptionsBActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.moko.loratrackerv2.activity.LoRaSettingActivity"
             android:screenOrientation="portrait"
@@ -72,12 +70,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.moko.loratrackerv2.activity.FilterCTOptionsAActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.moko.loratrackerv2.activity.FilterCTOptionsBActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.moko.loratrackerv2.activity.NetworkCheckActivity"
             android:screenOrientation="portrait"
