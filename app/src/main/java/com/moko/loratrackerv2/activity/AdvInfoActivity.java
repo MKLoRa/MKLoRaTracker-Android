@@ -215,6 +215,7 @@ public class AdvInfoActivity extends BaseActivity implements SeekBar.OnSeekBarCh
                                         if (savedParamsError) {
                                             ToastUtils.showToast(AdvInfoActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {
+                                            setResult(RESULT_OK);
                                             AlertMessageDialog dialog = new AlertMessageDialog();
                                             dialog.setMessage("Saved Successfully！");
                                             dialog.setConfirm("OK");
