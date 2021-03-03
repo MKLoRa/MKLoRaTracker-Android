@@ -1124,14 +1124,13 @@ public class ParamsTask extends OrderTask {
     }
 
 
-    public void setScanWinow(int scannerState, int startTime) {
+    public void setScanWinow(int scanWindow) {
         data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) ParamsKeyEnum.KEY_SCAN_WINDOW.getParamsKey(),
-                (byte) 0x02,
-                (byte) scannerState,
-                (byte) startTime
+                (byte) 0x01,
+                (byte) scanWindow
         };
     }
 

@@ -37,7 +37,6 @@
     <string name="title_setting">SETTINGS</string>
     <string name="title_device">DEVICE</string>
     <string name="lora_setting">LoRa Setting</string>
-    <string name="scan_window_tips">The setting of the scanning window represents the proportion of the scanning time. If you set to 0, the device will stop scanning.</string>
     <string name="warning_range">(-127~%ddBm)</string>
     <string name="warning_tips">* People gathering warning will take effect，when the BLE RSSI scanned is greater than %ddbm.</string>
     <string name="low_battery_tips">*When the battery is less than or equal to %d%%, the red LED will flashe once every 30 seconds.</string>

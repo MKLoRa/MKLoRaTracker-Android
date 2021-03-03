@@ -14,7 +14,6 @@ import com.moko.loratrackerv2.R;
 import com.moko.loratrackerv2.R2;
 import com.moko.loratrackerv2.activity.DeviceInfoActivity;
 import com.moko.loratrackerv2.dialog.BottomDialog;
-import com.moko.loratrackerv2.dialog.ScanWindowDialog;
 import com.moko.support.loratracker.LoRaTrackerMokoSupport;
 import com.moko.support.loratracker.OrderTaskAssembler;
 
@@ -52,7 +51,9 @@ public class ScannerFragment extends Fragment {
     private DeviceInfoActivity activity;
 
     private ArrayList<String> mValues;
+    private ArrayList<String> mScanWindowValues;
     private int mSelected;
+    private int mScanWindowSelected;
 
     public ScannerFragment() {
     }
@@ -128,6 +129,11 @@ public class ScannerFragment extends Fragment {
         mValues.add("Light");
         mValues.add("Vibration");
         mValues.add("Light+Vibration");
+        mScanWindowValues = new ArrayList<>();
+        mScanWindowValues.add("Off");
+        mScanWindowValues.add("Low");
+        mScanWindowValues.add("Medium");
+        mScanWindowValues.add("Strong");
         return view;
     }
 
@@ -157,36 +163,14 @@ public class ScannerFragment extends Fragment {
     }
 
     public void showBeaconScannerDialog() {
-        final ScanWindowDialog dialog = new ScanWindowDialog(getActivity());
-        dialog.setData(scannerState ? startTime : 0);
-        dialog.setOnScanWindowClicked(scanMode -> {
-            String scanModeStr = "";
-            switch (scanMode) {
-                case 4:
-                    scanModeStr = "0";
-                    break;
-                case 0:
-                    scanModeStr = "1";
-                    break;
-                case 1:
-                    scanModeStr = "1/2";
-                    break;
-                case 2:
-                    scanModeStr = "1/4";
-                    break;
-                case 3:
-                    scanModeStr = "1/8";
-                    break;
-            }
-            tvScanWindow.setText(String.format("Scan Window(%s)", scanModeStr));
-            if (scanMode < 4) {
-                scanMode += 1;
-                activity.setScanWindow(1, scanMode);
-            } else {
-                activity.setScanWindow(0, 1);
-            }
+        BottomDialog dialog = new BottomDialog();
+        dialog.setDatas(mScanWindowValues, mScanWindowSelected);
+        dialog.setListener(value -> {
+            mScanWindowSelected = value;
+            tvScanWindow.setText(mScanWindowValues.get(value));
+            activity.setScanWindow(value);
         });
-        dialog.show();
+        dialog.show(activity.getSupportFragmentManager());
     }
 
     public void saveParams() {
@@ -253,29 +237,11 @@ public class ScannerFragment extends Fragment {
         }
     }
 
-    private boolean scannerState;
-    private int startTime;
-
-    public void setScanWindow(int scanner, int startTime) {
-        scannerState = scanner == 1;
-        this.startTime = startTime;
-        String scanModeStr = "";
-        switch (startTime) {
-            case 1:
-                scanModeStr = "1";
-                break;
-            case 2:
-                scanModeStr = "1/2";
-                break;
-            case 3:
-                scanModeStr = "1/4";
-                break;
-            case 4:
-                scanModeStr = "1/8";
-                break;
+    public void setScanWindow(int scanWindow) {
+        if (scanWindow <= 3) {
+            tvScanWindow.setText(mScanWindowValues.get(scanWindow));
+            mScanWindowSelected = scanWindow;
         }
-        tvScanWindow.setText(scannerState ? String.format("Scan Window(%s)", scanModeStr)
-                : "Scan Window(0)");
     }
 
     public void showAlarmNotifyDialog() {
@@ -284,6 +250,7 @@ public class ScannerFragment extends Fragment {
         dialog.setListener(value -> {
             mSelected = value;
             tvAlarmNotify.setText(mValues.get(value));
+            activity.setScanWindow(value);
         });
         dialog.show(activity.getSupportFragmentManager());
     }

@@ -344,9 +344,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         break;
                                     case KEY_SCAN_WINDOW:
                                         if (length > 0) {
-                                            int scannerState = value[4] & 0xFF;
-                                            int startTime = value[5] & 0xFF;
-                                            scannerFragment.setScanWindow(scannerState, startTime);
+                                            int scanWindow = value[4] & 0xFF;
+                                            scannerFragment.setScanWindow(scanWindow);
                                         }
                                         break;
                                     case KEY_CONNECTABLE:
@@ -690,9 +689,9 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setReset());
     }
 
-    public void setScanWindow(int scannerState, int startTime) {
+    public void setScanWindow(int scanWindow) {
         showSyncingProgressDialog();
-        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setScanWindow(scannerState, startTime), OrderTaskAssembler.getScanWindow());
+        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setScanWindow(scanWindow), OrderTaskAssembler.getScanWindow());
     }
 
     public void changeConnectState(int connectState) {

@@ -714,9 +714,9 @@ public class OrderTaskAssembler {
         return writeConfigTask;
     }
 
-    public static OrderTask setScanWindow(int scannerState, int startTime) {
+    public static OrderTask setScanWindow(int scanWindow) {
         ParamsTask writeConfigTask = new ParamsTask();
-        writeConfigTask.setScanWinow(scannerState, startTime);
+        writeConfigTask.setScanWinow(scanWindow);
         return writeConfigTask;
     }
 

@@ -55,10 +55,4 @@
         <item name="android:thumb">@drawable/loratracker_seekbar_thumb</item>
         <item name="android:thumbOffset">0dp</item>
     </style>
-
-    <style name="LoraTrackerSensitivitySeekbarStyle">
-        <item name="android:progressDrawable">@drawable/loratracker_seekbar_progress_drawable_sensitivity</item>
-        <item name="android:thumb">@drawable/loratracker_seekbar_thumb</item>
-        <item name="android:thumbOffset">0dp</item>
-    </style>
 </resources>

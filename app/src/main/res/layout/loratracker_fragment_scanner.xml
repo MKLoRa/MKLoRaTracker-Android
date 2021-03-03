@@ -300,22 +300,34 @@
             app:layout_constraintTop_toBottomOf="@id/tv_warning_tips" />
 
         <TextView
-            android:id="@+id/tv_scan_window"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:clickable="true"
-            android:drawableRight="@drawable/loratracker_ic_arrow_right"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:onClick="onScanWindow"
-            android:text="Scanner Window(1/2)"
+            android:text="Scan intensity"
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_scan_window"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_scan_window" />
+
+        <TextView
+            android:id="@+id/tv_scan_window"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:onClick="onScanWindow"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Medium"
+            android:textColor="@color/loratracker_white_ffffff"
+            android:textSize="15sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_warning_tips" />
-
 
         <View
             style="@style/loratracker_divider_line"
