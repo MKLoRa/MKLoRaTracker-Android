@@ -79,8 +79,8 @@ public class ScannerFragment extends Fragment {
         sbScanInterval.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvScanIntervalValue.setText(String.format("%ds", progress));
-                tvScanIntervalTips.setText(getString(R.string.storage_interval, progress));
+                tvScanIntervalValue.setText(String.format("%ds", progress + 1));
+                tvScanIntervalTips.setText(getString(R.string.storage_interval, progress + 1));
             }
 
             @Override
@@ -109,16 +109,15 @@ public class ScannerFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                tvWarningRange.setText(getString(R.string.warning_range, warningMax));
                 if (warningMax >= -124) {
                     if (warningRssiValue >= warningMax) {
                         warningRssiValue = warningMax - 3;
-                        tvWarningRange.setText(getString(R.string.warning_range, warningMax));
                         tvWarningValue.setText(String.valueOf(warningRssiValue));
                         tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
                     }
                 } else {
                     warningRssiValue = -127;
-                    tvWarningRange.setText(getString(R.string.warning_range, warningMax));
                     tvWarningValue.setText(String.valueOf(warningRssiValue));
                     tvWarningTips.setText(getString(R.string.warning_tips, warningRssiValue));
                 }
@@ -191,7 +190,7 @@ public class ScannerFragment extends Fragment {
     }
 
     public void saveParams() {
-        final int scanIntervalProgress = sbScanInterval.getProgress();
+        final int scanIntervalProgress = sbScanInterval.getProgress() + 1;
         final int alarmTriggerRssiProgress = sbAlarmTriggerRssi.getProgress();
         int rssi = alarmTriggerRssiProgress - 127;
         List<OrderTask> orderTasks = new ArrayList<>();
@@ -206,7 +205,7 @@ public class ScannerFragment extends Fragment {
 
     public void setScanInterval(int time) {
         if (time <= 600)
-            sbScanInterval.setProgress(time);
+            sbScanInterval.setProgress(time - 1);
     }
 
     private int warningMax;

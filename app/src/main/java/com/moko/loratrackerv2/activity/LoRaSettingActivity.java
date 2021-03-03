@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moko.ble.lib.MokoConstants;
@@ -83,6 +84,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     CheckBox cbDutyCycle;
     @BindView(R2.id.tv_uplink_dell_time)
     TextView tvUplinkDellTime;
+    @BindView(R2.id.rl_ch)
+    RelativeLayout rlCH;
     @BindView(R2.id.ll_duty_cycle)
     LinearLayout llDutyCycle;
     @BindView(R2.id.ll_uplink_dell_time)
@@ -539,12 +542,18 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         for (int i = 0; i <= mMaxDR; i++) {
             mDRList.add(String.valueOf(i));
         }
+        if (mSelectedRegion == 1 || mSelectedRegion == 5 || mSelectedRegion == 7) {
+            // US915,AU915,CN470
+            rlCH.setVisibility(View.VISIBLE);
+        } else {
+            rlCH.setVisibility(View.GONE);
+        }
     }
 
     private void initDutyCycle() {
         if (mSelectedRegion != 1 && mSelectedRegion != 5 && mSelectedRegion != 7) {
             cbDutyCycle.setChecked(false);
-            // EU868,CN779, EU433,AS923,KR920,IN865,and RU864
+            // EU868,CN779,EU433,AS923,KR920,IN865,and RU864
             llDutyCycle.setVisibility(View.VISIBLE);
         } else {
             llDutyCycle.setVisibility(View.GONE);
