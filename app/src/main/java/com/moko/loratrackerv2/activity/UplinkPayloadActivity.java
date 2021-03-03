@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -96,6 +97,8 @@ public class UplinkPayloadActivity extends BaseActivity {
     CheckBox cb3AxisMac;
     @BindView(R2.id.cb_3_axis_timestamp)
     CheckBox cb3AxisTimestamp;
+    @BindView(R2.id.cl_gps_payload)
+    ConstraintLayout clGpspayload;
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
 
@@ -134,6 +137,7 @@ public class UplinkPayloadActivity extends BaseActivity {
         orderTasks.add(OrderTaskAssembler.getTrackingOptionalPayload());
         orderTasks.add(OrderTaskAssembler.getSOSReportInterval());
         orderTasks.add(OrderTaskAssembler.getSOSOptionalPayload());
+        orderTasks.add(OrderTaskAssembler.getGPSStatus());
         orderTasks.add(OrderTaskAssembler.getGPSReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSOptionalPayload());
         orderTasks.add(OrderTaskAssembler.get3AxisReportInterval());
@@ -270,6 +274,12 @@ public class UplinkPayloadActivity extends BaseActivity {
                                                     == SOS_OPTIONAL_PAYLOAD_HOST_MAC_ENABLE);
                                         }
                                         break;
+                                    case KEY_GPS_FUNCTION_STATUS:
+                                        if (length > 0) {
+                                            int status = value[4] & 0xFF;
+                                            clGpspayload.setVisibility(status == 1 ? View.VISIBLE : View.GONE);
+                                        }
+                                        break;
                                     case KEY_GPS_REPORT_INTERVAL:
                                         if (length > 0) {
                                             int gpsReportInterval = value[4] & 0xFF;
@@ -390,25 +400,27 @@ public class UplinkPayloadActivity extends BaseActivity {
             sosHostMac = SOS_OPTIONAL_PAYLOAD_HOST_MAC_ENABLE;
         orderTasks.add(OrderTaskAssembler.setSOSOptionalPayload(sosTimestamp | sosHostMac));
         // gps
-        final int gpsInterval = (mGPSSelected + 1) * 10;
-        orderTasks.add(OrderTaskAssembler.setGPSReportInterval(gpsInterval));
-        int gpsAltitude = 0;
-        int gpsTimestamp = 0;
-        int gpsSearchMode = 0;
-        int gpsPdop = 0;
-        int gpsNumberOfSatellites = 0;
-        if (cbGpsAltitude.isChecked())
-            gpsAltitude = GPS_OPTIONAL_PAYLOAD_ALTITUDE_ENABLE;
-        if (cbGpsTimestamp.isChecked())
-            gpsTimestamp = GPS_OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE;
-        if (cbGpsSearchMode.isChecked())
-            gpsSearchMode = GPS_OPTIONAL_PAYLOAD_SEARCH_MODE_ENABLE;
-        if (cbGpsPdop.isChecked())
-            gpsPdop = GPS_OPTIONAL_PAYLOAD_PDOP_ENABLE;
-        if (cbGpsSatellitesNumber.isChecked())
-            gpsNumberOfSatellites = GPS_OPTIONAL_PAYLOAD_SATELLITES_NUMBER_ENABLE;
-        orderTasks.add(OrderTaskAssembler.setGPSOptionalPayload(
-                gpsAltitude | gpsTimestamp | gpsSearchMode | gpsPdop | gpsNumberOfSatellites));
+        if (clGpspayload.isShown()) {
+            final int gpsInterval = (mGPSSelected + 1) * 10;
+            orderTasks.add(OrderTaskAssembler.setGPSReportInterval(gpsInterval));
+            int gpsAltitude = 0;
+            int gpsTimestamp = 0;
+            int gpsSearchMode = 0;
+            int gpsPdop = 0;
+            int gpsNumberOfSatellites = 0;
+            if (cbGpsAltitude.isChecked())
+                gpsAltitude = GPS_OPTIONAL_PAYLOAD_ALTITUDE_ENABLE;
+            if (cbGpsTimestamp.isChecked())
+                gpsTimestamp = GPS_OPTIONAL_PAYLOAD_TIMESTAMP_ENABLE;
+            if (cbGpsSearchMode.isChecked())
+                gpsSearchMode = GPS_OPTIONAL_PAYLOAD_SEARCH_MODE_ENABLE;
+            if (cbGpsPdop.isChecked())
+                gpsPdop = GPS_OPTIONAL_PAYLOAD_PDOP_ENABLE;
+            if (cbGpsSatellitesNumber.isChecked())
+                gpsNumberOfSatellites = GPS_OPTIONAL_PAYLOAD_SATELLITES_NUMBER_ENABLE;
+            orderTasks.add(OrderTaskAssembler.setGPSOptionalPayload(
+                    gpsAltitude | gpsTimestamp | gpsSearchMode | gpsPdop | gpsNumberOfSatellites));
+        }
         // 3-Axis
         orderTasks.add(OrderTaskAssembler.set3AxisReportInterval(axisInterval));
         int mac = 0;

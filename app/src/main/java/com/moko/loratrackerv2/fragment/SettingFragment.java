@@ -33,6 +33,8 @@ public class SettingFragment extends Fragment {
     TextView tvLowBatteryTips;
     @BindView(R2.id.tv_adv_name)
     TextView tvAdvName;
+    @BindView(R2.id.tv_gps_function)
+    TextView tvGpsFunction;
     private DeviceInfoActivity activity;
 
     public SettingFragment() {
@@ -172,5 +174,10 @@ public class SettingFragment extends Fragment {
             String lowBatteryStr = String.format("%d%%", i);
             lowBatteryList.add(lowBatteryStr);
         }
+    }
+
+
+    public void setGpsFunction(int status) {
+        tvGpsFunction.setVisibility(status == 1 ? View.VISIBLE : View.GONE);
     }
 }

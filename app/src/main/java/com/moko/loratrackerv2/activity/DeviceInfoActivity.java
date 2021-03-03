@@ -360,6 +360,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             settingFragment.setLowBattery(lowBattery);
                                         }
                                         break;
+                                    case KEY_GPS_FUNCTION_STATUS:
+                                        if (length > 0) {
+                                            int status = value[4] & 0xFF;
+                                            settingFragment.setGpsFunction(status);
+                                        }
+                                        break;
                                     case KEY_DEVICE_MAC:
                                         if (length > 0) {
                                             byte[] macBytes = Arrays.copyOfRange(value, 4, 4 + length);
@@ -635,7 +641,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         orderTasks.add(OrderTaskAssembler.getAdvName());
         orderTasks.add(OrderTaskAssembler.getConnectable());
         orderTasks.add(OrderTaskAssembler.getLowBattery());
-//        orderTasks.add(OrderTaskAssembler.getDeviceInfoInterval());
+        orderTasks.add(OrderTaskAssembler.getGPSStatus());
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 

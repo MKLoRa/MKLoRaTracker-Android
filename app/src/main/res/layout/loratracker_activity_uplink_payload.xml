@@ -410,138 +410,146 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cb_sos_mac" />
 
-            <TextView
-                android:id="@+id/gps_payload"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_gps_payload"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:text="GPS Payload"
-                android:textColor="@color/loratracker_blue_2f84d0"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_sos_mac" />
-
-            <View
-                style="@style/loratracker_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
+                android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gps_payload" />
+                app:layout_constraintTop_toBottomOf="@id/cb_sos_mac">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="GPS Payload Report Interval"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tv_gps_report_interval"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_gps_report_interval" />
+                <TextView
+                    android:id="@+id/gps_payload"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:text="GPS Payload"
+                    android:textColor="@color/loratracker_blue_2f84d0"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_gps_report_interval"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="onSelectGPSReportInterval"
-                android:text="10"
-                android:textColor="@color/loratracker_white_ffffff"
-                android:textSize="15sp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gps_payload" />
+                <View
+                    style="@style/loratracker_divider_line"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gps_payload" />
 
-            <View
-                style="@style/loratracker_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_gps_report_interval" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="GPS Payload Report Interval"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_gps_report_interval"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_gps_report_interval" />
 
+                <TextView
+                    android:id="@+id/tv_gps_report_interval"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/loratracker_shape_radius_blue_btn_bg"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="onSelectGPSReportInterval"
+                    android:text="10"
+                    android:textColor="@color/loratracker_white_ffffff"
+                    android:textSize="15sp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gps_payload" />
 
+                <View
+                    style="@style/loratracker_divider_line"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_gps_report_interval" />
 
-            <TextView
-                android:id="@+id/gps_payload_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Optional Payload Content"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_gps_report_interval" />
+                <TextView
+                    android:id="@+id/gps_payload_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Optional Payload Content"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_gps_report_interval" />
 
-            <CheckBox
-                android:id="@+id/cb_gps_altitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Altitude"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gps_payload_content" />
+                <CheckBox
+                    android:id="@+id/cb_gps_altitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Altitude"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/gps_payload_content" />
 
-            <CheckBox
-                android:id="@+id/cb_gps_timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Timestamp"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_altitude" />
+                <CheckBox
+                    android:id="@+id/cb_gps_timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Timestamp"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cb_gps_altitude" />
 
-            <CheckBox
-                android:id="@+id/cb_gps_pdop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="PDOP"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_timestamp" />
+                <CheckBox
+                    android:id="@+id/cb_gps_pdop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="PDOP"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cb_gps_timestamp" />
 
-            <CheckBox
-                android:id="@+id/cb_gps_satellites_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Number Of Satellites"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_pdop" />
+                <CheckBox
+                    android:id="@+id/cb_gps_satellites_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Number Of Satellites"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cb_gps_pdop" />
 
-            <CheckBox
-                android:id="@+id/cb_gps_search_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Satellites Search Mode"
-                android:textColor="@color/loratracker_black_333333"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_satellites_number" />
+                <CheckBox
+                    android:id="@+id/cb_gps_search_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Satellites Search Mode"
+                    android:textColor="@color/loratracker_black_333333"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cb_gps_satellites_number" />
 
-            <View
-                style="@style/loratracker_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_search_mode" />
+                <View
+                    style="@style/loratracker_divider_line"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cb_gps_search_mode" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/three_axis_payload"
@@ -554,7 +562,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cb_gps_search_mode" />
+                app:layout_constraintTop_toBottomOf="@id/cl_gps_payload" />
 
             <View
                 style="@style/loratracker_divider_line"

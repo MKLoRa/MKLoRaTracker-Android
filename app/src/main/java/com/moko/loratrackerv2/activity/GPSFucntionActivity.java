@@ -89,7 +89,6 @@ public class GPSFucntionActivity extends BaseActivity {
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
         orderTasks.add(OrderTaskAssembler.getGPSEnable());
-        orderTasks.add(OrderTaskAssembler.getGPSStatus());
         orderTasks.add(OrderTaskAssembler.getLoraReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSReportInterval());
         orderTasks.add(OrderTaskAssembler.getGPSSatelliteSearchTime());
@@ -166,13 +165,6 @@ public class GPSFucntionActivity extends BaseActivity {
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
-                                    case KEY_GPS_FUNCTION_STATUS:
-                                        if (length > 0) {
-                                            int status = value[4] & 0xFF;
-                                            cbGpsSwitch.setChecked(status == 1);
-                                            cbGpsSwitch.setEnabled(status == 1);
-                                        }
-                                        break;
                                     case KEY_GPS_FUNCTION_SWITCH:
                                         if (length > 0) {
                                             int enable = value[4] & 0xFF;

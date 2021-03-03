@@ -112,6 +112,7 @@
             android:textColor="@color/loratracker_black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sos_function" />
