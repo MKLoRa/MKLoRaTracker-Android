@@ -255,6 +255,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             ToastUtils.showToast(DeviceInfoActivity.this, "Time sync completed!");
                                     case KEY_FILTER_VALID_INTERVAL:
                                     case KEY_ALARM_NOTIFY:
+                                    case KEY_SCAN_WINDOW:
                                     case KEY_WARNING_RSSI:
                                         if (result != 1) {
                                             savedParamsError = true;
@@ -262,7 +263,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         break;
                                     case KEY_ALARM_RSSI:
                                     case KEY_TIME_SYNC_INTERVAL:
-                                    case KEY_SCAN_WINDOW:
                                     case KEY_CONNECTABLE:
                                     case KEY_LOW_POWER_PERCENT:
                                         if (result != 1) {
@@ -693,11 +693,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     public void reset() {
         showSyncingProgressDialog();
         LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setReset());
-    }
-
-    public void setScanWindow(int scanWindow) {
-        showSyncingProgressDialog();
-        LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setScanWindow(scanWindow), OrderTaskAssembler.getScanWindow());
     }
 
     public void changeConnectState(int connectState) {

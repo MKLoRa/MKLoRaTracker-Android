@@ -92,7 +92,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         setContentView(R.layout.loratracker_activity_main);
         ButterKnife.bind(this);
         LoRaTrackerMokoSupport.getInstance().init(getApplicationContext());
-        mSavedPassword = SPUtiles.getStringValue(this, AppConstants.SP_KEY_SAVED_PASSWORD, "");
+        mSavedPassword = SPUtiles.getStringValue(this, AppConstants.SP_KEY_SAVED_PASSWORD_LORATRACKER, "");
         beaconInfoHashMap = new HashMap<>();
         beaconInfos = new ArrayList<>();
         adapter = new BeaconListAdapter();
@@ -452,7 +452,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
                             int result = value[4] & 0xFF;
                             if (1 == result) {
                                 mSavedPassword = mPassword;
-                                SPUtiles.setStringValue(LoRaTrackerMainActivity.this, AppConstants.SP_KEY_SAVED_PASSWORD, mSavedPassword);
+                                SPUtiles.setStringValue(LoRaTrackerMainActivity.this, AppConstants.SP_KEY_SAVED_PASSWORD_LORATRACKER, mSavedPassword);
                                 XLog.i("Success");
                                 Intent i = new Intent(LoRaTrackerMainActivity.this, DeviceInfoActivity.class);
                                 startActivityForResult(i, AppConstants.REQUEST_CODE_DEVICE_INFO);

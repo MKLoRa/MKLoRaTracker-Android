@@ -168,7 +168,6 @@ public class ScannerFragment extends Fragment {
         dialog.setListener(value -> {
             mScanWindowSelected = value;
             tvScanWindow.setText(mScanWindowValues.get(value));
-            activity.setScanWindow(value);
         });
         dialog.show(activity.getSupportFragmentManager());
     }
@@ -181,6 +180,7 @@ public class ScannerFragment extends Fragment {
 
         orderTasks.add(OrderTaskAssembler.setFilterValidInterval(scanIntervalProgress));
         orderTasks.add(OrderTaskAssembler.setAlarmNotify(mSelected));
+        orderTasks.add(OrderTaskAssembler.setScanWindow(mScanWindowSelected));
         orderTasks.add(OrderTaskAssembler.setWarningRssi(warningRssiValue));
         orderTasks.add(OrderTaskAssembler.setAlarmTriggerRssi(rssi));
 
@@ -250,7 +250,6 @@ public class ScannerFragment extends Fragment {
         dialog.setListener(value -> {
             mSelected = value;
             tvAlarmNotify.setText(mValues.get(value));
-            activity.setScanWindow(value);
         });
         dialog.show(activity.getSupportFragmentManager());
     }

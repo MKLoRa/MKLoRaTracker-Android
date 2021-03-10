@@ -221,10 +221,20 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                     case KEY_LORA_CH:
                                     case KEY_LORA_DUTY_CYCLE_ENABLE:
                                     case KEY_LORA_ADR:
-                                    case KEY_LORA_DR:
                                     case KEY_LORA_UPLINK_DELL_TIME:
                                         if (result != 1) {
                                             mIsFailed = true;
+                                        }
+                                        break;
+                                    case KEY_LORA_DR:
+                                        if (result != 1) {
+                                            mIsFailed = true;
+                                        }
+                                        if (!mIsFailed) {
+                                            showSyncingProgressDialog();
+                                            LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setLoraConnect());
+                                        } else {
+                                            ToastUtils.showToast(LoRaSettingActivity.this, "Error");
                                         }
                                         break;
                                     case KEY_LORA_CONNECT:
@@ -404,7 +414,6 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         backHome();
     }
 
@@ -686,12 +695,11 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         if (mSelectedRegion != 1 && mSelectedRegion != 5 && mSelectedRegion != 7) {
             orderTasks.add(OrderTaskAssembler.setLoraDutyCycleEnable(cbDutyCycle.isChecked() ? 1 : 0));
         }
-        orderTasks.add(OrderTaskAssembler.setLoraDR(mSelectedDr1));
         orderTasks.add(OrderTaskAssembler.setLoraADR(cbAdr.isChecked() ? 1 : 0));
         if (mSelectedRegion == 5 || mSelectedRegion == 8) {
             orderTasks.add(OrderTaskAssembler.setLoraUplinkDellTime(mSelectedUplinkDellTime));
         }
-        orderTasks.add(OrderTaskAssembler.setLoraConnect());
+        orderTasks.add(OrderTaskAssembler.setLoraDR(mSelectedDr1));
         LoRaTrackerMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         showSyncingProgressDialog();
     }
