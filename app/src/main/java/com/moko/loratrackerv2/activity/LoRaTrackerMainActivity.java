@@ -50,11 +50,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -78,7 +78,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
     @BindView(R2.id.tv_filter)
     TextView tv_filter;
     private boolean mReceiverTag = false;
-    private HashMap<String, BeaconInfo> beaconInfoHashMap;
+    private ConcurrentHashMap<String, BeaconInfo> beaconInfoHashMap;
     private ArrayList<BeaconInfo> beaconInfos;
     private BeaconListAdapter adapter;
     private Animation animation = null;
@@ -93,7 +93,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         ButterKnife.bind(this);
         LoRaTrackerMokoSupport.getInstance().init(getApplicationContext());
         mSavedPassword = SPUtiles.getStringValue(this, AppConstants.SP_KEY_SAVED_PASSWORD_LORATRACKER, "");
-        beaconInfoHashMap = new HashMap<>();
+        beaconInfoHashMap = new ConcurrentHashMap<>();
         beaconInfos = new ArrayList<>();
         adapter = new BeaconListAdapter();
         adapter.replaceData(beaconInfos);
@@ -206,6 +206,7 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
         } else {
             beaconInfos.addAll(beaconInfoHashMap.values());
         }
+        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         Collections.sort(beaconInfos, (lhs, rhs) -> {
             if (lhs.rssi > rhs.rssi) {
                 return -1;
