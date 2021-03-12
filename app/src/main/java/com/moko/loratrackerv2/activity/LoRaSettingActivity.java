@@ -445,6 +445,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         bottomDialog.setDatas(mRegionsList, mSelectedRegion);
         bottomDialog.setListener(value -> {
             if (mSelectedRegion != value) {
+                cbAdr.setChecked(true);
                 mSelectedRegion = value;
                 tvRegion.setText(mRegions[mSelectedRegion]);
                 initCHDRRange();
