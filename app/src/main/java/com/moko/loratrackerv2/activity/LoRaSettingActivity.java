@@ -234,7 +234,7 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                             showSyncingProgressDialog();
                                             LoRaTrackerMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setLoraConnect());
                                         } else {
-                                            ToastUtils.showToast(LoRaSettingActivity.this, "Error");
+                                            ToastUtils.showToast(LoRaSettingActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         }
                                         break;
                                     case KEY_LORA_CONNECT:
@@ -242,9 +242,9 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
                                             mIsFailed = true;
                                         }
                                         if (!mIsFailed) {
-                                            ToastUtils.showToast(LoRaSettingActivity.this, "Success");
+                                            ToastUtils.showToast(LoRaSettingActivity.this, "Saved Successfully！");
                                         } else {
-                                            ToastUtils.showToast(LoRaSettingActivity.this, "Error");
+                                            ToastUtils.showToast(LoRaSettingActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         }
                                         break;
                                 }
@@ -471,16 +471,12 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     private void updateCHDR() {
         switch (mSelectedRegion) {
             case 0:
+            case 3:
             case 4:
             case 9:
             case 10:
                 mSelectedCh1 = 0;
                 mSelectedCh2 = 2;
-                mSelectedDr1 = 0;
-                break;
-            case 3:
-                mSelectedCh1 = 0;
-                mSelectedCh2 = 5;
                 mSelectedDr1 = 0;
                 break;
             case 1:
@@ -511,16 +507,12 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
         mDRList = new ArrayList<>();
         switch (mSelectedRegion) {
             case 0:
+            case 3:
             case 4:
             case 9:
             case 10:
-                // EU868、EU443、KR920、IN865
+                // EU868、CN779、EU443、KR920、IN865
                 mMaxCH = 2;
-                mMaxDR = 5;
-                break;
-            case 3:
-                // CN779
-                mMaxCH = 5;
                 mMaxDR = 5;
                 break;
             case 8:

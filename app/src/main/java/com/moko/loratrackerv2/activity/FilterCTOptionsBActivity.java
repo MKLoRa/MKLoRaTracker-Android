@@ -486,6 +486,8 @@ public class FilterCTOptionsBActivity extends BaseActivity implements SeekBar.On
     }
 
     public void onRawDataAdd(View view) {
+        if (isWindowLocked())
+            return;
         int count = llRawDataFilter.getChildCount();
         if (count > 4) {
             ToastUtils.showToast(this, "You can set up to 5 filters!");
@@ -496,6 +498,8 @@ public class FilterCTOptionsBActivity extends BaseActivity implements SeekBar.On
     }
 
     public void onRawDataDel(View view) {
+        if (isWindowLocked())
+            return;
         final int c = llRawDataFilter.getChildCount();
         if (c == 0) {
             ToastUtils.showToast(this, "There are currently no filters to delete");
@@ -505,8 +509,9 @@ public class FilterCTOptionsBActivity extends BaseActivity implements SeekBar.On
         dialog.setTitle("Warning");
         dialog.setMessage("Please confirm whether to delete  a filter option，If yes，the last option will be deleted. ");
         dialog.setOnAlertConfirmListener(() -> {
-            if (c > 0) {
-                llRawDataFilter.removeViewAt(c - 1);
+            int count = llRawDataFilter.getChildCount();
+            if (count > 0) {
+                llRawDataFilter.removeViewAt(count - 1);
             }
         });
         dialog.show(getSupportFragmentManager());
