@@ -98,7 +98,7 @@ public class ScannerFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int rssi = progress - 127;
-                tvAlarmTriggerRssiValue.setText(String.format("%dBm", rssi));
+                tvAlarmTriggerRssiValue.setText(String.format("%ddBm", rssi));
                 tvAlarmTriggerRssiTips.setText(getString(R.string.alarm_trigger_rssi, rssi));
                 warningMax = rssi;
             }
@@ -202,7 +202,7 @@ public class ScannerFragment extends Fragment {
         if (progress >= 0 && progress <= 127) {
             sbAlarmTriggerRssi.setProgress(progress);
             int value = progress - 127;
-            tvAlarmTriggerRssiValue.setText(String.format("%dBm", value));
+            tvAlarmTriggerRssiValue.setText(String.format("%ddBm", value));
             tvAlarmTriggerRssiTips.setText(getString(R.string.alarm_trigger_rssi, value));
             warningMax = rssi;
             tvWarningRange.setText(getString(R.string.warning_range, rssi));
