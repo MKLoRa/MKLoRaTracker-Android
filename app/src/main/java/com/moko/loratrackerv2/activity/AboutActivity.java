@@ -34,6 +34,8 @@ public class AboutActivity extends BaseActivity {
     }
 
     public void onCompanyWebsite(View view) {
+        if (isWindowLocked())
+            return;
         Uri uri = Uri.parse("https://" + getString(R.string.company_website));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);

@@ -253,11 +253,15 @@ public class LoRaTrackerMainActivity extends BaseActivity implements MokoScanDev
 
 
     public void onAbout(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, AboutActivity.class));
     }
 
 
     public void onFilter(View view) {
+        if (isWindowLocked())
+            return;
         if (animation != null) {
             mHandler.removeMessages(0);
             mokoBleScanner.stopScanDevice();

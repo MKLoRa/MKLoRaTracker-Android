@@ -191,6 +191,8 @@ public class VibrationSettingActivity extends BaseActivity {
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         if (isValid()) {
             if (isDurationLessThanCycle()) {
                 showSyncingProgressDialog();

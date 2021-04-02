@@ -576,6 +576,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
 
 
     public void selectCh1(View view) {
+        if (isWindowLocked())
+            return;
         BottomDialog bottomDialog = new BottomDialog();
         bottomDialog.setDatas(mCHList, mSelectedCh1);
         bottomDialog.setListener(value -> {
@@ -590,6 +592,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     public void selectCh2(View view) {
+        if (isWindowLocked())
+            return;
         final ArrayList<String> ch2List = new ArrayList<>();
         for (int i = mSelectedCh1; i <= mMaxCH; i++) {
             ch2List.add(i + "");
@@ -604,6 +608,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     public void selectDr1(View view) {
+        if (isWindowLocked())
+            return;
         if (cbAdr.isChecked()) {
             return;
         }
@@ -617,6 +623,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     public void onUplinkDellTime(View view) {
+        if (isWindowLocked())
+            return;
         BottomDialog bottomDialog = new BottomDialog();
         bottomDialog.setDatas(mUplinkDellTimeList, mSelectedUplinkDellTime);
         bottomDialog.setListener(value -> {
@@ -627,6 +635,8 @@ public class LoRaSettingActivity extends BaseActivity implements CompoundButton.
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         ArrayList<OrderTask> orderTasks = new ArrayList<>();
         if (mSelectedMode == 0) {
             String devEui = etDevEui.getText().toString();

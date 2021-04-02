@@ -563,6 +563,8 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         if (radioBtnLora.isChecked()) {
             if (loraFragment.isValid()) {
                 showSyncingProgressDialog();
@@ -853,81 +855,119 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     };
 
     public void onChangePassword(View view) {
+        if (isWindowLocked())
+            return;
         settingFragment.showChangePasswordDialog();
     }
 
     public void onFactoryReset(View view) {
+        if (isWindowLocked())
+            return;
         settingFragment.showResetDialog();
     }
 
     public void onUpdateFirmware(View view) {
+        if (isWindowLocked())
+            return;
         chooseFirmwareFile();
     }
 
     public void onScanWindow(View view) {
+        if (isWindowLocked())
+            return;
         scannerFragment.showBeaconScannerDialog();
     }
 
     public void onConnectable(View view) {
+        if (isWindowLocked())
+            return;
         settingFragment.showConnectableDialog();
     }
 
     public void onPowerOff(View view) {
+        if (isWindowLocked())
+            return;
         settingFragment.showPowerOffDialog();
     }
 
     public void onLowBatteryValue(View view) {
+        if (isWindowLocked())
+            return;
         settingFragment.showLowBatteryDialog();
     }
 
     public void onLBFilterOptions(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, FilterLBOptionsActivity.class));
     }
 
     public void onCTFilterOptions(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, FilterCTOptionsActivity.class));
     }
 
     public void onWarningValue(View view) {
+        if (isWindowLocked())
+            return;
         scannerFragment.showWarningRssiDialog();
     }
 
     public void onAdvInfo(View view) {
+        if (isWindowLocked())
+            return;
         Intent intent = new Intent(this, AdvInfoActivity.class);
         startActivityForResult(intent, AppConstants.REQUEST_CODE_ADV);
     }
 
     public void onVibrationSetting(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, VibrationSettingActivity.class));
     }
 
     public void onSOSFunction(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, SOSFucntionActivity.class));
     }
 
     public void onGPSFunction(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, GPSFucntionActivity.class));
     }
 
     public void on3AxisSensor(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, ThreeAxisSensorActivity.class));
     }
 
     public void onAlarmNotify(View view) {
+        if (isWindowLocked())
+            return;
         scannerFragment.showAlarmNotifyDialog();
     }
 
     public void onLoraSetting(View view) {
+        if (isWindowLocked())
+            return;
         // LORA
         Intent intent = new Intent(this, LoRaSettingActivity.class);
         startActivityForResult(intent, AppConstants.REQUEST_CODE_LORA_SETTING);
     }
 
     public void onNetworkCheck(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, NetworkCheckActivity.class));
     }
 
     public void onUplinkPayload(View view) {
+        if (isWindowLocked())
+            return;
         startActivity(new Intent(this, UplinkPayloadActivity.class));
     }
 }

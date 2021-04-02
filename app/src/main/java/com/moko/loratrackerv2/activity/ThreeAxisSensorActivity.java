@@ -274,6 +274,8 @@ public class ThreeAxisSensorActivity extends BaseActivity {
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         if (isValid()) {
             showSyncingProgressDialog();
             saveParams();

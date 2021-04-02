@@ -433,6 +433,8 @@ public class FilterLBOptionsAActivity extends BaseActivity implements SeekBar.On
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         if (isValid()) {
             showSyncingProgressDialog();
             saveParams();

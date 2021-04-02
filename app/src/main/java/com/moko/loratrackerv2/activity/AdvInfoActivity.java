@@ -328,6 +328,8 @@ public class AdvInfoActivity extends BaseActivity implements SeekBar.OnSeekBarCh
     }
 
     public void onSave(View view) {
+        if (isWindowLocked())
+            return;
         if (isValid()) {
             showSyncingProgressDialog();
             saveParams();
