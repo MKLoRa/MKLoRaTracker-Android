@@ -8,6 +8,8 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 
+import com.moko.loratrackerv2.BuildConfig;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,8 +32,14 @@ public class Utils {
         if (files.length == 1) {
             intent = new Intent(Intent.ACTION_SEND);
             Uri uri;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(context, "com.moko.loratrackerv2.fileprovider", files[0]);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                uri = IOUtils.insertDownloadFile(context, files[0]);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (BuildConfig.IS_LIBRARY) {
+                    uri = FileProvider.getUriForFile(context, "com.moko.mklora.fileprovider", files[0]);
+                } else {
+                    uri = FileProvider.getUriForFile(context, "com.moko.loratrackerv2.fileprovider", files[0]);
+                }
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             } else {
                 uri = Uri.fromFile(files[0]);
@@ -39,12 +47,16 @@ public class Utils {
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             intent.putExtra(Intent.EXTRA_TEXT, body);
         } else {
-            intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             ArrayList<Uri> uris = new ArrayList<>();
             for (int i = 0; i < files.length; i++) {
-                Uri uri = Uri.fromFile(files[i]);
-                uris.add(uri);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Uri fileUri = IOUtils.insertDownloadFile(context, files[i]);
+                    uris.add(fileUri);
+                } else {
+                    uris.add(Uri.fromFile(files[i]));
+                }
             }
+            intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
             ArrayList<CharSequence> charSequences = new ArrayList<>();
             charSequences.add(body);
