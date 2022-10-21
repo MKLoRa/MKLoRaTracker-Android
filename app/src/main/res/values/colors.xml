@@ -4,7 +4,6 @@
     <color name="loratracker_white_ffffff">#ffffff</color>
     <color name="loratracker_transparent">#00000000</color>
     <color name="loratracker_black_333333">#333333</color>
-    <color name="loratracker_grey_999999">#999999</color>
     <color name="loratracker_grey_666666">#666666</color>
     <color name="loratracker_grey_d9d9d9">#d9d9d9</color>
     <color name="loratracker_grey_ebebeb">#ebebeb</color>
@@ -12,7 +11,6 @@
     <color name="loratracker_grey_b3b3b3">#b3b3b3</color>
     <color name="loratracker_grey_a8a8a8">#a8a8a8</color>
     <color name="loratracker_grey_888888">#888888</color>
-    <color name="loratracker_grey_808080">#808080</color>
     <color name="loratracker_grey_bfbfbf">#bfbfbf</color>
     <color name="loratracker_blue_2f84d0">#2f84d0</color>
     <color name="loratracker_blue_03bfea">#03bfea</color>
